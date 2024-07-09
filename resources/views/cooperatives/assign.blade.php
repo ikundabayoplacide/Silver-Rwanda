@@ -1,8 +1,12 @@
-@extends('layouts.app')
 
+@extends('layouts.layout')
 @section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
     <div class="container">
-        <h1>Assign Farmer to Cooperative</h1>
+        <h1 class="text-red-400 font-bold">Assign Farmer to Cooperative</h1>
 
         <form action="{{ route('cooperatives.assign') }}" method="POST">
             @csrf
@@ -36,4 +40,6 @@
             <button type="submit" class="btn btn-primary">Assign</button>
         </form>
     </div>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')

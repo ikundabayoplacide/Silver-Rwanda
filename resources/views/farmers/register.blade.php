@@ -1,12 +1,11 @@
-<!-- resources/views/auth/register.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Registration</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
+
+
+@extends('layouts.layout')
+@section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
 <body>
     <div class="container mt-5">
 
@@ -56,4 +55,5 @@
         </form>
     </div>
 </body>
-</html>
+@include('layouts.footer')
+@include('layouts.script')

@@ -154,7 +154,7 @@
     </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link collapsed" href="#">
+  <a class="nav-link @if (Request::segment('1')!='cooperatives') @endif collapsed" href="{{url('cooperatives')}}">
     <i class="fa-solid fa-people-group"></i>
       <span> Cooperative Management</span>
   </a>

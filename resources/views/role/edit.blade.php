@@ -8,6 +8,7 @@
 @include('layouts.head-part')
 
 <body>
+  
 @include('layouts.header-content')
   <!-- ======= Sidebar ======= -->
   @include('layouts.aside')
@@ -19,7 +20,7 @@
       </div><!-- End Page Title -->
       <section class="section">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Edit  Form</h5>

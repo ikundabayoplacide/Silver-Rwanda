@@ -1,13 +1,17 @@
-@extends('layouts.app')
 
+@extends('layouts.layout')
 @section('content')
-    <h1>Add Cooperative</h1>
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
+    <h1 class="text-2xl font-serif font-bold">Add Cooperative</h1><br><br>
     <form action="{{ route('cooperatives.store') }}" method="POST">
         @csrf
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required></br>
+        <input type="text" name="name" id="name" required></br><br>
         <label for="location">Location:</label>
-        <input type="text" name="location" id="location" required></br>
+        <input type="text" name="location" id="location" required></br><br>
         <label for="services_offered">Services Offered:</label>
         <input type="text" name="services_offered" id="services_offered" required></br>
 
@@ -20,7 +24,9 @@
             </select>
         </div> --}}
     </br>
-    <button type="submit">Add Cooperative</button>
+    <button type="submit" class="btn btn-danger">Add Cooperative</button>
 
     </form>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')

@@ -1,7 +1,10 @@
 
-@extends('layouts.app')
-
+@extends('layouts.layout')
 @section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
 <div class="container">
     <h2>farmers Data List</h2>
     <a href="{{ route('farmers.register') }}" class="btn btn-success mb-3">Create New farmers Datails</a>
@@ -42,4 +45,6 @@
         </table>
     @endif
 </div>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')

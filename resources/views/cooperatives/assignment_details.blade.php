@@ -1,6 +1,10 @@
-@extends('layouts.app')
 
+@extends('layouts.layout')
 @section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
     <div class="container">
         <h1>Assignment Details</h1>
 
@@ -38,4 +42,6 @@
         <!-- Link to go back to the assignment form -->
         <a href="{{ route('cooperatives.showAssignForm') }}" class="btn btn-primary mt-4">Assign Another Farmer</a>
     </div>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')

@@ -41,13 +41,14 @@ class FarmersController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
-
+       
         $device = DeviceData::find($request->device_id);
+        if ($device){
         $device->farmer_id = $farmers->id;
         $device->save();
-
-        return view('farmers.index',compact('farmers'));
-
+        }
+        // return view('farmers.index',compact('farmers'));
+  return redirect()->route('farmers.index')->with('success','Device created!');
     }
 
     public function show(Farmer $farmers)

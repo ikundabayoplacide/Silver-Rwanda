@@ -14,8 +14,7 @@ class AuthController extends Controller
 {
     /**
      * Write code on Method
-     *
-     * @return response()
+    
      */
     public function index()
     {
@@ -25,7 +24,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
+     *
      */
     public function registration()
     {
@@ -35,7 +34,6 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
      */
     public function postLogin(Request $request)
     {
@@ -55,8 +53,7 @@ class AuthController extends Controller
 
     /**
      * Write code on Method
-     *
-     * @return response()
+    
      */
     public function postRegistration(Request $request)
     {
@@ -67,7 +64,7 @@ class AuthController extends Controller
         ]);
 
         $data = $request->all();
-        $check = $this->create($data);
+        // $check = $this->create($data);
 
         return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
     }
@@ -75,7 +72,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
+    
      */
     public function dashboard()
     {
@@ -89,7 +86,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
+    
      */
     public function create(array $data)
     {
@@ -103,7 +100,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
+
      */
     public function logout() {
         Session::flush();

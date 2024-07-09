@@ -1,8 +1,9 @@
-
-@extends('layouts.app')
-
+@extends('layouts.layout')
 @section('content')
-<div class="container">
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
     <h2>Edit Device Data</h2>
     <form action="{{ route('device_data.update', ['device_data' => $device_data->id]) }}" method="POST">
         @csrf
@@ -36,11 +37,13 @@
             <label for="A_HUM">Ambient Humidity (A_HUM)</label>
             <input type="number" class="form-control" id="A_HUM" name="A_HUM"
                 value="{{ old('A_HUM', $device_data->A_HUM) }}" required>
-        </div>
+        </div> <br>
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
-</div>
+</main>
+@include('layouts.footer')
+@include('layouts.script')
 @endsection
 
 

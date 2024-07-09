@@ -1,9 +1,13 @@
 
-@extends('layouts.app')
 
+@extends('layouts.layout')
 @section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
 <div class="container">
-    <h2>Edit Farmer Details</h2>
+    <h2 class="text-2xl font-serif font-bold">Edit Farmer Details</h2> <br>
     <form action="{{ route('farmers.update', ['farmers' => $farmers->id]) }}" method="POST">
         @csrf
         @method('PUT')
@@ -41,6 +45,8 @@
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')
 
 

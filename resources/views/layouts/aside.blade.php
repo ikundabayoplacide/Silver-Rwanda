@@ -70,11 +70,11 @@
     <li class="nav-item">
       <a class="nav-link  collapsed " href="#">
         <i class="fa-solid fa-cloud"></i>
-          <span class="font-serif text-xl">Weather_Data_Management</span>
+          <span class="font-serif text-xl">Weather Data_Management</span>
       </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link  collapsed " href="#">
+    <a class="nav-link @if (Request::segment(1)!='device_data') collapsed @endif " href="{{url('device_data')}}">
       <i class="fa-solid fa-camera-retro"></i>
         <span class="font-serif text-xl">Device Management</span>
     </a>
@@ -92,7 +92,7 @@
   </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link collapsed" href="#">
+  <a class="nav-link @if (Request::segment(1)!='farmers') collapsed @endif" href="{{url('farmers/index')}}">
     <i class="fa-solid fa-tractor"></i>
       <span class="font-serif text-xl">Farmers Management</span>
   </a>

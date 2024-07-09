@@ -1,11 +1,17 @@
-@extends('layouts.app')
 
+@extends('layouts.layout')
 @section('content')
-    <h1>Cooperatives</h1>
-    <a href="{{ route('cooperatives.create') }}">Add New Cooperative</a>
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
+    <p class="text-2xl font-serif font-bold">Cooperatives</p><br>
+    <a href="{{ route('cooperatives.create') }}" > <p class="text-xl font-sans font-semibold">Add New Cooperative</p></a>
     <ul>
         @foreach($cooperatives as $cooperative)
             <li><a href="{{ route('cooperatives.show', $cooperative) }}">{{ $cooperative->name }}</a></li>
         @endforeach
     </ul>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')

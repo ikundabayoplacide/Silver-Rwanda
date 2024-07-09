@@ -1,6 +1,10 @@
-@extends('layouts.app')
 
+@extends('layouts.layout')
 @section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -53,4 +57,6 @@
         </div>
     </div>
 </div>
-@endsection
+</main>
+@include('layouts.footer')
+@include('layouts.script')
