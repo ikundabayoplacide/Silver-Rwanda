@@ -24,9 +24,9 @@ return new class extends Migration
                 $table->integer('A_HUM');
                 $table->timestamps();
                 $table->foreign('farmer_id')
-                ->references('id')
-                ->on('farmers')
-                ->onDelete('cascade');
+                      ->references('id')
+                      ->on('farmers')
+                      ->onDelete('cascade');
             });
         }
     }

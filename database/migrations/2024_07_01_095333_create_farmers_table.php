@@ -20,10 +20,6 @@ return new class extends Migration
             $table->string("password", 512);
             $table->string('cooperative_id')->nullable();
             $table->timestamps();
-            $table->foreign('farmer_id')
-            ->references('id')
-            ->on('farmers')
-            ->onDelete('cascade');
         });
     }
 
