@@ -4,6 +4,7 @@
 @include('layouts.head-part')
 @include('layouts.header-content')
 @include('layouts.sidebar-user')
+
 <main id="main" class="main" style="height: 80vh">
     <h1>{{ $cooperative->name }}</h1>
     <p>Location: {{ $cooperative->location }}</p>
@@ -15,5 +16,6 @@
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 </main>
+
 @include('layouts.footer')
 @include('layouts.script')
