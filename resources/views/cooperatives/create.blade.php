@@ -3,7 +3,7 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.aside')
+@include('layouts.sidebar-user')
 <main id="main" class="main" style="height: 80vh">
     <h1 class="text-2xl font-serif font-bold">Add Cooperative</h1><br><br>
     <form action="{{ route('cooperatives.store') }}" method="POST">

@@ -3,7 +3,7 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.aside')
+@include('layouts.sidebar-user')
 <main id="main" class="main" style="height: 80vh">
     <div class="container">
         <h1 class="text-red-400 font-bold">Assign Farmer to Cooperative</h1>

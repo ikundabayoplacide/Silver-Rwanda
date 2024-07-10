@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
 
-        <h2>Farmer Registration</h2>
+        <p class="text-2xl font-serif font-bold">Farmer Registration</p><br>
         <form action="{{ route('farmers.store') }}" method="POST">
             @csrf
             <div class="form-group">

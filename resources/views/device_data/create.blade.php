@@ -2,7 +2,7 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.aside')
+@include('layouts.sidebar-user')
 <main id="main" class="main" style="height: 80vh">
     <section class="section">
     <h2 class="text-2xl font-serif font-bold">Add New Device Data</h2><br>

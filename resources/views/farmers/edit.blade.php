@@ -40,7 +40,7 @@
             <label for="A_HUM">Phone</label>
             <input type="number" class="form-control" id="A_HUM" name="A_HUM"
                 value="{{ old('Phone', $farmers->Phone) }}" required>
-        </div>
+        </div> <br>
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

@@ -197,7 +197,12 @@
   </a>
 </li>
 @endrole
-
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#">
+    <i class="fa-sharp fa-solid fa-tachograph-digital"></i>
+      <span> Device Data Management</span>
+  </a>
+</li>
 
   </ul>
  

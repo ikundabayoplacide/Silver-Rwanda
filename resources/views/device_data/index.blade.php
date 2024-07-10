@@ -2,9 +2,9 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.aside')
+@include('layouts.sidebar-user')
 <main id="main" class="main" style="height: 80vh">
-    <h2>Device Data List</h2>
+    <p class="text-2xl font-serif font-semibold text-center">Device Data List</p>
     <a href="{{ route('device_data.create') }}" class="btn btn-success mb-3">Create New Device Data</a>
     <section class="section">
     @if ($data->isEmpty())

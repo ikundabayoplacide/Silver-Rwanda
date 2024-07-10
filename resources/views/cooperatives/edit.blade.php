@@ -3,14 +3,14 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.aside')
+@include('layouts.sidebar-user')
 <main id="main" class="main" style="height: 80vh">
-    <h1>Edit Cooperative</h1>
+    <p class="text-2xl font-serif font-semibold text-center">Edit Cooperative</p><br>
     <form action="{{ route('cooperatives.update', $cooperative) }}" method="POST">
         @csrf
         @method('PUT')
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" value="{{ $cooperative->name }}" required>
+        <input type="text" name="name" id="name" class="rounded-sm border-spacing-3 border-black" value="{{ $cooperative->name }}" required>
         <label for="location">Location:</label>
         <input type="text" name="location" id="location" value="{{ $cooperative->location }}" required>
         <label for="services_offered">Services Offered:</label>

@@ -6,7 +6,7 @@
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
 <div class="container">
-    <h2>farmers Data List</h2>
+    <p class="text-2xl font-serif font-bold">Farmers Data List</p><br>
     <a href="{{ route('farmers.register') }}" class="btn btn-success mb-3">Create New farmers Datails</a>
 
     @if ($farmers->isEmpty())
