@@ -8,6 +8,7 @@
     <h1 class="text-2xl font-serif font-bold">Add Cooperative</h1><br><br>
     <form action="{{ route('cooperatives.store') }}" method="POST">
         @csrf
+
         <label for="name" class="text-2xl font-serif font-semibold">Name:</label>
         <input type="text" name="name"style=" padding:3px; border-radius:5px; background:whitesmoke; border:1px solid black" id="name" required></br><br>
         <label for="location" class="text-2xl font-serif font-semibold">Location:</label>
@@ -24,7 +25,7 @@
             </select>
         </div> --}}
     </br>
-    <button type="submit" class="btn btn-danger">Add Cooperative</button>
+    <button type="submit" class="btn btn-success">Add Cooperative</button>
 
     </form>
 </main>

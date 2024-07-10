@@ -26,7 +26,7 @@
               <i class="bi bi-circle"></i><span>Senser</span>
             </a>
           </li>
-        
+
         </ul>
       </li>
 
@@ -80,7 +80,7 @@
           <i class="bi bi-circle"></i><span>Senser</span>
         </a>
       </li>
-    
+
     </ul>
   </li>
 
@@ -130,11 +130,11 @@
             <span> Reporting Management</span>
         </a>
         </li>
-  
+
   @endrole
-    
+
     {{-- Sedo components --}}
-      @role('sedo') 
+      @role('sedo')
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
           <i class="bi bi-grid"></i>
@@ -206,13 +206,15 @@
   </a>
 </li>
 <li class="nav-item">
+
   <a class="nav-link collapsed" href="#">
     <i class="fa-sharp fa-solid fa-tachograph-digital"></i>
       <span> Farmers Data Management</span>
   </a>
 </li>
+
   </ul>
- 
+
   <div>
     <i class="fa-sharp fa-solid fa-gear"></i>
     <a href="#">
@@ -223,7 +225,7 @@
     @csrf
     <button type="submit" class="btn btn-danger">Logout</button>
     </form>
- 
+
   </div>
 </aside><!-- End Sidebar-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-bsk4XhD3z+OKTprt+/+QsHgmuvMU6EM5txplnJsXxGOydaFBYDsU8U7CxrP+Ip5e" crossorigin="anonymous"></script>

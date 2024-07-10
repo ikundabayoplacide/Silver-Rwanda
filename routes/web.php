@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\cooperativeController;
 use App\Http\Controllers\DeviceDataController;
 use App\Http\Controllers\FarmersController;
-use app\Http\Controllers\HighChartController;
+use App\Http\Controllers\HighChartController;
 
 Route::get('/', function () {
     return view('home.home');
@@ -47,7 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('role/list', [RoleController::class, 'list'])->name('role.list');
     Route::post('/role/add', [RoleController::class, 'store'])->name('role.store');
 
-    
+
 });
 Route::get('device_data', [DeviceDataController::class, 'index'])->name('device_data.index');
 Route::get('device_data/create', [DeviceDataController::class, 'create'])->name('device_data.create');
@@ -67,7 +67,7 @@ Route::delete('farmers/{farmers}', [FarmersController::class, 'destroy'])->name(
 Route::get('farmers/{farmers}/edit', [FarmersController::class, 'edit'])->name('farmers.edit');
 
 
-Route::get('/chart',[HighchartController::class,'visual']);
+Route::get('/chart',[HighChartController::class,'visual']);
 
 Route::get('/farmers', [FarmersController::class, 'index'])->name('farmers.index');
 Route::post('/farmers/create', [FarmersController::class, 'store'])->name('farmers.store');
@@ -76,5 +76,5 @@ Route::post('/farmers/create', [FarmersController::class, 'store'])->name('farme
 Route::resource('cooperatives', cooperativeController::class);
 Route::get('/assign', [CooperativeController::class, 'showAssignForm'])->name('cooperatives.showAssignForm');
 Route::post('/cooperatives/assign', [CooperativeController::class, 'assignFarmerToCooperative'])->name('cooperatives.assign');
-// 
+//
 Route::get('cooperative/assignment-details', [CooperativeController::class, 'showAssignmentDetails'])->name('cooperatives.showAssignmentDetails');

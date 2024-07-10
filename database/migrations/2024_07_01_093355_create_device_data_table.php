@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // Check if the table already exists
         if (!Schema::hasTable('device_data')) {
-            
+
             Schema::create('device_data', function (Blueprint $table) {
                 $table->increments('id');
                 $table->unsignedInteger('farmer_id')->nullable();
