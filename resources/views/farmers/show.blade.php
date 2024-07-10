@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th>Phone </th>
-                    <td>{{ $farmers->Phone }}</td>
+                    <td>{{ $farmers->phone }}</td>
                 </tr>
 
                 <tr>
@@ -44,15 +44,17 @@
             </table>
 
             <div class="btn-group" role="group">
-                <a href="{{ route('farmers.edit', $farmers->id) }}" class="btn btn-warning">Edit</a>
+
 
                 <form action="{{ route('farmers.destroy', $farmers->id) }}" method="POST" style="display: inline-block;">
                     @csrf
                     @method('DELETE')
+                    <a href="{{ route('farmers.edit', $farmers->id) }}" class="btn btn-warning">Edit</a>
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this data?');">Delete</button>
+                    <a href="{{ route('farmers.index') }}" class="btn btn-secondary">Back to List</a>
                 </form>
 
-                <a href="{{ route('farmers.index') }}" class="btn btn-secondary">Back to List</a>
+                
             </div>
         </div>
     </div>

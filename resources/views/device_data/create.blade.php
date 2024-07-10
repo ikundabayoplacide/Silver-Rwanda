@@ -9,7 +9,7 @@
     <form action="{{ route('device_data.store') }}" method="POST">
         @csrf
         @include('device_data.partials.form')
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Save</button>
     </form>
 </section>
 </main>
