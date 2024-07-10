@@ -9,11 +9,11 @@
     <form action="{{ route('cooperatives.store') }}" method="POST">
         @csrf
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required></br><br>
+        <input type="text" name="name" placeholder="type cooperative's name" id="name" required></br><br>
         <label for="location">Location:</label>
-        <input type="text" name="location" id="location" required></br><br>
+        <input type="text" name="location" placeholder=" type cooperative's location" id="location" required></br><br>
         <label for="services_offered">Services Offered:</label>
-        <input type="text" name="services_offered" id="services_offered" required></br>
+        <input type="text" name="services_offered" placeholder=" type cooperative's services"id="services_offered" required></br>
 
         {{-- <div class="form-group">
             <label for="farmer_id">Assign farmer</label>
@@ -24,7 +24,7 @@
             </select>
         </div> --}}
     </br>
-    <button type="submit" class="btn btn-danger">Add Cooperative</button>
+    <button type="submit" class="btn btn-success">Add Cooperative</button>
 
     </form>
 </main>
