@@ -85,7 +85,7 @@
   </li>
 
   <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
+    <a class="nav-link @if (Request::segment(1)!='device_data') collapsed @endif " href="{{url('device_data')}}">
         <i class="fa-sharp fa-solid fa-tachograph-digital"></i>
           <span>Device Data Management</span>
       </a>
@@ -112,7 +112,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#">
+    <a class="nav-link @if (Request::segment(1)!='assign')@endif collapsed" href="{{url('/assign')}}">
       <i class="fa-sharp fa-solid fa-camera"></i>
         <span> Assigning Device to Farmer</span>
     </a>
@@ -197,22 +197,6 @@
   </a>
 </li>
 @endrole
-
-
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#">
-    <i class="fa-sharp fa-solid fa-tachograph-digital"></i>
-      <span> Device Data Management</span>
-  </a>
-</li>
-<li class="nav-item">
-
-  <a class="nav-link collapsed" href="#">
-    <i class="fa-sharp fa-solid fa-tachograph-digital"></i>
-      <span> Farmers Data Management</span>
-  </a>
-</li>
-
   </ul>
 
   <div>

@@ -11,7 +11,7 @@
         @foreach($cooperatives as $cooperative)
         <li class="text-2xl font-serif font-semibold" style="margin-bottom: 10px; list-style-capitalize">
             <a href="{{ route('cooperatives.show', $cooperative) }}">
-                <i class="fas fa-users list-item-icon"></i>{{ $cooperative->name }}</a>
+              {{ $cooperative->name }}</a>
         </li>
 
 

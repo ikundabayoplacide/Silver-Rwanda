@@ -22,6 +22,7 @@
                             <label class="form-check-label" for="exampleCheck1">Check me out</label>
                           </div>
                           <button type="submit" class="btn btn-primary">Submit</button>
+                          <a href="{{url('admin/register')}}" style="margin-left:10px;color:rgb(56, 56, 210)"><i class="fa-solid fa-arrow-left" ></i>Click here to Register</a>
                     </form>
                 </div> 
             </div>
