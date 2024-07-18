@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.9",
+        "laravel/installer": "^5.8",
+        "laravel/passport": "^12.2",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.9"
     },
@@ -58,7 +60,9 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
         }
     },
     "minimum-stability": "stable",

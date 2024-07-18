@@ -5,16 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
 use App\Models\User;
-use Hash;
-use Illuminate\Contracts\Session\Session as SessionSession;
+use Illuminate\Support\Facades\Hash as FacadesHash;
 
 class AuthController extends Controller
 {
     /**
      * Write code on Method
-    
+
      */
     public function index()
     {
@@ -53,7 +51,7 @@ class AuthController extends Controller
 
     /**
      * Write code on Method
-    
+
      */
     public function postRegistration(Request $request)
     {
@@ -72,7 +70,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-    
+
      */
     public function dashboard()
     {
@@ -86,7 +84,7 @@ class AuthController extends Controller
     /**
      * Write code on Method
      *
-    
+
      */
     public function create(array $data)
     {
