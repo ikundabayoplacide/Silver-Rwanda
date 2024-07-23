@@ -88,4 +88,8 @@ class ApiDeviceData extends Controller
         return response()->json(['success' => 'Device data deleted successfully.'
     ]);
     }
+
+    public function randomDataSimulatin(){
+        
+    }
 }
