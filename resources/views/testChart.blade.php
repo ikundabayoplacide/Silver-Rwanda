@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Device Data Chart</title>
+@extends('layouts.layout')
+@section('content')
+@include('layouts.head-part')
+@include('layouts.header-content')
+@include('layouts.aside')
+<main id="main" class="main" style="height: 80vh">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -45,4 +47,7 @@
 <body>
     <div id="chart_div" style="width: 1000px; height: 600px;"></div>
 </body>
-</html>
+</main>
+@include('layouts.footer')
+@include('layouts.script')
+

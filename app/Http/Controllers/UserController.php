@@ -27,10 +27,8 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // dd("successfull registration");
             return redirect()->intended('/dashboard');
         }
-          dd("errorfull registration");
         return redirect('/register')->with('error', 'Invalid credentials. Please try again.');
     }
     public function register(Request $request)

@@ -23,14 +23,16 @@ class AdminLoginController extends Controller
     }
     else{
    session()->flash('error',' Please enter correct email and password!');
-   return redirect()->route('admin.login');
+   return view('admin.login');
     }
 }
 
 public function logout(Request $request){
-Auth::logout();
-$request->session()->invalidate();
-$request->session()->regenerateToken();
-return view('home');
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return view('admin.login');
+}
 
-}}
+
+}
