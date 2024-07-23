@@ -7,18 +7,14 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    protected $commands = [
-        \App\Console\Commands\GenerateDeviceData::class,
-    ];
-
     protected function schedule(Schedule $schedule)
     {
-        // Schedule the command to run every 5 minutes
-        $schedule->command('generate:devicedata')->everyFiveMinutes();
+        $schedule->job(new \App\Jobs\GenerateDeviceDataJob)->everyMinute();
     }
 
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
+        require base_path('routes/console.php');
     }
 }
