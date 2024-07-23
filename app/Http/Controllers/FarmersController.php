@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log; // Import logging
 class FarmersController extends Controller
 {
     public function index()
-    {
+    {       
         $farmers = Farmer::orderBy('id', 'asc')->paginate(10);
         return view('farmers.index', compact('farmers'));
     }
@@ -31,6 +31,7 @@ class FarmersController extends Controller
             'district' => 'required',
             'phone' => 'required',
             'password' => 'required',
+            'gender'=> 'required',
         ]);
 
 
@@ -40,6 +41,7 @@ class FarmersController extends Controller
             'district' => $request->district,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
+            'gender'=> $request->gender,
         ]);
        
         $device = DeviceData::find($request->device_id);
@@ -67,15 +69,16 @@ class FarmersController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:farmers,email',
+            'email' => 'required',
             'district' => 'required',
             'phone' => 'required',
-            'device_id' => 'required|exists:device_data,id'
+            // 'device_id' => 'required|exists:device_data,id'
         ]);
 
-        $farmers->update($request->only(['name', 'email', 'district', 'phone']));
+        $farmers->update($request->all());
 
         $device = DeviceData::find($request->device_id);
+    
 
         if ($device) {
             $device->farmer_id = $farmers->id;
@@ -88,7 +91,7 @@ class FarmersController extends Controller
             ->with('error', 'Device not found.');
         }
 
-       return view('farmers.index',compact('farmers'));
+       return redirect()->route('farmers.index')->with('success','updated');
     }
 
     public function destroy(Farmer $farmers)

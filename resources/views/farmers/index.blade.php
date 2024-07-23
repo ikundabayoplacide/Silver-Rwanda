@@ -32,12 +32,12 @@
                         <td>{{ $farmer->district }}</td>
                         <td>{{ $farmer->phone }}</td>
                         <td>
-                            <a href="{{ route('farmers.show', ['farmers' => $farmer->id]) }}" class="btn btn-info btn-sm">View</a>
-                            <a href="{{ route('farmers.edit', ['farmers' => $farmer->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('farmers.show', ['farmers' => $farmer->id]) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-list"></i>View</a>
+                            <a href="{{ route('farmers.edit', ['farmers' => $farmer->id]) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
                             <form action="{{ route('farmers.destroy', ['farmers' => $farmer->id]) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Farm?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Farm?')"><i class="fa-solid fa-trash" ></i>Delete</button>
                             </form>
                         </td>
                     </tr>

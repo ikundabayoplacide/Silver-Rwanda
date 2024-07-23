@@ -13,33 +13,33 @@
         @method('PUT')
 
         <div class="form-group">
-            <label for="DEVICE_ID">Farmer ID</label>
-            <input type="text" class="form-control" id="DEVICE_ID" name="DEVICE_ID"
-                value="{{ old('Farmer_ID', $farmers->id) }}" required>
+            <label for="id">Farmer ID</label>
+            <input type="number" class="form-control"  name="id"
+                value="{{ old('id', $farmers->id) }}" required>
         </div>
 
         <div class="form-group">
-            <label for="S_TEMP">Name </label>
-            <input type="number" class="form-control" id="S_TEMP" name="S_TEMP"
-                value="{{ old('Name', $farmers->Name) }}" required>
+            <label for="name">Name </label>
+            <input type="text" class="form-control" id="name" name="name"
+                value="{{ old('name',  $farmers->name) }}" required>
         </div>
 
         <div class="form-group">
-            <label for="S_HUM">Email</label>
-            <input type="number" class="form-control" id="S_HUM" name="S_HUM"
-                value="{{ old('Email', $farmers->Email) }}" required>
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email"
+                value="{{ old('email',$farmers->email) }}" required>
         </div>
 
         <div class="form-group">
-            <label for="A_TEMP">District </label>
-            <input type="number" class="form-control" id="A_TEMP" name="A_TEMP"
-                value="{{ old('District', $farmers->District) }}" required>
+            <label for="district">District </label>
+            <input type="text" class="form-control" id="district" name="district"
+                value="{{ old('district', $farmers->district ) }}" required>
         </div>
 
         <div class="form-group">
-            <label for="A_HUM">Phone</label>
-            <input type="number" class="form-control" id="A_HUM" name="A_HUM"
-                value="{{ old('Phone', $farmers->Phone) }}" required>
+            <label for="phone">Phone</label>
+            <input type="number" class="form-control" id="phone" name="phone"
+                value="{{ old('phone', $farmers->phone) }}" required>
         </div> <br>
 
         <button type="submit" class="btn btn-primary">Update</button>

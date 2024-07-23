@@ -3,7 +3,7 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.sidebar-user')
+@include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
     <div class="container">
         <h1>Assignment Details</h1>

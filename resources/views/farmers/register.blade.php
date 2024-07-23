@@ -50,6 +50,13 @@
                     @endforeach
                 </select>
             </div>
+            <div><br>
+                <label class="font-bold font-serif text-xl">Gender:</label>
+              
+                    <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="male">Male
+                    <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="female">Female
+                 
+                </div></br>
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

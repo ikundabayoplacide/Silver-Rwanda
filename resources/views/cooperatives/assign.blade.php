@@ -3,24 +3,24 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.sidebar-user')
-<main id="main" class="main" style="height: 80vh">
+@include('layouts.aside')
+<main id="main" class="main">
     <div class="container">
-        <h1 class="text-red-400 font-bold" class="text-center text-2xl font-serif font-bold">Assign Farmer to Cooperative</h1>
+        <h1 class="text-center text-xl font-serif font-bold">Assign Farmer to Cooperative</h1>
 
         <form action="{{ route('cooperatives.assign') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="cooperative" >Select Cooperative:</label>
+                <label for="cooperative" class="font-xl font-serif font-semibold">Select Cooperative:</label>
                 <select name="cooperative_id" id="cooperative" class="form-control">
                     @foreach ($cooperatives as $cooperative)
                         <option value="{{ $cooperative->id }}">{{ $cooperative->name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> <br>
 
             <div class="form-group">
-                <label for="farmer">Select Farmer:</label>
+                <label for="farmer" class="font-xl font-serif font-semibold">Select Farmer:</label>
                 <select name="farmer_id" id="farmer" class="form-control">
                     @foreach ($farmers as $farmer)
                         <option value="{{ $farmer->id }}">{{ $farmer->name }}</option>
@@ -37,9 +37,9 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary">Assign</button>
+            <button type="submit" class="btn btn-primary mt-3  font-bold">Assign</button>
         </form>
     </div>
 </main>
-@include('layouts.footer')
+
 @include('layouts.script')
