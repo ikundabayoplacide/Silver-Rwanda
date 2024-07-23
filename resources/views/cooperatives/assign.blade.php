@@ -6,12 +6,12 @@
 @include('layouts.sidebar-user')
 <main id="main" class="main" style="height: 80vh">
     <div class="container">
-        <h1 class="text-red-400 font-bold">Assign Farmer to Cooperative</h1>
+        <h1 class="text-red-400 font-bold" class="text-center text-2xl font-serif font-bold">Assign Farmer to Cooperative</h1>
 
         <form action="{{ route('cooperatives.assign') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="cooperative">Select Cooperative:</label>
+                <label for="cooperative" >Select Cooperative:</label>
                 <select name="cooperative_id" id="cooperative" class="form-control">
                     @foreach ($cooperatives as $cooperative)
                         <option value="{{ $cooperative->id }}">{{ $cooperative->name }}</option>

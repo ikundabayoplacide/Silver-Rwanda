@@ -44,7 +44,7 @@
 
   <td>
     <a href="{{ url('role/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
-    <a href="{{ url('role/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+    <button onclick="return confirm('Are sure you want to delete this Role')"><a href="{{ url('role/delete/'.$value->id) }}" class="btn btn-danger">Delete</a></button>
   </td>
 </tr>
   @endforeach

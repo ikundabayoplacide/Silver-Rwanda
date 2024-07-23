@@ -80,6 +80,12 @@
     </a>
 </li>
 <li class="nav-item">
+  <a class="nav-link @if (Request::segment(1)!='chart') collapsed @endif " href="{{url('/chart')}}">
+    <i class="fa-solid fa-camera-retro"></i>
+      <span class="font-serif text-xl">Device data Management</span>
+  </a>
+</li>
+<li class="nav-item">
   <a class="nav-link  collapsed " href="#">
     <i class="fa-regular fa-address-card"></i>
       <span class="font-serif text-xl">User Profile Management</span>
@@ -91,12 +97,7 @@
       <span class="font-serif text-xl">User Management</span>
   </a>
 </li>
-<li class="nav-item">
-  <a class="nav-link @if (Request::segment(1)!='farmers') collapsed @endif" href="{{url('farmers/index')}}">
-    <i class="fa-solid fa-tractor"></i>
-      <span class="font-serif text-xl">Farmers Management</span>
-  </a>
-</li><!-- End Contact Page Nav -->
+
   </ul>
   <div>
     <i class="fa-sharp fa-solid fa-gear"></i>
@@ -104,7 +105,7 @@
     <span class="font-serif text-xl">Settings</span>
   </div></a> <br>
   <div class="card-footer bg-transparent">
-    <form action="{{ route('home') }}" method="GET" id="logout-form">
+    <form action="{{ route('admin.login') }}" method="GET" id="logout-form">
     @csrf
     <button type="submit" class="btn btn-danger">Logout</button>
     </form>

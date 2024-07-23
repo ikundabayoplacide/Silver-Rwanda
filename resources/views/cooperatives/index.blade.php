@@ -4,18 +4,17 @@
 @include('layouts.header-content')
 @include('layouts.sidebar-user')
 
-<main id="main" class="main p-4" style="height: 80vh">
-    <p class="h4 font-weight-bold mb-4">Cooperatives Management</p>
-    <a href="{{ route('cooperatives.create') }}" class="mb-4 d-inline-block">
-        <button class="btn btn-success">Add New Cooperative</button>
-    </a>
-    <ol class="ml-4" style="list-style-type: decimal;">
+<main id="main" class="main" style="height: 80vh">
+    <p class="text-2xl font-serif font-bold underline">Cooperatives Management</p><br>
+    <a href="{{ route('cooperatives.create') }}" > <button class="btn btn-info text-2xl">Add New Cooperative</button></a><br><br>
+    <ol style="list-style-type: decimal; padding-left: 20px;">
         @foreach($cooperatives as $cooperative)
-            <li class="mb-2">
-                <a href="{{ route('cooperatives.show', $cooperative) }}" class="text-primary">
-                    <i class="fas fa-users mr-2"></i>{{ $cooperative->name }}
-                </a>
-            </li>
+        <li class="text-2xl font-serif font-semibold" style="margin-bottom: 10px; list-style-capitalize">
+            <a href="{{ route('cooperatives.show', $cooperative) }}">
+              {{ $cooperative->name }}</a>
+        </li>
+
+
         @endforeach
     </ol>
 </main>
