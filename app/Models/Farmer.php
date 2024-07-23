@@ -17,7 +17,8 @@ class Farmer extends Model
         'email',
         'district',
         'phone',
-        'password'
+        'password',
+        'gender',
     ];
 
     public function deviceDate(){

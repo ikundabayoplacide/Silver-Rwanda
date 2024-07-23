@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "bb178846c3470e476f7181e117708c5e",
+=======
+    "content-hash": "1c49884e16c5c4c5792701bd1fd6b82d",
+>>>>>>> 6101ce016aa7ac4176afc9d1729bceb340653d56
     "packages": [
         {
             "name": "brick/math",
@@ -136,6 +140,7 @@
             "time": "2024-02-09T16:56:22+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "defuse/php-encryption",
             "version": "v2.4.0",
             "source": {
@@ -212,6 +217,17 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "dflydev/dot-access-data",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
+                "reference": "a23a2bf4f31d3518f3ecb38660c95715dfead60f"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> 6101ce016aa7ac4176afc9d1729bceb340653d56
                 "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/a23a2bf4f31d3518f3ecb38660c95715dfead60f",
                 "reference": "a23a2bf4f31d3518f3ecb38660c95715dfead60f",
                 "shasum": ""
@@ -1182,6 +1198,7 @@
         },
         {
             "name": "laravel/framework",
+<<<<<<< HEAD
             "version": "v11.16.0",
             "source": {
                 "type": "git",
@@ -1192,6 +1209,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/bd4808aaf103ccb5cb4b00bcee46140c070c0ec4",
                 "reference": "bd4808aaf103ccb5cb4b00bcee46140c070c0ec4",
+=======
+            "version": "v11.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "ba85f1c019bed59b3c736c9c4502805efd0ba84b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ba85f1c019bed59b3c736c9c4502805efd0ba84b",
+                "reference": "ba85f1c019bed59b3c736c9c4502805efd0ba84b",
+>>>>>>> 6101ce016aa7ac4176afc9d1729bceb340653d56
                 "shasum": ""
             },
             "require": {
@@ -1384,6 +1413,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
+<<<<<<< HEAD
             "time": "2024-07-16T14:33:07+00:00"
         },
         {
@@ -1516,6 +1546,9 @@
                 "source": "https://github.com/laravel/passport"
             },
             "time": "2024-04-17T17:56:14+00:00"
+=======
+            "time": "2024-07-09T15:38:12+00:00"
+>>>>>>> 6101ce016aa7ac4176afc9d1729bceb340653d56
         },
         {
             "name": "laravel/prompts",

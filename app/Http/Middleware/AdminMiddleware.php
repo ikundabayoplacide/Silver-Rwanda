@@ -18,11 +18,16 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role == 'admin') {
+        if (Auth::check() && Auth::user()->role == 'admin'|| Auth::user()->role == 'sedo'
+        || Auth::user()->role == 'rab'|| Auth::user()->role == 'cooperative_manager'
+        || Auth::user()->role == 'sector_agronome'
+        || Auth::user()->role == 'district_agronome'||
+         Auth::user()->role == 'self')
+          {
             return $next($request);
         }
 
-        Auth::logout();
-        return view('admin.login');
+        // Auth::logout();
+        return redirect()->back()->with('success','Registration successfuly');
     }
 }

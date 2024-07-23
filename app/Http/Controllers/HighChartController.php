@@ -80,6 +80,7 @@ class HighChartController extends Controller
                 'A_HUM' => $row->A_HUM,
             ];
         }
+        
 
         return view('testChart', compact('chartData'));
     }

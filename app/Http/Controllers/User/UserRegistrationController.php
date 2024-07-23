@@ -20,13 +20,13 @@ class UserRegistrationController extends Controller
             'name' => $inputitem['name'],
             'email' => $inputitem['email'],
             'password' => Hash::make($inputitem['password']),
-             'role'=>'user'
+             'role'=>$inputitem['role'],
+             'address'=> $inputitem['address'],
+             'phone'=> $inputitem['phone'],
+             'gender'=> $inputitem['gender'],
         ]);
-        
-        // Assign the role based on input
-        Auth::login($user);
         $user->assignRole($inputitem['role']);
-        return redirect()->route('users.dashboard')->with('success','thank you! registration successfully');
+        return redirect()->route('admin.dashboard')->with('success','thank you! registration successfully');
     }
     
     public function show( User $user){
@@ -38,11 +38,10 @@ class UserRegistrationController extends Controller
     }
     public function update(User $user, Request $request){
         $user->update($request->all());
-        // $user->synRoles($request->get('role'));
         return redirect()->route('home')->with('success','');
     }
     public function destroy(User $user){
         $user->delete();
-        return redirect()->route('users.dashboard')->with('success',' deleted');
+        return redirect()->route('admin.dashboard')->with('success',' deleted');
     }
 }

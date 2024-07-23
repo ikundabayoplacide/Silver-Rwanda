@@ -50,7 +50,7 @@
                     @csrf
                     @method('DELETE')
                     <a href="{{ route('farmers.edit', $farmers->id) }}" class="btn btn-warning">Edit</a>
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this data?');">Delete</button>
+                    <button type="submit" class="btn btn-danger"onclick="return confirm('Are you sure you want to delete this Farm?')"">Delete</button>
                     <a href="{{ route('farmers.index') }}" class="btn btn-secondary">Back to List</a>
                 </form>
 

@@ -2,7 +2,7 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.sidebar-user')
+@include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
     <div class="card">
         <div class="card-header">
@@ -45,15 +45,15 @@
             </table>
 
             <div class="btn-group" role="group">
-                <a href="{{ route('device_data.edit', $device_data->id) }}" class="btn btn-warning">Edit</a>
+                <a href="{{ route('device_data.edit', $device_data->id) }}" class="btn btn-warning mr-2"> <i class="fa-solid fa-pen-to-square"></i>Edit</a>
 
-                <form action="{{ route('device_data.destroy', $device_data->id) }}" method="POST" style="display: inline-block;">
+                <form action="{{ route('device_data.destroy', $device_data->id) }}" method="POST" style="display: inline-block;margin:0px 8px">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this data?');">Delete</button>
+                    <button type="submit" class="btn btn-danger " onclick="return confirm('Are you sure you want to delete this data?');"><i class="fa-solid fa-trash-can"></i>Delete</button>
                 </form>
 
-                <a href="{{ route('device_data.index') }}" class="btn btn-secondary">Back to List</a>
+                <a href="{{ route('device_data.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>Back to List</a>
             </div>
         </div>
     </div>
