@@ -3,7 +3,7 @@
 @section('content')
 @include('layouts.head-part')
 @include('layouts.header-content')
-@include('layouts.sidebar-user')
+@include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
     <h1 class="text-3xl font-serif font-bold">{{ $cooperative->name }}</h1> <br>
     <p class="text-2xl font-serif font-semibold">Location: {{ $cooperative->location }}</p><br>

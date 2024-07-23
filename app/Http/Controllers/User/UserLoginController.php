@@ -32,8 +32,8 @@ class UserLoginController extends Controller
             
     // } 
     $user = Auth::user();
-    if ($user->role == 'user') {
-        return redirect()->route('users.dashboard'); // Redirect to user dashboard
+    if ($user->role == 'user|sedo') {
+        return redirect()->route('admin.dashboard'); // Redirect to user dashboard
     }
     
     else {

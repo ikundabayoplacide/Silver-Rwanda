@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Auth;
+use App\Models\Farmer;
+use App\Models\cooperative;
 use Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\DeviceData;
+use Illuminate\Support\Facades\Http;
 
 class AdminRegistationController extends Controller
 {
@@ -15,18 +18,26 @@ class AdminRegistationController extends Controller
     }
 
     public function store(Request $request){
-        $inputitem= $request->all();
-        $admin=User::create([
-            'name'=> $inputitem['name'],
-            'email'=> $inputitem['email'],
-            'password'=> Hash::make($inputitem['password']),
-            'role'=>'admin'
+        $inputitem = $request->all();
+        
+        // Create the user as admin
+        $admin = User::create([
+            'name' => $inputitem['name'],
+            'email' => $inputitem['email'],
+            'password' => Hash::make($inputitem['password']),
+            'role' => $inputitem['role'],
+            'address' => $inputitem['address'],
+            'phone' => $inputitem['phone'],
+            'gender' => $inputitem['gender'],
         ]);
+        $admin->assignRole($inputitem['role']);
 
-         Auth::login($admin);
-        $name = $inputitem['name'];
-        return view('admin.dashboard', compact('name'))->with('success', 'thank you!!');
-        // return redirect()->route('admin.dashboard')->with('success','thank you! registration successfully');
+    
+
+        // Redirect to dashboard with necessary data
+        return redirect()->route('admin.dashboard')
+            ->with([
+                'success' => 'Thank you!!'
+            ]);
     }
-
 }

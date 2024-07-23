@@ -13,34 +13,42 @@
     @if ($data->isEmpty())
         <p>No device data found.</p>
     @else
-        <table class="table">
+        <table class="table border-separate border-spacing-2 border">
             <thead>
                 <tr>
-                    <th>Device ID</th>
-                    <th>Sensor Temperature</th>
-                    <th>Sensor Humidity</th>
-                    <th>Ambient Temperature</th>
-                    <th>Ambient Humidity</th>
-                    <th>Actions</th>
+                    <th class="border">Device ID</th>
+                    <th class="border">Sensor Temperature</th>
+                    <th class="border">Sensor Humidity</th>
+                    <th class="border">Ambient Temperature</th>
+                    <th class="border">Ambient Humidity</th>
+                    <th class="border">Actions</th>
+                    <th class="border">ON/OFF</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $device_data)
                     <tr>
-                        <td>{{ $device_data->DEVICE_ID }}</td>
-                        <td>{{ $device_data->S_TEMP }}</td>
-                        <td>{{ $device_data->S_HUM }}</td>
-                        <td>{{ $device_data->A_TEMP }}</td>
-                        <td>{{ $device_data->A_HUM }}</td>
-                        <td>
-                            <a href="{{ route('device_data.show', ['device_data' => $device_data->id]) }}" class="btn btn-info btn-sm">View</a>
-                            <a href="{{ route('device_data.edit', ['device_data' => $device_data->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <td  class="border">{{ $device_data->DEVICE_ID }}</td>
+                        <td  class="border">{{ $device_data->S_TEMP }}</td>
+                        <td class="border">{{ $device_data->S_HUM }}</td>
+                        <td class="border">{{ $device_data->A_TEMP }}</td>
+                        <td class="border">{{ $device_data->A_HUM }}</td>
+                        <td class="border">
+                            <a href="{{ route('device_data.show', ['device_data' => $device_data->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                            <a href="{{ route('device_data.edit', ['device_data' => $device_data->id]) }}" class="btn btn-primary btn-sm"> <i class="fa-solid fa-pen-to-square"></i>Edit</a>
                             <form action="{{ route('device_data.destroy', ['device_data' => $device_data->id]) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this device data?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this device data?')">   <i class="fa-solid fa-trash-can"></i> Delete</button>
                             </form>
+                           
                         </td>
+                        <td class="border"> 
+                        <div class="form-check form-switch">
+                            <input class="form-check-input text-2xl" style="margin-left: 0.2px" type="checkbox" role="switch"checked>
+                         
+                        </div>
+                    </td>
                     </tr>
                 @endforeach
             </tbody>

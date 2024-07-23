@@ -204,12 +204,12 @@
     <a href="#">
     <span class="font-serif text-xl">Settings</span>
   </div></a> <br>
-  <div class="card-footer bg-transparent">
+  {{-- <div class="card-footer bg-transparent">
     <form action="{{ route('user.logout') }}" method="POST" id="logout-form">
     @csrf
     <button type="submit" class="btn btn-danger">Logout</button>
     </form>
 
-  </div>
+  </div> --}}
 </aside><!-- End Sidebar-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-bsk4XhD3z+OKTprt+/+QsHgmuvMU6EM5txplnJsXxGOydaFBYDsU8U7CxrP+Ip5e" crossorigin="anonymous"></script>
