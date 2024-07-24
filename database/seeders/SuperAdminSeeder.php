@@ -27,13 +27,13 @@ class SuperAdminSeeder extends Seeder
 
         // Creating Admin User
         $cooperativeManager = User::create([
-            'name' => 'IKUZWE Rachel', 
-            'email' => 'rachel@gmail.com',
+            'name' => 'MUVUNYI Patrick', 
+            'email' => 'muvunyi@gmail.com',
             'password' => Hash::make('12345678'),
-            'address' => 'Musanze',
-            'phone' => '0782617445',
+            'address' => 'RUHANGO',
+            'phone' => '078163204',
             'role' => 'cooperative_manager',
-            'gender'=>'female'
+            'gender'=>'male'
         ]);
         $cooperativeManager->assignRole('cooperative_manager');
 

@@ -33,37 +33,6 @@ class HighChartController extends Controller
 
         return view('home', compact('formattedData', 'months'));
     }
-
-    //     public function index()
-    //     {
-    //         $aggregatedData = DeviceData::select(
-    //             DB::raw('DATE(created_at) as date'),
-    //             DB::raw('AVG(S_HUM) as avg_s_hum'),
-    //             DB::raw('AVG(S_TEMP) as avg_s_temp'),
-    //             DB::raw('AVG(A_TEMP) as avg_a_temp'),
-    //             DB::raw('AVG(A_HUM) as avg_a_hum')
-    //         )
-    //         ->groupBy('date')
-    //         ->get();
-
-    //         $chartData = [['Date', 'Avg Soil Humidity', 'Avg Soil Temperature', 'Avg Air Temperature', 'Avg Air Humidity']];
-    //         foreach ($aggregatedData as $data) {
-    //             $chartData[] = [
-
-    //                 'date' => $data->date,
-    //                 'avg_s_hum' => $data->avg_s_hum,
-    //                 'avg_s_temp' => $data->avg_s_temp,
-    //                 'avg_a_temp' => $data->avg_a_temp,
-    //                 'avg_a_hum' => $data->avg_a_hum,
-    //             ];
-    //         }
-
-
-    //         return view('chart', ['chartData' => json_encode($chartData)]);
-
-
-    //    }
-
     public function visual()
     {
         $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')->get();

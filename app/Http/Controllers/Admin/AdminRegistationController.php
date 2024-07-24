@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Farmer;
-use App\Models\cooperative;
+
 use Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\DeviceData;
-use Illuminate\Support\Facades\Http;
+
 
 class AdminRegistationController extends Controller
 {

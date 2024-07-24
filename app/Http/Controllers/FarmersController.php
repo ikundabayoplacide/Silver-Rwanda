@@ -47,6 +47,7 @@ class FarmersController extends Controller
         $device = DeviceData::find($request->device_id);
         if ($device){
         $device->farmer_id = $farmers->id;
+        $device->device_state=1;
         $device->save();
         }
         // return view('farmers.index',compact('farmers'));
@@ -82,6 +83,7 @@ class FarmersController extends Controller
 
         if ($device) {
             $device->farmer_id = $farmers->id;
+            $device->device_state= 1;
             $device->save();
 
         } else {
