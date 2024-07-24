@@ -69,31 +69,47 @@ class AdminDashboardController extends Controller
                 $genderData['male'] = $value->number;
             }
         }
+
+        // the Following is for farmers pie chart
+
         $data = DB::table('farmers')->select(
             DB::raw('gender as gender'),
             DB::raw('count(*) as number')
         )
             ->groupBy('gender')
             ->get();
-        $FarmerData = [
+        $Farmerdata = [
             'female' => 0,
             'male' => 0,
         ];
 
         foreach ($data as $value) {
             if ($value->gender == 'female') {
-                $FarmerData['female'] = $value->number;
+                $Farmerdata['female'] = $value->number;
             } elseif ($value->gender == 'male') {
-                $genderData['male'] = $value->number;
+                $Farmerdata['male'] = $value->number;
             }
         }
+
+
         $users = User::all();
         $femaleCount = User::where('gender', 'female')->count();
         $maleCount = User::where('gender', 'male')->count();
         $totalCount = $users->count();
-        $farmerCount = Farmer::count();
+        // farmers
+        $farmers = Farmer::all();
+        $femaleFarmersCount = Farmer::where('gender', 'female')->count();
+        $maleFarmersCount = Farmer::where('gender', 'male')->count();
+        $totalFarmerCount = $farmers->count();
+        $farmerCount=Farmer::count();
+
+
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
-        return view('admin.dashboard', compact('chartData', 'farmerCount', 'femaleCount', 'maleCount', 'cooperativeCount', 'deviceCount', 'users', 'totalCount', 'genderData', 'weatherData'));
+        
+        return view('admin.dashboard', compact('chartData', 
+        'farmerCount', 'femaleCount', 'maleCount', 
+        'cooperativeCount', 'deviceCount', 'users', 'totalCount',
+         'genderData', 'weatherData','farmers','femaleFarmersCount','maleFarmersCount','totalFarmerCount','Farmerdata'));
     }
 }

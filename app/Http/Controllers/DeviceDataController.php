@@ -35,18 +35,16 @@ class DeviceDataController extends Controller
             'S_HUM' => 'required|numeric',
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
+            
         ]);
+        $data = $request->all();
+        if (!isset($data['device_status'])) {
+            $data['device_status'] = 3;
+        }
 
         DeviceData::create($request->all());
         return redirect()->route('device_data.index')->with('success', 'Device data created successfully.');
     }
-
-
-    // public function show($id)
-    // {
-    //     $deviceData = DeviceData::findOrFail($id);
-    //     return view('device_data.show', compact('deviceData'));
-    // }
 
     public function show(DeviceData $device_data)
 {
@@ -68,8 +66,13 @@ class DeviceDataController extends Controller
             'S_HUM' => 'required|numeric',
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
+            'device_status'== 3,
         ]);
-
+        $data = $request->all();
+        if (!isset($data['device_status'])) {
+            $data['device_status'] = 3;
+        }
+ 
         $device_data->update($request->all());
 
         return redirect()->route('device_data.index')->with('success', 'Device data updated successfully.');

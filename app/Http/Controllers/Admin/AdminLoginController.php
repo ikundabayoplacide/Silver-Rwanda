@@ -81,15 +81,24 @@ class AdminLoginController extends Controller
                 $genderData['male'] = $value->number;
             }
         }
-              
+              // for user
                 $users = User::all();
                 $femaleCount = User::where('gender', 'female')->count();
-                $maleCount = User::where('gender', 'male')->count();
+                $maleCount = User::where('gender', 'male')->count(); 
                 $totalCount = $users->count();
-                $farmerCount = Farmer::count();
+                // for Farmer
+                $farmers = Farmer::all();
+                $femaleFarmersCount = Farmer::where('gender', 'female')->count();
+                $maleFarmersCount = Farmer::where('gender', 'male')->count();
+                $totalFarmerCount = $farmers->count();
+                $farmerCount=Farmer::count();
+
+               
                 $cooperativeCount= cooperative::count();
                 $deviceCount = DeviceData::count();
-                return view('admin.dashboard', compact('chartData','farmerCount','femaleCount','maleCount','totalCount','cooperativeCount','deviceCount','users','genderData','weatherData'));
+                return view('admin.dashboard', compact('chartData','farmerCount',
+                'femaleCount','maleCount','totalCount','farmers','femaleFarmersCount','maleFarmersCount',
+                'cooperativeCount','totalFarmerCount','deviceCount','users','genderData','weatherData'));
             } else {
                 session()->flash('error', 'Unauthorized access!');
                 return view('admin.login');
