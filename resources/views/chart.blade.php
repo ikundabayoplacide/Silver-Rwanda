@@ -1,4 +1,4 @@
-
+{{--
  <!DOCTYPE html>
  <html>
  <head>
@@ -50,4 +50,4 @@
  <body>
      <div id="curve_chart" style="width: 1500px; height: 800px"></div>
  </body>
- </html>
+ </html> --}}

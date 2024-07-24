@@ -8,9 +8,11 @@ use App\Models\cooperative;
 use App\Models\DeviceData;
 use Illuminate\Http\Request;
 use App\Models\User;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\Hash as FacadesHash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use phpseclib3\Crypt\Hash as CryptHash;
 
 class AdminDashboardController extends Controller
 {
@@ -106,9 +108,9 @@ class AdminDashboardController extends Controller
 
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
-        
-        return view('admin.dashboard', compact('chartData', 
-        'farmerCount', 'femaleCount', 'maleCount', 
+
+        return view('admin.dashboard', compact('chartData',
+        'farmerCount', 'femaleCount', 'maleCount',
         'cooperativeCount', 'deviceCount', 'users', 'totalCount',
          'genderData', 'weatherData','farmers','femaleFarmersCount','maleFarmersCount','totalFarmerCount','Farmerdata'));
     }
