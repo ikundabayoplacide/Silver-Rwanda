@@ -21,8 +21,20 @@ class AdminDashboardController extends Controller
     {
 
         $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')->get();
+        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
 
-        // Format data for JavaScript
+        // Fetch data based on the selected DEVICE_ID
+        $selectedDeviceID = $request->input('device_id');
+        if ($selectedDeviceID) {
+            $data_Devices = DeviceData::where('DEVICE_ID', $selectedDeviceID)
+                              ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
+                              ->get();
+
+            // Display the fetched data using dd
+            // dd($data_Devices);
+        }
+
+        // JavaScript will need formated data
         $chartData = [];
         $inputitem = $request->all();
         foreach ($data as $row) {
@@ -93,7 +105,6 @@ class AdminDashboardController extends Controller
             }
         }
 
-
         $users = User::all();
         $femaleCount = User::where('gender', 'female')->count();
         $maleCount = User::where('gender', 'male')->count();
@@ -105,13 +116,15 @@ class AdminDashboardController extends Controller
         $totalFarmerCount = $farmers->count();
         $farmerCount=Farmer::count();
 
-
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
 
-        return view('admin.dashboard', compact('chartData',
+        return view('admin.dashboard', compact('chartData','data_Devices',
         'farmerCount', 'femaleCount', 'maleCount',
-        'cooperativeCount', 'deviceCount', 'users', 'totalCount',
-         'genderData', 'weatherData','farmers','femaleFarmersCount','maleFarmersCount','totalFarmerCount','Farmerdata'));
+        'cooperativeCount', 'deviceCount', 'users',
+         'totalCount', 'genderData', 'weatherData',
+         'farmers','femaleFarmersCount','maleFarmersCount',
+         'totalFarmerCount','Farmerdata','selectedDeviceID','deviceIDs')
+        );
     }
 }

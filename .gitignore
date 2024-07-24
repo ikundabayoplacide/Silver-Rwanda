@@ -33,3 +33,5 @@ yarn-error.log
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 mydocx
+documentation
+

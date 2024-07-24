@@ -21,11 +21,11 @@ class GenerateDeviceDataJob implements ShouldQueue
     {
         $data = [
             'DEVICE_ID' => rand(1, 10),
-            'S_TEMP' => rand(10, 40),
-            'S_HUM' => rand(10, 40),
-            'A_TEMP' => rand(10, 40),
-            'A_HUM' => rand(10, 40),
-            'farmer_id' => rand(1, 50),
+            'S_TEMP' => rand(10, 70),
+            'S_HUM' => rand(10, 70),
+            'A_TEMP' => rand(10, 70),
+            'A_HUM' => rand(10, 70),
+            'farmer_id' => rand(1, 70),
         ];
 
         $validator = Validator::make($data, [
