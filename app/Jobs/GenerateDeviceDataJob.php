@@ -45,7 +45,7 @@ class GenerateDeviceDataJob implements ShouldQueue
             DeviceData::create($data);
 
             $formattedData = json_encode($data, JSON_PRETTY_PRINT);
-
+             
             Log::info('Device data generated and stored successfully: ' . $formattedData);
         } catch (QueryException $e) {
             Log::error('Failed to store device data: ' . $e->getMessage());

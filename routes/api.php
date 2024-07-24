@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('device-data/{device_data}', [ApiDeviceData::class, 'show']);
 });
 
+
 //API FOR DEVIDE DATA
 
 Route::post('device-data', [ApiDeviceData::class, 'store']);
