@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
+use Exception;
 
 class GenerateDeviceDataJob implements ShouldQueue
 {
@@ -19,7 +20,7 @@ class GenerateDeviceDataJob implements ShouldQueue
     public function handle()
     {
         $data = [
-            'DEVICE_ID' => rand(1, 100),
+            'DEVICE_ID' => rand(1, 10),
             'S_TEMP' => rand(10, 40),
             'S_HUM' => rand(10, 40),
             'A_TEMP' => rand(10, 40),
@@ -45,11 +46,11 @@ class GenerateDeviceDataJob implements ShouldQueue
             DeviceData::create($data);
 
             $formattedData = json_encode($data, JSON_PRETTY_PRINT);
-             
+
             Log::info('Device data generated and stored successfully: ' . $formattedData);
         } catch (QueryException $e) {
             Log::error('Failed to store device data: ' . $e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('An unexpected error occurred: ' . $e->getMessage());
         }
     }
