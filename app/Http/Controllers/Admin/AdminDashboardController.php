@@ -89,8 +89,32 @@ class AdminDashboardController extends Controller
             } elseif ($value->gender == 'male') {
                 $Farmerdata['male'] = $value->number;
             }
+            
         }
 
+        $data = DB::table('device_data')->select(
+            DB::raw('device_state as device_state'),
+            DB::raw('count(*) as number')
+        )
+            ->groupBy('device_state')
+            ->get();
+        $Devicedata = [
+            'function' => 0,
+            'non_function' => 0,
+            'InStock'=>0,
+            
+        ];
+
+        foreach ($data as $value) {
+            if ($value->device_state == 'function') {
+                $Devicedata['function'] = $value->number;
+            } elseif ($value->device_state == 'non_function') {
+                $Devicedata['non_function'] = $value->number;
+            }
+            elseif ($value->device_state == 'InStock') {
+                $Devicedata['InStock'] = $value->number;
+            }
+        }
 
         $users = User::all();
         $femaleCount = User::where('gender', 'female')->count();
@@ -104,11 +128,20 @@ class AdminDashboardController extends Controller
         $farmerCount=Farmer::count();
 
 
+       // device
+
+       $Devices=DeviceData::all();
+       $functionCount=DeviceData::where('device_state','1')->count();
+       $nonFunctionCount=DeviceData::where('device_state','2')->count();
+       $InStock=DeviceData::where('device_state','3')->count();
+       $totalDeviceCount=$Devices->count();
+
+
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
         
         return view('admin.dashboard', compact('chartData', 
-        'farmerCount', 'femaleCount', 'maleCount', 
+        'farmerCount', 'femaleCount', 'maleCount', 'Devices','functionCount','nonFunctionCount','totalDeviceCount','InStock',
         'cooperativeCount', 'deviceCount', 'users', 'totalCount',
          'genderData', 'weatherData','farmers','femaleFarmersCount','maleFarmersCount','totalFarmerCount','Farmerdata'));
     }

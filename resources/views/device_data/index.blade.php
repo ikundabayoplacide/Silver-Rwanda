@@ -44,10 +44,12 @@
                            
                         </td>
                         <td class="border"> 
-                        <div class="form-check form-switch">
-                            <input class="form-check-input text-2xl" style="margin-left: 0.2px" type="checkbox" role="switch"checked>
-                         
-                        </div>
+                            <form action="{{ route('device_data.toggle', $device_data->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-{{ $device_data->device_state == 1 ? 'secondary' : 'success' }}">
+                                    {{ $device_data->device_state == 1 ? 'Deactivate' : 'Activate' }}
+                                </button>
+                            </form>
                     </td>
                     </tr>
                 @endforeach

@@ -48,6 +48,13 @@
                     <canvas id="chart-pieFarmer"></canvas>
                 </div>
             </div>
+            <div class="border-none">
+                <div class="h-60 w-60 ml-5">
+                    <p class="font-serif font-semibold text-2xl ml-15 mt-4">Device categories</p>
+                    <canvas id="chart-pieDevice"></canvas>
+                 
+                </div>
+            </div>
         </div>
         <div class="mt-4">
             <p class="text-2xl font-serif font-semibold text-blue-800 mb-2 text-center">Graphical Representation</p>
@@ -175,6 +182,30 @@
             new Chart(ctxFarmers, dataPieFarmer);
         });
 
+        $(document).ready(function() {
+            var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
+            var FunctionDevice = {{ $functionCount }};
+            var nonFunctionDevice = {{ $nonFunctionCount }};
+            var InStock = {{ $InStock }};
+            var TotalDevice = {{ $totalDeviceCount }};
+            var dataPieDevice = {
+                type: "pie",
+                data: {
+                    labels: ["Functional Device(" + FunctionDevice + "/" + TotalDevice + ")","NonFunctional Device(" + nonFunctionDevice + "/" +
+                    TotalDevice + ")","Device In Stock("+InStock+"/"+TotalDevice+")"
+                    ],
+                    datasets: [{
+                        data: [FunctionDevice, nonFunctionDevice,InStock],
+                        backgroundColor: [
+                            " rgba(4, 120, 87)",
+                            "rgba(255, 193, 7, 1)",
+                            "rgba(244, 67, 54, 1)",
+                        ],
+                    }],
+                },
+            };
+            new Chart(ctxDevice, dataPieDevice);
+        });
 
             // Line Chart
             var options = {

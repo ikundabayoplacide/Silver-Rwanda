@@ -124,6 +124,8 @@ Route::get('/device_data/{device_data}', [DeviceDataController::class, 'show'])-
 Route::put('device_data/{device_data}', [DeviceDataController::class, 'update'])->name('device_data.update');
 Route::delete('device_data/{device_data}', [DeviceDataController::class, 'destroy'])->name('device_data.destroy');
 Route::get('device_data/{device_data}/edit', [DeviceDataController::class, 'edit'])->name('device_data.edit');
+Route::post('device_data/toggle/{id}', [DeviceDataController::class, 'toggle'])->name('device_data.toggle');
+
 // for charts
 
 Route::resource('cooperatives', cooperativeController::class);
@@ -132,5 +134,6 @@ Route::post('/cooperatives/assign', [CooperativeController::class, 'assignFarmer
 Route::get('cooperative/assignment-details', [CooperativeController::class, 'showAssignmentDetails'])->name('cooperatives.showAssignmentDetails');
 
 Route::get('/testChart',[HighChartController::class,'visual']);
+
 
 });
