@@ -54,6 +54,9 @@
         <div class="mt-4">
             <p class="text-2xl font-serif font-semibold text-blue-800 mb-2 text-center">Graphical Representation</p>
             <div class="card-body">
+
+            {{-- this for selecting devices --}}
+
                 <div class="container">
                     <form action="{{ route('admin.dashboard') }}" method="GET">
                         <div class="form-group">
@@ -73,7 +76,6 @@
                 </div>
                 <h5 class="card-title">Device <span>/Data Generations</span></h5>
 
-                {{-- this for selecting devices --}}
 
                 <div id="reportsChart"></div>
             </div>
@@ -187,7 +189,7 @@
             new Chart(ctxFarmers, dataPieFarmer);
 
             // Line Chart for Device Data
-            var chartData = @json($data_Devices);
+            var chartData = @json($chartData);
             var timestamps = chartData.map(function(item) { return item.date; });
             var sTempData = chartData.map(function(item) { return item.S_TEMP; });
             var sHumData = chartData.map(function(item) { return item.S_HUM; });
