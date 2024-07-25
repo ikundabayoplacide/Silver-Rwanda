@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label for="device_id">Select Device:</label>
                             <select name="device_id" id="device_id" class="form-control">
-                                <option value="">-- Select Device --</option>
+                                <option value="">--Select Device--</option>
                                 @foreach($deviceIDs as $deviceID)
                                     <option value="{{ $deviceID }}" {{ $selectedDeviceID == $deviceID ? 'selected' : '' }}>
                                         {{ $deviceID }}

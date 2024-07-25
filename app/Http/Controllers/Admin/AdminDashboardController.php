@@ -25,9 +25,6 @@ class AdminDashboardController extends Controller
 
         // Fetch data based on the selected DEVICE_ID
         $selectedDeviceID = $request->input('device_id');
-
-        //solving data_Devices undefined
-        $data_Devices=[];
         if ($selectedDeviceID) {
             $data_Devices = DeviceData::where('DEVICE_ID', $selectedDeviceID)
                               ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
@@ -40,7 +37,7 @@ class AdminDashboardController extends Controller
         // JavaScript will need formated data
         $chartData = [];
         $inputitem = $request->all();
-        foreach ($data_Devices as $row) {
+        foreach ($data as $row) {
             $chartData[] = [
                 'date' => $row->created_at->format('Y-m-d H:i:s'),
                 'DEVICE_ID' => $row->DEVICE_ID,
