@@ -46,8 +46,8 @@
                         <td class="border"> 
                             <form action="{{ route('device_data.toggle', $device_data->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-{{ $device_data->device_state == 1 ? 'secondary' : 'success' }}">
-                                    {{ $device_data->device_state == 1 ? 'Deactivate' : 'Activate' }}
+                                <button type="submit" class="btn btn-{{ $device_data->device_state == 1 ? 'success' : 'secondary' }}">
+                                    {{ $device_data->device_state == 1 ? ' Activated' : 'Inactive' }}
                                 </button>
                             </form>
                     </td>

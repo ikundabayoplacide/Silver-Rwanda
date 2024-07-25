@@ -62,7 +62,7 @@ class AdminLoginController extends Controller
                 $response = Http::get('http://api.openweathermap.org/data/2.5/weather?q=kigali,rwanda&APPID=e6263ec92d5b5931d3b061765a52c466');
                 $weatherData = $response->json();
                 
-                // this is for Users
+                // these are Data for Users
         $data = DB::table('users')->select(
             DB::raw('gender as gender'),
             DB::raw('count(*) as number')
@@ -81,6 +81,33 @@ class AdminLoginController extends Controller
                 $genderData['male'] = $value->number;
             }
         }
+
+        // these are data for Device
+
+
+        $data = DB::table('device_data')->select(
+            DB::raw('device_state as device_state'),
+            DB::raw('count(*) as number')
+        )
+            ->groupBy('device_state')
+            ->get();
+        $Devicedata = [
+            'function' => 0,
+            'non_function' => 0,
+            'InStock'=>0,
+            
+        ];
+
+        foreach ($data as $value) {
+            if ($value->device_state == 'function') {
+                $Devicedata['function'] = $value->number;
+            } elseif ($value->device_state == 'non_function') {
+                $Devicedata['non_function'] = $value->number;
+            }
+            elseif ($value->device_state == 'InStock') {
+                $Devicedata['InStock'] = $value->number;
+            }
+        }
               // for user
                 $users = User::all();
                 $femaleCount = User::where('gender', 'female')->count();
@@ -92,11 +119,17 @@ class AdminLoginController extends Controller
                 $maleFarmersCount = Farmer::where('gender', 'male')->count();
                 $totalFarmerCount = $farmers->count();
                 $farmerCount=Farmer::count();
+                // device 
+                $Devices=DeviceData::all();
+                $functionCount=DeviceData::where('device_state','1')->count();
+                $nonFunctionCount=DeviceData::where('device_state','2')->count();
+                $InStock=DeviceData::where('device_state','3')->count();
+                $totalDeviceCount=$Devices->count();
 
                
                 $cooperativeCount= cooperative::count();
                 $deviceCount = DeviceData::count();
-                return view('admin.dashboard', compact('chartData','farmerCount',
+                return view('admin.dashboard', compact('chartData','farmerCount','Devices','functionCount','nonFunctionCount','InStock','totalDeviceCount',
                 'femaleCount','maleCount','totalCount','farmers','femaleFarmersCount','maleFarmersCount',
                 'cooperativeCount','totalFarmerCount','deviceCount','users','genderData','weatherData'));
             } else {
