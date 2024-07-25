@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Auth;
 use App\Models\DeviceData;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Farmer;
 use App\Models\cooperative;
-use Hash,DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class AdminLoginController extends Controller
@@ -56,13 +57,24 @@ class AdminLoginController extends Controller
                         'gender'=> $inputitem['gender'],
                     ]);
                 }
+                $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
 
+                // Fetch data based on the selected DEVICE_ID
+                $selectedDeviceID = $request->input('device_id');
+                if ($selectedDeviceID) {
+                    $data_Devices = DeviceData::where('DEVICE_ID', $selectedDeviceID)
+                                      ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
+                                      ->get();
+
+                    // Display the fetched data using dd
+                    // dd($data_Devices);
+                }
                 // for weather data
 
                 $response = Http::get('http://api.openweathermap.org/data/2.5/weather?q=kigali,rwanda&APPID=e6263ec92d5b5931d3b061765a52c466');
                 $weatherData = $response->json();
                 
-                // these are Data for Users
+                // this is for Users
         $data = DB::table('users')->select(
             DB::raw('gender as gender'),
             DB::raw('count(*) as number')
@@ -111,7 +123,7 @@ class AdminLoginController extends Controller
               // for user
                 $users = User::all();
                 $femaleCount = User::where('gender', 'female')->count();
-                $maleCount = User::where('gender', 'male')->count(); 
+                $maleCount = User::where('gender', 'male')->count();
                 $totalCount = $users->count();
                 // for Farmer
                 $farmers = Farmer::all();
@@ -126,23 +138,16 @@ class AdminLoginController extends Controller
                 $InStock=DeviceData::where('device_state','3')->count();
                 $totalDeviceCount=$Devices->count();
 
-               
+
                 $cooperativeCount= cooperative::count();
                 $deviceCount = DeviceData::count();
                 return view('admin.dashboard', compact('chartData','farmerCount','Devices','functionCount','nonFunctionCount','InStock','totalDeviceCount',
                 'femaleCount','maleCount','totalCount','farmers','femaleFarmersCount','maleFarmersCount',
-                'cooperativeCount','totalFarmerCount','deviceCount','users','genderData','weatherData'));
-            } else {
-                session()->flash('error', 'Unauthorized access!');
-                return view('admin.login');
+                'cooperativeCount','totalFarmerCount','deviceCount','users','genderData','weatherData','selectedDeviceID','deviceIDs'));
             }
-        } else {
-            session()->flash('error', 'Please enter correct email and password!');
-            return view('admin.login');
-        }
-    }
 
-    public function logout(Request $request)
+    }}
+public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();

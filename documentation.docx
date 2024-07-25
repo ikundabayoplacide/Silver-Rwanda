@@ -1,0 +1,10 @@
+DELETE FROM device_data
+WHERE id NOT IN (
+    SELECT id
+    FROM (
+        SELECT id
+        FROM device_data
+        ORDER BY id DESC
+        LIMIT 10
+    ) AS last_10_rows
+);

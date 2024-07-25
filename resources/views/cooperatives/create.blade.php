@@ -1,4 +1,3 @@
-
 @extends('layouts.layout')
 @section('content')
 @include('layouts.head-part')
@@ -16,11 +15,11 @@
         <label for="services_offered" class="text-2xl font-serif font-semibold">Services Offered:</label>
         <input type="text" name="services_offered" style=" padding:4px; border-radius:5px; background:whitesmoke; border:1px solid black"id="services_offered" required></br>
 
-      
+
     </br>
     <button type="submit" class="btn btn-danger text-xl">Add Cooperative</button>
 
-    </form>
-</main>
-@include('layouts.footer')
-@include('layouts.script')
+        </form>
+    </main>
+    @include('layouts.footer')
+    @include('layouts.script')

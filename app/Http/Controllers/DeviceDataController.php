@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateDeviceDataJob;
 use App\Models\DeviceData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -94,6 +95,7 @@ class DeviceDataController extends Controller
         return redirect()->route('device_data.index')->with('success', 'Device data deleted successfully.');
     }
 
+
    // Add this method to your DeviceDataController
 public function toggle($id)
 {
@@ -105,4 +107,13 @@ public function toggle($id)
     return redirect()->route('device_data.index')->with('success', 'Device state changed!');
 }
 
+public function generateData()
+{
+    GenerateDeviceDataJob::dispatch();
+
+    return response()->json(['message' => 'Device data generation job dispatched successfully.']);
 }
+
+}
+
+ 

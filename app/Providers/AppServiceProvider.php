@@ -2,23 +2,30 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
+use Laravel\Sanctum\PersonalAccessToken;
 
-class AppServiceProvider extends ServiceProvider
+class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register any authentication / authorization services.
+     *
+     * @return void
      */
-    public function register(): void
+    public function boot()
     {
-        //
-    }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
+        // Passport::loadKeysFrom(__DIR__ . '/../secrets/oauth');
+        // Passport::hashClientSecrets();
+        Passport::tokensExpireIn(now()->addDays(15));
+        Passport::refreshTokensExpireIn(now()->addDays(30));
+        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+
+        // $this->registerPolicies();
+        // Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+        // Passport::routes();
+
+        Passport::enablePasswordGrant();
     }
 }

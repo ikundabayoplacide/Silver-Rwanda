@@ -8,9 +8,11 @@ use App\Models\cooperative;
 use App\Models\DeviceData;
 use Illuminate\Http\Request;
 use App\Models\User;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\Hash as FacadesHash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use phpseclib3\Crypt\Hash as CryptHash;
 
 class AdminDashboardController extends Controller
 {
@@ -19,8 +21,20 @@ class AdminDashboardController extends Controller
     {
 
         $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')->get();
+        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
 
-        // Format data for JavaScript
+        // Fetch data based on the selected DEVICE_ID
+        $selectedDeviceID = $request->input('device_id');
+        if ($selectedDeviceID) {
+            $data_Devices = DeviceData::where('DEVICE_ID', $selectedDeviceID)
+                              ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
+                              ->get();
+
+            // Display the fetched data using dd
+            // dd($data_Devices);
+        }
+
+        // JavaScript will need formated data
         $chartData = [];
         $inputitem = $request->all();
         foreach ($data as $row) {
@@ -92,29 +106,6 @@ class AdminDashboardController extends Controller
             
         }
 
-        $data = DB::table('device_data')->select(
-            DB::raw('device_state as device_state'),
-            DB::raw('count(*) as number')
-        )
-            ->groupBy('device_state')
-            ->get();
-        $Devicedata = [
-            'function' => 0,
-            'non_function' => 0,
-            'InStock'=>0,
-            
-        ];
-
-        foreach ($data as $value) {
-            if ($value->device_state == 'function') {
-                $Devicedata['function'] = $value->number;
-            } elseif ($value->device_state == 'non_function') {
-                $Devicedata['non_function'] = $value->number;
-            }
-            elseif ($value->device_state == 'InStock') {
-                $Devicedata['InStock'] = $value->number;
-            }
-        }
 
         $users = User::all();
         $femaleCount = User::where('gender', 'female')->count();
@@ -128,20 +119,11 @@ class AdminDashboardController extends Controller
         $farmerCount=Farmer::count();
 
 
-       // device
-
-       $Devices=DeviceData::all();
-       $functionCount=DeviceData::where('device_state','1')->count();
-       $nonFunctionCount=DeviceData::where('device_state','2')->count();
-       $InStock=DeviceData::where('device_state','3')->count();
-       $totalDeviceCount=$Devices->count();
-
-
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
         
         return view('admin.dashboard', compact('chartData', 
-        'farmerCount', 'femaleCount', 'maleCount', 'Devices','functionCount','nonFunctionCount','totalDeviceCount','InStock',
+        'farmerCount', 'femaleCount', 'maleCount', 
         'cooperativeCount', 'deviceCount', 'users', 'totalCount',
          'genderData', 'weatherData','farmers','femaleFarmersCount','maleFarmersCount','totalFarmerCount','Farmerdata'));
     }
