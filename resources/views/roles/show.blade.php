@@ -8,10 +8,10 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
       
-            <h2 class="text-xl font-serif font-semibold mb-2"> Show Role</h2>
+            <h2 class="text-xl font-serif font-semibold mb-2">{{__('Show Role')}}</h2>
     
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+            <a class="btn btn-primary" href="{{ route('roles.index') }}"><i class="fa fa-arrow-left"></i>{{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -19,13 +19,13 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
         <div class="form-group">
-            <strong>Name:</strong>
+            <strong>{{__('Name:')}}</strong>
             {{ $role->name }}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
         <div class="form-group">
-            <strong>Permissions:</strong>
+            <strong>{{__('Permissions:')}}</strong>
             @if(!empty($rolePermissions))
                 @foreach($rolePermissions as $v)
                     <label class="label label-success">{{ $v->name }},</label>

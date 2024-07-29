@@ -4,11 +4,11 @@
 @include('layouts.header-content')
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
-    <h1 class="text-2xl mb-2 font-serif font-semibold underline"> List Of All Users</h1>
+    <h1 class="text-2xl mb-2 font-serif font-semibold underline">{{__('List Of All Users')}}</h1>
     <div class="pull-right">
         @can('create-user')
         <a class="btn btn-success btn-sm mb-2 float-end" href="{{ route('admin.register') }}">
-            <i class="fa fa-plus"></i> Create New User
+            <i class="fa fa-plus"></i>{{__('Create New User')}}
         </a>
         @endcan
     </div>
@@ -16,12 +16,12 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Address</th>
-                <th>Mobile</th>
-                <th>Action</th>
+                <th>{{__('Name')}}</th>
+                <th>{{__('Email')}}</th>
+                <th>{{__('Role')}}</th>
+                <th>{{__('Address')}}</th>
+                <th>{{__('Mobile')}}</th>
+                <th>{{__('Action')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,13 +36,13 @@
                     <td>
                         <a href="{{ url('/users/' . $item->id) }}" title="View User">
                             <button class="btn btn-info btn-sm">
-                                <i class="fa fa-eye" aria-hidden="true"></i> View
+                                <i class="fa fa-eye" aria-hidden="true"></i>{{__('View')}}
                             </button>
                         </a>
                         @can('edit-user')
                         <a href="{{ url('/users/' . $item->id . '/edit') }}" title="Edit User">
                             <button class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                                <i class="fa-solid fa-pen-to-square"></i>{{__('Edit')}}
                             </button>
                         </a>
                         @endcan
@@ -51,7 +51,7 @@
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')"title="Delete User">
-                                <i class="fa-solid fa-trash-can"></i> Delete
+                                <i class="fa-solid fa-trash-can"></i> {{__('Delete')}}
                             </button>
                         </form>
                         @endcan

@@ -6,7 +6,7 @@
 <main id="main" class="main" style="height: 80vh">
     <div class="card">
         <div class="card-header">
-            <p class="text-2xl  text-center font-serif font-semibold">Device Data Details</p>
+            <p class="text-2xl  text-center font-serif font-semibold">{{__('Device Data Details')}}</p>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -15,7 +15,7 @@
                     <td>{{ $device_data->id }}</td>
                 </tr>
                 <tr>
-                    <th>Device ID</th>
+                    <th>{{__('Device ID')}}</th>
                     <td>{{ $device_data->DEVICE_ID }}</td>
                 </tr>
                 <tr>
@@ -35,25 +35,25 @@
                     <td>{{ $device_data->A_HUM }}</td>
                 </tr>
                 <tr>
-                    <th>Created At</th>
+                    <th>{{__('Created At')}}</th>
                     <td>{{ $device_data->created_at }}</td>
                 </tr>
                 <tr>
-                    <th>Updated At</th>
+                    <th>{{__('Updated At')}}</th>
                     <td>{{ $device_data->updated_at }}</td>
                 </tr>
             </table>
 
             <div class="btn-group" role="group">
-                <a href="{{ route('device_data.edit', $device_data->id) }}" class="btn btn-warning mr-2"> <i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                <a href="{{ route('device_data.edit', $device_data->id) }}" class="btn btn-warning mr-2"> <i class="fa-solid fa-pen-to-square"></i>{{__('Edit')}}</a>
 
                 <form action="{{ route('device_data.destroy', $device_data->id) }}" method="POST" style="display: inline-block;margin:0px 8px">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger " onclick="return confirm('Are you sure you want to delete this data?');"><i class="fa-solid fa-trash-can"></i>Delete</button>
+                    <button type="submit" class="btn btn-danger " onclick="return confirm('Are you sure you want to delete this data?');"><i class="fa-solid fa-trash-can"></i>{{__('Delete')}}</button>
                 </form>
 
-                <a href="{{ route('device_data.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>Back to List</a>
+                <a href="{{ route('device_data.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>{{__('Back')}}</a>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\DeviceData;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Farmer;
@@ -97,6 +98,8 @@ class AdminLoginController extends Controller
         // these are data for Device
 
 
+
+        
         $data = DB::table('device_data')->select(
             DB::raw('device_state as device_state'),
             DB::raw('count(*) as number')
@@ -154,4 +157,14 @@ public function logout(Request $request)
         $request->session()->regenerateToken();
         return view('admin.login');
     }
+    public function changeLocale($locale)
+    {
+        if (in_array($locale, config('app.available_locales'))) {
+            session(['locale' => $locale]);
+            \Log::info('Locale changed to: ' . $locale);
+        }
+        return redirect()->back();
+    }
+    
+    
 }

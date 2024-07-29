@@ -6,21 +6,21 @@
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
 <div class="container">
-    <p class="text-2xl font-serif font-bold">Farmers Data List</p><br>
-    <a href="{{ route('farmers.register') }}" class="btn btn-success mb-3">Create New farmers Datails</a>
+    <p class="text-2xl font-serif font-bold">{{__('Farmers Data List')}}</p><br>
+    <a href="{{ route('farmers.register') }}" class="btn btn-success mb-3">{{__('Create New farmers Datails')}}</a>
 
     @if ($farmers->isEmpty())
-        <p>No farmers data found.</p>
+        <p>{{__('No farmers data found.')}}</p>
     @else
         <table class="table">
             <thead>
                 <tr>
-                    <th>Farmer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>District </th>
-                    <th>Phone</th>
-                    <th>Actions</th>
+                    <th>{{__('Farmer ID')}}</th>
+                    <th>{{__('Name')}}</th>
+                    <th>{{__('Email')}}</th>
+                    <th>{{__('District')}}</th>
+                    <th>{{__('Phone')}}</th>
+                    <th>{{__('Action')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,12 +32,12 @@
                         <td>{{ $farmer->district }}</td>
                         <td>{{ $farmer->phone }}</td>
                         <td>
-                            <a href="{{ route('farmers.show', ['farmers' => $farmer->id]) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-list"></i>View</a>
-                            <a href="{{ route('farmers.edit', ['farmers' => $farmer->id]) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                            <a href="{{ route('farmers.show', ['farmers' => $farmer->id]) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-list"></i>{{__('View')}}</a>
+                            <a href="{{ route('farmers.edit', ['farmers' => $farmer->id]) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>{{__('Edit')}}</a>
                             <form action="{{ route('farmers.destroy', ['farmers' => $farmer->id]) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Farm?')"><i class="fa-solid fa-trash" ></i>Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Farm?')"><i class="fa-solid fa-trash" ></i>{{__('Delete')}}</button>
                             </form>
                         </td>
                     </tr>

@@ -4,16 +4,16 @@
 @include('layouts.header-content')
 @include('layouts.aside')
 @section('content')
-<main id="main" class="main" style="height: 80vh">
+<main id="main" class="main">
 <div class="container">
 <div class="card">
-  <h1 class="viewtitle">User Details</h1>
-  <div class="card-body">
+  <h1 class="viewtitle font-serif text-xl text-center">{{__('User Details')}}</h1>
+  <div class="card-body text-center">
     <div class="card-body">
-      <h5 class="card-title">Name : {{ $user->name }}</h5>
-      <h5 class="card-text">Email : {{ $user->email }}</h5>
-      <p class="card-text">Address : {{ $user->address }}</p>
-      <p class="card-text">Phone : {{ $user->phone }}</p>
+      <h5 class="card-title">{{__('Name')}}:{{ $user->name }}</h5>
+      <h5 class="card-text">{{__('Email')}} : {{ $user->email }}</h5>
+      <p class="card-text">{{__('Address')}} : {{ $user->address }}</p>
+      <p class="card-text">{{__('Phone')}} :{{ $user->phone }}</p>
     </div>
   </div>
 </div>

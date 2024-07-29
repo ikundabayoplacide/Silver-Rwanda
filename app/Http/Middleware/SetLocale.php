@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Middleware;
-
-use Auth;
+use App;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class SetLocale
 {
     /**
      * Handle an incoming request.
@@ -15,14 +14,16 @@ class UserMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
+
     {
-        // if((Auth::check()&& Auth::user()->role == "user") )
-        
-        if (Auth::check() && (Auth::user()->role == "user" || Auth::user()->role == "sedo" || Auth::user()->role == "rab" || Auth::user()->role == "sector"))
-        {
+
+        if ($request->session()->has('locale')) {
+
+            App::setLocale($request->session()->get('locale', 'en'));
+
+        }
+
         return $next($request);
-    }
-    else{
-    return redirect()->route('login');
-    }
-}}
+
+  }
+}

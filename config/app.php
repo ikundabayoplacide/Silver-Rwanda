@@ -64,6 +64,7 @@ return [
     | is set to "UTC" by default as it is suitable for most use cases.
     |
     */
+'available_locales' => ['en', 'kiny'],
 
     'timezone' => env('APP_TIMEZONE', 'UTC'),
 
@@ -122,5 +123,6 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
 
 ];
