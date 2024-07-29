@@ -5,8 +5,8 @@
 @include('layouts.aside')
 
 <main id="main" class="main" style="height: 80vh">
-    <p class="text-2xl font-serif font-bold underline"> List Cooperatives </p><br>
-    <a href="{{ route('cooperatives.create') }}" > <button class="btn btn-success text-2xl">Add New Cooperative</button></a><br><br>
+    <p class="text-2xl font-serif font-bold underline">{{__('List Cooperatives')}}</p><br>
+    <a href="{{ route('cooperatives.create') }}" > <button class="btn btn-success text-2xl">{{__('Add New Cooperative')}}</button></a><br><br>
     <ol style="list-style-type: decimal; padding-left: 20px;">
         @foreach($cooperatives as $cooperative)
         <li class="text-2xl font-serif font-semibold" style="margin-bottom: 10px; list-style-capitalize">

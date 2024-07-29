@@ -13,7 +13,7 @@ class Kernel extends HttpKernel
      * These middleware are run during every request to your application.
      *
      * @var array<int, class-string|string>
-    //  */
+     */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -29,22 +29,24 @@ class Kernel extends HttpKernel
      *
      * @var array<string, array<int, class-string|string>>
      */
-    // protected $middlewareGroups = [
-    //     'web' => [
-    //         \App\Http\Middleware\EncryptCookies::class,
-    //         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-    //         \Illuminate\Session\Middleware\StartSession::class,
-    //         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-    //         \App\Http\Middleware\VerifyCsrfToken::class,
-    //         \Illuminate\Routing\Middleware\SubstituteBindings::class,
-    //     ],
-
-    //     'api' => [
-    //         // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-    //         \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
-    //         \Illuminate\Routing\Middleware\SubstituteBindings::class,
-    //     ],
-    // ];
+    protected $middlewareGroups = [
+        'web' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\LocaLocalization::class,
+        ],
+ 
+        'api' => [
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+    ];
 
     /**
      * The application's middleware aliases.
@@ -65,25 +67,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-    ];
-
-    // protected $routeMiddleware = [
-    //     'auth' => \App\Http\Middleware\Authenticate::class,
-    //     'role' => \App\Http\Middleware\AdminMiddleware::class,
-    //     // other middlewares
-    // ];
-
-    protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-
-        'user' => \App\Http\Middleware\UserMiddleware::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
-        // other middlewares
-
     ];
-
 }

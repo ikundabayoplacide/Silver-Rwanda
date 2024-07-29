@@ -4,20 +4,20 @@
 @include('layouts.header-content')
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
-    <h1 class="text-2xl font-serif font-bold underline">Add New Cooperative</h1><br><br>
+    <h1 class="text-2xl font-serif font-bold underline">{{__('Add New Cooperative')}}</h1><br><br>
     <form action="{{ route('cooperatives.store') }}" method="POST">
         @csrf
 
-        <label for="name" class="text-2xl font-serif font-semibold">Name:</label>
+        <label for="name" class="text-2xl font-serif font-semibold">{{__('Name:')}}</label>
         <input type="text" name="name"style=" padding:4px; border-radius:5px; background:whitesmoke; border:1px solid black" id="name" required></br><br>
-        <label for="location" class="text-2xl font-serif font-semibold">Location:</label>
+        <label for="location" class="text-2xl font-serif font-semibold">{{__('Location')}}</label>
         <input type="text" name="location" style=" padding:4px; border-radius:5px; background:whitesmoke; border:1px solid black"id="location" required></br><br>
-        <label for="services_offered" class="text-2xl font-serif font-semibold">Services Offered:</label>
+        <label for="services_offered" class="text-2xl font-serif font-semibold">{{__('Services Offered:')}}</label>
         <input type="text" name="services_offered" style=" padding:4px; border-radius:5px; background:whitesmoke; border:1px solid black"id="services_offered" required></br>
 
 
     </br>
-    <button type="submit" class="btn btn-danger text-xl">Add Cooperative</button>
+    <button type="submit" class="btn btn-danger text-xl">{{__('Add Cooperative')}}</button>
 
         </form>
     </main>

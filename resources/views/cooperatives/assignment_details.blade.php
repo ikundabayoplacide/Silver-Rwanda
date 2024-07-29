@@ -6,7 +6,7 @@
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
     <div class="container">
-        <h1>Assignment Details</h1>
+        <h1>{{__('Assignment Details')}}</h1>
 
         <!-- Display Success Message if exists -->
         @if(session('success'))
@@ -20,9 +20,9 @@
             <table class="table table-bordered mt-4">
                 <thead>
                     <tr>
-                        <th>Farmer Name</th>
-                        <th>Cooperative Name</th>
-                        <th>Location</th>
+                        <th>{{__('Farmer Name')}}</th>
+                        <th>{{__('Cooperative Name')}}</th>
+                        <th>{{__('Location')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,7 @@
         @endif
 
         <!-- Link to go back to the assignment form -->
-        <a href="{{ route('cooperatives.showAssignForm') }}" class="btn btn-primary mt-4">Assign Another Farmer</a>
+        <a href="{{ route('cooperatives.showAssignForm') }}" class="btn btn-primary mt-4">{{__('Assign Another Farmer')}}</a>
     </div>
 </main>
 @include('layouts.footer')

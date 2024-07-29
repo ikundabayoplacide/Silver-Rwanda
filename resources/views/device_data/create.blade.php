@@ -5,11 +5,11 @@
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
     <section class="section">
-    <h2 class="text-2xl font-serif font-bold">Add New Device Data</h2><br>
+    <h2 class="text-2xl font-serif font-bold">{{__('Add New Device Data')}}</h2><br>
     <form action="{{ route('device_data.store') }}" method="POST">
         @csrf
         @include('device_data.partials.form')
-        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Save</button>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px">{{__('Save')}}</button>
     </form>
 </section>
 </main>

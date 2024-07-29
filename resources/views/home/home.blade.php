@@ -6,27 +6,27 @@
           <div class="navbar-collapse">
             <ul class="navbar-nav me-auto mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link text-3xl " href="/home">Home</a>
+                <a class="nav-link text-3xl " href="/home">{{__('Home')}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-3xl" href="#">Image</a>
+                <a class="nav-link text-3xl" href="#">{{__('Image')}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-3xl" href="#">About Us</a>
+                <a class="nav-link text-3xl" href="#">{{__('About Us')}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-3xl" href="#">Team</a>
+                <a class="nav-link text-3xl" href="#">{{__('Team')}}</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link text-3xl" href="#">Services</a>
+                <a class="nav-link text-3xl" href="#">{{__('Services')}}</a>
               </li>
             </ul>
 
             <form class="d-flex">
                 <div class="registration">
-                  <button class="btn btn-success "><a href="{{ url('/login') }}">Login</a></button>
-                  <button class="btn btn-success "><a href="{{ url('/register') }}"> Register</a></button>
+                  <button class="btn btn-success "><a href="{{ url('/login') }}">{{__('Login')}}</a></button>
+                  <button class="btn btn-success "><a href="{{ url('/register') }}">{{__('Register')}}</a></button>
                 </div>
             </form>
           </div>

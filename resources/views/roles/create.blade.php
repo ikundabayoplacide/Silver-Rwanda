@@ -8,10 +8,10 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
        
-            <h2 class="text-xl font-serif font-semibold mb-2">Create New Role</h2>
+            <h2 class="text-xl font-serif font-semibold mb-2">{{__('Create New Role')}}</h2>
    
         <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('roles.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+            <a class="btn btn-primary btn-sm mb-2" href="{{ route('roles.index') }}"><i class="fa fa-arrow-left"></i>{{__('Back')}}</a>
         </div>
     </div>
 </div>
@@ -20,13 +20,13 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
+                <strong>{{__('Name:')}}</strong>
                 <input type="text" name="name" placeholder="Name" class="form-control">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group mt-2">
-                <strong>Permission:</strong>
+                <strong><{{__('Permission:')}}</strong>
                 <br/>
                 @foreach($permission as $value)
                     <label><input type="checkbox" name="permission[{{$value->id}}]" value="{{$value->id}}" class="name">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+            <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i>{{__('Submit')}}</button>
         </div>
     </div>
 </form>

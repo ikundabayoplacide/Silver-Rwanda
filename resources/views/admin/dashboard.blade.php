@@ -8,61 +8,69 @@
 
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Dashboard</h1>
+            <h1>{{__('Dashboard')}}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="index.html">{{__('Home')}}</a></li>
+                    <li class="breadcrumb-item active">{{__('Dashboard')}}</li>
                 </ol>
             </nav>
         </div>
-
+        <p class="text-2xl font-serif font-semibold text-blue-800 m-2 text-center"> {{__('System Aggregate:')}}</p>
         <div class="grid grid-cols-4 gap-4 border-2 border-blue-500 border-collapse px-10 py-10 rounded">
             <div class="p-7 bg-blue-500 text-white rounded hover:bg-blue-700 cursor-pointer">
                 <p class="font-serif font-bold text-2xl text-gray-200 text-center mb-3">{{ Auth::user()->count() }}</p>
-                <p class="font-serif text-2xl font-semibold text-center">Users</p>
+                <p class="font-serif text-2xl font-semibold text-center">{{__('Users')}}</p>
             </div>
             <div class="p-7 bg-green-500 text-white rounded hover:bg-green-700 cursor-pointer">
                 <p class="font-serif font-bold text-2xl text-gray-200 text-center mb-3">{{ $farmerCount }}</p>
-                <p class="font-serif text-2xl font-semibold text-center">Farmers</p>
+                <p class="font-serif text-2xl font-semibold text-center">{{__('Farmers')}}</p>
             </div>
             <div class="p-7 bg-yellow-500 text-white rounded hover:bg-yellow-700 cursor-pointer">
                 <p class="font-serif font-bold text-2xl text-gray-200 text-center mb-3">{{ $cooperativeCount }}</p>
-                <p class="font-serif text-2xl font-semibold text-center">Cooperatives</p>
+                <p class="font-serif text-2xl font-semibold text-center">{{__('Cooperatives')}}</p>
             </div>
             <div class="p-7 bg-red-500 text-white rounded hover:bg-red-700 cursor-pointer">
                 <p class="font-serif font-bold text-2xl text-gray-200 text-center mb-3">{{ $deviceCount }}</p>
-                <p class="font-serif text-2xl font-semibold text-center">Devices</p>
+                <p class="font-serif text-2xl font-semibold text-center">{{__('Devices')}}</p>
             </div>
         </div>
-
-        <div class="grid grid-cols-3 gap-3 border-2 border-green-500 rounded pb-10 mt-3">
+        <p class="text-2xl font-serif font-semibold text-green-700 mt-10 text-center">{{__('System Categories:')}}</p>
+        <div class="grid grid-cols-3 gap-3 border-2 border-green-500 rounded py-10 h-96 mt-3">
             <div class="border-none">
                 <div class="h-60 w-60 ml-5">
-                    <p class="font-serif font-semibold text-2xl ml-15 mt-4">Users categories</p>
+                    <p class="font-serif font-semibold text-2xl ml-15 mt-4">{{__('Users categories')}}</p>
                     <canvas id="chart-pie"></canvas>
                 </div>
             </div>
             <div class="border-none">
                 <div class="h-60 w-60 ml-5">
-                    <p class="font-serif font-semibold text-2xl ml-15 mt-4">Farmers categories</p>
+                    <p class="font-serif font-semibold text-2xl ml-15 mt-4">{{__('Farmers categories')}}</p>
                     <canvas id="chart-pieFarmer"></canvas>
+                </div>
+            </div>
+            <div class="border-none">
+                <div class="h-60 w-60 ml-5">
+                    <p class="font-serif font-semibold text-2xl ml-15 mt-4">{{__('Device categories')}}</p>
+                    <canvas id="chart-pieDevice"></canvas>
+                 
                 </div>
             </div>
         </div>
 
         <div class="mt-4">
-            <p class="text-2xl font-serif font-semibold text-blue-800 mb-2 text-center">Graphical Representation</p>
-            <div class="card-body">
+            <p class="text-2xl font-serif font-semibold text-yellow-700 m-4 text-center">{{__('Device Data Representation:')}}</p>
+          
+            <div class="card-body border-2 border-yellow-500 mb-2 p-2 rounded ">
 
             {{-- this for selecting devices --}}
 
                 <div class="container">
                     <form action="{{ route('admin.dashboard') }}" method="GET">
                         <div class="form-group">
-                            <label for="device_id">Select Device:</label>
+                            <label for="device_id">{{__('Select Device:')}}</label>
                             <select name="device_id" id="device_id" class="form-control">
-                                <option value="">--Select Device--</option>
+                                <option value="">{{__('--Select Device--')}}</option>
                                 @foreach($deviceIDs as $deviceID)
                                     <option value="{{ $deviceID }}" {{ $selectedDeviceID == $deviceID ? 'selected' : '' }}>
                                         {{ $deviceID }}
@@ -71,32 +79,32 @@
                             </select>
 
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3">{{__('Submit')}}</button>
                     </form>
                 </div>
-                <h5 class="card-title">Device <span>/Data Generations</span></h5>
+                <h5 class="card-title">{{__('Device')}} <span>{{__('/Data Generations')}}</span></h5>
 
 
-                <div id="reportsChart"></div>
+                <div id="reportsChart">{{__(' chart here')}}</div>
             </div>
         </div>
-
-        <div class="flex gap-14 mt-20">
+        <p class="text-2xl font-serif font-semibold text-red-800 m-6 text-center">{{__('Other System Related Data:')}}</p>
+        <div class="flex gap-14  border-2 border-red-800 rounded p-3">
             <div class="w-1/2">
-                <p class="text-2xl font-serif font-semibold text-blue-800 mb-2">Graphical Representation</p>
+                <p class="text-2xl font-serif font-semibold text-blue-800 m-2">{{__('Graphical Representation:')}}</p>
                 <div id="chart_div" style="width: 100%; height: 600px;"></div><br>
             </div>
             <div class="w-1/2">
                 <div class="ml-30">
-                    <p class="text-2xl font-serif font-semibold text-blue-700 mb-2">Current Climate Data</p>
+                    <p class="text-2xl font-serif font-semibold text-blue-700 mb-2">{{__('Current Climate Data:')}}</p>
                     <div class="p-7 bg-blue-800 text-white rounded cursor-pointer">
-                        <h2 class="font-serif font-semibold text-2xl text-center mb-3">Weather in {{ $weatherData['name'] }}</h2>
+                        <h2 class="font-serif font-semibold text-2xl text-center mb-3">{{__('Weather in')}} {{ $weatherData['name'] }}</h2>
                         <table>
                             <thead>
                                 <tr class="border-2 border-spacing-2 p-5">
-                                    <th class="border-2 font-semibold text-xl px-4 py-3">Temperature</th>
-                                    <th class="border-2 font-semibold text-xl px-4 py-3">Humidity</th>
-                                    <th class="border-2 font-semibold text-xl px-4 py-3">Condition</th>
+                                    <th class="border-2 font-semibold text-xl px-4 py-3">{{__('Temperature')}}</th>
+                                    <th class="border-2 font-semibold text-xl px-4 py-3">{{__('Humidity')}}</th>
+                                    <th class="border-2 font-semibold text-xl px-4 py-3">{{__('Condition')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,15 +125,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-2xl font-serif font-semibold text-blue-800 mt-6">Activated Users</p>
+                    <p class="text-2xl font-serif font-semibold text-blue-800 mt-6">{{__('Activated Users')}}</p>
                     <table class="table table-bordered mt-3">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Mobile</th>
-                                <th>Payed</th>
+                                <th>{{__('Name')}}</th>
+                                <th>{{__('Address')}}</th>
+                                <th>{{__('Mobile')}}</th>
+                                <th>{{__('Payed')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -187,15 +195,42 @@
                 },
             };
             new Chart(ctxFarmers, dataPieFarmer);
+        });
 
-            // Line Chart for Device Data
+        $(document).ready(function() {
+            var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
+            var FunctionDevice = {{ $functionCount }};
+            var nonFunctionDevice = {{ $nonFunctionCount }};
+            var InStock = {{ $InStock }};
+            var TotalDevice = {{ $totalDeviceCount }};
+            var dataPieDevice = {
+                type: "pie",
+                data: {
+                    labels: ["Functional Device(" + FunctionDevice + "/" + TotalDevice + ")","NonFunctional Device(" + nonFunctionDevice + "/" +
+                    TotalDevice + ")","Device In Stock("+InStock+"/"+TotalDevice+")"
+                    ],
+                    datasets: [{
+                        data: [FunctionDevice, nonFunctionDevice,InStock],
+                        backgroundColor: [
+                            " rgba(4, 120, 87)",
+                            "rgba(255, 193, 7, 1)",
+                            "rgba(244, 67, 54, 1)",
+                        ],
+                    }],
+                },
+            };
+            new Chart(ctxDevice, dataPieDevice);
+        });
+
+            // Line Chart
+
             var chartData = @json($chartData);
             var timestamps = chartData.map(function(item) { return item.date; });
             var sTempData = chartData.map(function(item) { return item.S_TEMP; });
             var sHumData = chartData.map(function(item) { return item.S_HUM; });
             var aTempData = chartData.map(function(item) { return item.A_TEMP; });
-            var aHumData = chartData.map(function(item) { return item.A_HUM; });
-
+            var aHumData = chartData.map(function(item) { return item.A_HUM; });
+            
             var options = {
                 series: [{
                     name: 'Soil Temperature',
@@ -249,6 +284,6 @@
             };
             var chart = new ApexCharts(document.querySelector("#reportsChart"), options);
             chart.render();
-        });
+        
     </script>
 @endsection

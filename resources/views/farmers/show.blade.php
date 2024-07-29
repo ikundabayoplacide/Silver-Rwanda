@@ -4,11 +4,11 @@
 @include('layouts.head-part')
 @include('layouts.header-content')
 @include('layouts.aside')
-<main id="main" class="main" style="height: 80vh">
+<main id="main" class="main">
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <p class="text-2xl font-serif font-semibold text-center">Farmers Data Details</p>
+            <p class="text-2xl font-serif font-semibold text-center">{{__('Farmers Data Details')}}</p>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -17,28 +17,28 @@
                     <td>{{ $farmers->id }}</td>
                 </tr>
                 <tr>
-                    <th>farmer ID</th>
+                    <th>{{__('Farmer ID')}}</th>
                     <td>{{ $farmers->name }}</td>
                 </tr>
                 <tr>
-                    <th>Email </th>
+                    <th>{{__('Email')}}</th>
                     <td>{{ $farmers->email }}</td>
                 </tr>
                 <tr>
-                    <th>District</th>
+                    <th>{{__('District')}}</th>
                     <td>{{ $farmers->district }}</td>
                 </tr>
                 <tr>
-                    <th>Phone </th>
+                    <th>{{__('Phone')}}</th>
                     <td>{{ $farmers->phone }}</td>
                 </tr>
 
                 <tr>
-                    <th>Created At</th>
+                    <th>{{__('Created At')}}</th>
                     <td>{{ $farmers->created_at }}</td>
                 </tr>
                 <tr>
-                    <th>Updated At</th>
+                    <th>{{__('Updated At')}}</th>
                     <td>{{ $farmers->updated_at }}</td>
                 </tr>
             </table>
@@ -49,9 +49,9 @@
                 <form action="{{ route('farmers.destroy', $farmers->id) }}" method="POST" style="display: inline-block;">
                     @csrf
                     @method('DELETE')
-                    <a href="{{ route('farmers.edit', $farmers->id) }}" class="btn btn-warning">Edit</a>
-                    <button type="submit" class="btn btn-danger"onclick="return confirm('Are you sure you want to delete this Farm?')"">Delete</button>
-                    <a href="{{ route('farmers.index') }}" class="btn btn-secondary">Back to List</a>
+                    <a href="{{ route('farmers.edit', $farmers->id) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i>{{__('Edit')}}</a>
+                    <button type="submit" class="btn btn-danger"onclick="return confirm('Are you sure you want to delete this Farm?')"><i class="fa-solid fa-trash" ></i>{{__('Delete')}}</button>
+                    <a href="{{ route('farmers.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>{{__('Back to List')}}</a>
                 </form>
 
                 
