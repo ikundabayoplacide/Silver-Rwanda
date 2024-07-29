@@ -14,26 +14,31 @@
                 <div>
                 <label class="font-bold font-serif">{{__('First Name')}}</label>
                 <input type="text" name="name" id="name" class="flex w-80 h-3 p-4 rounded"> </br>
+              
                 </div>
                  <div>
                 <label class="font-bold font-serif">{{__('Email')}}</label>
                 <input type="email" name="email" id="email" class="flex w-80 h-3 p-4 rounded"> </br>
+               
                 </div>
                <div>
                 <label class="font-bold font-serif">{{__('Password')}}</label>
                 <input type="password" name="password" id="password" class="flex w-80 h-3 p-4 rounded"> </br>
+               
               </div>
                 <div>
                 <label class="font-bold font-serif">{{__('Address')}}</label>
                 <input type="text" name="address" id="address" class="flex w-80 h-3 p-4 rounded"> </br>
+              
                 </div>
                  <div>
                 <label class="font-bold font-serif">{{__('Phone')}}</label>
                 <input type="text" name="phone" id="phone" class="flex w-80 h-3 p-4 rounded"> </br>
+               
                 </div>
                 <div>
                 <label class="font-bold font-serif">{{__('Role')}}</label>
-                <select name="role" id="role" class="flex w-80 h-3 p-4 rounded ">
+                <select name="role" id="role" class="flex w-80 h-4 p-3 rounded ">
                     <option value="rab">{{__('Rab')}}</option>
                     <option value="sedo">Sedo</option>
                     <option value="naeb">{{__('NAEB')}}</option>
