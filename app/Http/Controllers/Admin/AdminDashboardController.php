@@ -20,15 +20,20 @@ class AdminDashboardController extends Controller
     public function dashboard(Request $request)
     {
 
-        $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')->get();
+        // $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')->get();
+        $data = [];
         $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
 
         // Fetch data based on the selected DEVICE_ID
         $selectedDeviceID = $request->input('device_id');
         if ($selectedDeviceID) {
-            $data_Devices = DeviceData::where('DEVICE_ID', $selectedDeviceID)
-                              ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
-                              ->get();
+            // $data_Devices = DeviceData::where('DEVICE_ID', $selectedDeviceID)
+            //                   ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
+            //                   ->get();
+
+            $data = DeviceData::where('DEVICE_ID', $selectedDeviceID)
+                ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
+                ->get();
 
             // Display the fetched data using dd
             // dd($data_Devices);
@@ -114,17 +119,35 @@ class AdminDashboardController extends Controller
         $femaleFarmersCount = Farmer::where('gender', 'female')->count();
         $maleFarmersCount = Farmer::where('gender', 'male')->count();
         $totalFarmerCount = $farmers->count();
-        $farmerCount=Farmer::count();
+        $farmerCount = Farmer::count();
 
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
 
-        return view('admin.dashboard', compact('chartData','data_Devices',
-        'farmerCount', 'femaleCount', 'maleCount',
-        'cooperativeCount', 'deviceCount', 'users',
-         'totalCount', 'genderData', 'weatherData',
-         'farmers','femaleFarmersCount','maleFarmersCount',
-         'totalFarmerCount','Farmerdata','selectedDeviceID','deviceIDs')
+
+        //data_Devices ignored for test purposes
+
+        return view(
+            'admin.dashboard',
+            compact(
+                'chartData',
+                'farmerCount',
+                'femaleCount',
+                'maleCount',
+                'cooperativeCount',
+                'deviceCount',
+                'users',
+                'totalCount',
+                'genderData',
+                'weatherData',
+                'farmers',
+                'femaleFarmersCount',
+                'maleFarmersCount',
+                'totalFarmerCount',
+                'Farmerdata',
+                'selectedDeviceID',
+                'deviceIDs'
+            )
         );
     }
 }
