@@ -124,30 +124,14 @@ class AdminDashboardController extends Controller
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
 
-
-        //data_Devices ignored for test purposes
-
-        return view(
-            'admin.dashboard',
-            compact(
-                'chartData',
-                'farmerCount',
-                'femaleCount',
-                'maleCount',
-                'cooperativeCount',
-                'deviceCount',
-                'users',
-                'totalCount',
-                'genderData',
-                'weatherData',
-                'farmers',
-                'femaleFarmersCount',
-                'maleFarmersCount',
-                'totalFarmerCount',
-                'Farmerdata',
-                'selectedDeviceID',
-                'deviceIDs'
-            )
+       //ignore variable called data_devices and functioncount
+       
+        return view('admin.dashboard', compact('chartData',
+        'farmerCount', 'femaleCount', 'maleCount',
+        'cooperativeCount', 'deviceCount', 'users',
+         'totalCount', 'genderData', 'weatherData','functionCount','nonFunctionCount','InStock','totalDeviceCount',
+         'farmers','femaleFarmersCount','maleFarmersCount',
+         'totalFarmerCount','Farmerdata','selectedDeviceID','deviceIDs')
         );
     }
 }

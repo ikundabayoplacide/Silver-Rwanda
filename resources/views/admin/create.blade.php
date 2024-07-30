@@ -53,12 +53,6 @@
             </div>
 
                <div>
-                <label class="font-bold font-serif text-xl">Gender</label>
-
-                    <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="male">Male
-                    <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="female">Female
-
-                </div>
                 <label class="font-bold font-serif text-xl">{{__('Gender')}}</label>
 
                     <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="male">{{__('Male')}}
