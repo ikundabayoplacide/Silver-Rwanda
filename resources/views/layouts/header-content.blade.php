@@ -39,12 +39,24 @@
       @else
       
       
-      <div class="d-flex align-items-center gap-4  mt-3">
+      <div class="d-flex align-items-center gap-4 mt-2">
+        <select id="languageSelect" class="form-select" aria-label="Default select example">
+          <option value="{{ route('user.lang', ['lang' => 'en']) }}" class="text-xl font-serif " {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+          <option value="{{ route('user.lang', ['lang' => 'kiny']) }}" class="text-xl font-serif" {{ app()->getLocale() == 'kiny' ? 'selected' : '' }}>Kinyarwanda</option>
+        </select>
+      </div>
+      
+      <script>
+        document.getElementById('languageSelect').addEventListener('change', function() {
+          var selectedValue = this.value;
+          if (selectedValue) {
+            window.location.href = selectedValue;
+          }
+        });
+      </script>
+      
 
-        <a href="{{ route('user.lang', ['lang' => 'en']) }}"> <p class="text-base font-serif">English</p></a>
 
-        <a href="{{ route('user.lang', ['lang' => 'kiny']) }}"><p class=" font-serif text-base">Kinyarwanda</p></a>
-  </div> 
       <li class="message">
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-chat-left-text text-3xl"></i>

@@ -79,6 +79,7 @@
         <span class="font-serif text-xl">{{__('User Profile Management')}}</span>
     </a>
   </li>
+
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#cooperative-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-menu-button-wide"></i><span class="font-serif text-xl">{{__('Cooperative Management')}}</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -96,6 +97,8 @@
       </li>
     </ul>
   </li>
+
+  
   <li class="nav-item">
     <a class="nav-link @if (Request::segment(1) != 'users') collapsed @endif" href="{{ route('users.index') }}">
       <i class="fa-solid fa-user-doctor"></i>
