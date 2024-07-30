@@ -17,12 +17,12 @@
               <li class="nav-item">
                 <a class="nav-link text-3xl" href="#">{{__('Team')}}</a>
               </li>
-      
+
               <li class="nav-item">
                 <a class="nav-link text-3xl" href="#">{{__('Services')}}</a>
               </li>
             </ul>
-            
+
             <form class="d-flex">
                 <div class="registration">
                   <button class="btn btn-success "><a href="{{ url('/login') }}">{{__('Login')}}</a></button>

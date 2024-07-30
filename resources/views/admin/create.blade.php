@@ -4,9 +4,9 @@
 @include('layouts.header-content')
 @include('layouts.aside')
 @section('content')
-  
+
         <div class="flex justify-center">
-        
+
             <form action= "{{ route('admin.register') }}" method="post" class="bg-slate-300 rounded p-40">
                 {!! csrf_field() !!}
                 <p class="text-center text-3xl font-serif text-red-500 underline" style="margin-bottom:30px">{{__('Register Form')}}</p>
@@ -61,9 +61,9 @@
                 </div> 
              </div> </br>
                 <input type="submit" value="Register" class="btn btn-success text-xl" >
-         
+
 
             </form>
-     
+
     </div>
 @stop
