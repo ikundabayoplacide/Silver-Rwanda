@@ -158,13 +158,13 @@ foreach ($data as $value) {
         $cooperativeCount = cooperative::count();
         $deviceCount = DeviceData::count();
         
-        return view('admin.dashboard', compact('chartData', 'deviceIDs','selectedDeviceID','data_Devices','Devices','functionCount','nonFunctionCount','InStock','totalDeviceCount',
-
-
-
-
-        'farmerCount', 'femaleCount', 'maleCount', 
-        'cooperativeCount', 'deviceCount', 'users', 'totalCount',
-         'genderData', 'weatherData','farmers','femaleFarmersCount','maleFarmersCount','totalFarmerCount','Farmerdata'));
+ 
+        return view('admin.dashboard', compact('chartData','data_Devices',
+        'farmerCount', 'femaleCount', 'maleCount',
+        'cooperativeCount', 'deviceCount', 'users',
+         'totalCount', 'genderData', 'weatherData','functionCount','nonFunctionCount','InStock','totalDeviceCount',
+         'farmers','femaleFarmersCount','maleFarmersCount',
+         'totalFarmerCount','Farmerdata','selectedDeviceID','deviceIDs')
+        );
     }
 }
