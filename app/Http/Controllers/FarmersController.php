@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace App\Http\Controllers;
 
@@ -50,7 +50,7 @@ class FarmersController extends Controller
         }
 
         // Send the notification
-        $farmer->notify(new NewFarmerNotification($farmer));
+        // $farmer->notify(new NewFarmerNotification($farmer));
 
         return redirect()->route('farmers.index')->with('success', 'Farmer created successfully');
     }

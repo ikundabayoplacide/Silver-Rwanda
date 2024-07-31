@@ -12,6 +12,8 @@ use App\Http\Controllers\cooperativeController;
 use App\Http\Controllers\DeviceDataController;
 use App\Http\Controllers\FarmersController;
 use App\Http\Controllers\HighChartController;
+use App\Http\Controllers\IrrigationController;
+
 
 Route::get('/', function () {
     return view('home.home');
@@ -38,7 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::put('/farmers/{farmers}', [FarmersController::class, 'update'])->name('farmers.update');
     Route::delete('farmers/{farmers}', [FarmersController::class, 'destroy'])->name('farmers.destroy');
     Route::get('farmers/{farmers}/edit', [FarmersController::class, 'edit'])->name('farmers.edit');
-  
+
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('clear_cookies');
     Route::get('/role/add', [RoleController::class, 'add'])->name('role.add');
@@ -47,7 +49,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('role/edit/{id}', [RoleController::class, 'update']);
     Route::get('role/list', [RoleController::class, 'list'])->name('role.list');
     Route::post('/role/add', [RoleController::class, 'store'])->name('role.store');
-    
+
     Route::get('device_data', [DeviceDataController::class, 'index'])->name('device_data.index');
     Route::get('device_data/create', [DeviceDataController::class, 'create'])->name('device_data.create');
     Route::post('device_data', [DeviceDataController::class, 'store'])->name('device_data.store');
@@ -56,11 +58,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('device_data/{device_data}', [DeviceDataController::class, 'destroy'])->name('device_data.destroy');
     Route::get('device_data/{device_data}/edit', [DeviceDataController::class, 'edit'])->name('device_data.edit');
     Route::post('device_data/toggle/{id}', [DeviceDataController::class, 'toggle'])->name('device_data.toggle');
-    
+
     Route::resource('cooperatives', cooperativeController::class);
     Route::get('/assign', [CooperativeController::class, 'showAssignForm'])->name('cooperatives.showAssignForm');
     Route::post('/cooperatives/assign', [CooperativeController::class, 'assignFarmerToCooperative'])->name('cooperatives.assign');
     Route::get('cooperative/assignment-details', [CooperativeController::class, 'showAssignmentDetails'])->name('cooperatives.showAssignmentDetails');
     Route::get('/testChart',[HighChartController::class,'visual']);
-}); 
+});
 
+
+Route::get('irrigation', [IrrigationController::class, 'index'])->name('irrigation.index');

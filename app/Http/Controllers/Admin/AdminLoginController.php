@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Farmer;
 use App\Models\cooperative;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -74,7 +75,7 @@ class AdminLoginController extends Controller
 
                 $response = Http::get('http://api.openweathermap.org/data/2.5/weather?q=kigali,rwanda&APPID=e6263ec92d5b5931d3b061765a52c466');
                 $weatherData = $response->json();
-                
+
                 // this is for Users
         $data = DB::table('users')->select(
             DB::raw('gender as gender'),
@@ -99,7 +100,7 @@ class AdminLoginController extends Controller
 
 
 
-        
+
         $data = DB::table('device_data')->select(
             DB::raw('device_state as device_state'),
             DB::raw('count(*) as number')
@@ -110,7 +111,7 @@ class AdminLoginController extends Controller
             'function' => 0,
             'non_function' => 0,
             'InStock'=>0,
-            
+
         ];
 
         foreach ($data as $value) {
@@ -134,7 +135,7 @@ class AdminLoginController extends Controller
                 $maleFarmersCount = Farmer::where('gender', 'male')->count();
                 $totalFarmerCount = $farmers->count();
                 $farmerCount=Farmer::count();
-                // device 
+                // device
                 $Devices=DeviceData::all();
                 $functionCount=DeviceData::where('device_state','1')->count();
                 $nonFunctionCount=DeviceData::where('device_state','2')->count();
@@ -161,10 +162,10 @@ public function logout(Request $request)
     {
         if (in_array($locale, config('app.available_locales'))) {
             session(['locale' => $locale]);
-            \Log::info('Locale changed to: ' . $locale);
+            Log::info('Locale changed to: ' . $locale);
         }
         return redirect()->back();
     }
-    
-    
+
+
 }

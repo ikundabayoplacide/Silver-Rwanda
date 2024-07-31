@@ -44,6 +44,7 @@ class DeviceDataController extends Controller
             'S_HUM' => 'required|numeric',
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
+            
         ]);
 
         $data = $request->all();
@@ -115,5 +116,3 @@ public function generateData()
 }
 
 }
-
- 

@@ -22,6 +22,7 @@ return new class extends Migration
                 $table->integer('S_TEMP');
                 $table->integer('A_TEMP');
                 $table->integer('A_HUM');
+                $table->integer('IRR_AMOUNT');
                 $table->timestamps();
                 $table->foreign('farmer_id')
                       ->references('id')
