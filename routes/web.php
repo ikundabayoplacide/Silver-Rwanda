@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('home.home');
 })->name('home');
 
+
 // Locale Change Route
 Route::get('/lang',[LanguageController::class , 'change'])->name('user.lang');
 

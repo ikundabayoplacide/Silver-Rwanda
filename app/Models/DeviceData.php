@@ -10,7 +10,7 @@ class DeviceData extends Model
     protected $table = "device_data";
     protected $primaryKey = "id";
     protected $fillable = [
-        'DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'farmer_id', 'device_state', 'on_off','IRR_AMOUNT',
+        'DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'farmer_id', 'device_state', 'on_off','PRED_AMOUNT',
     ];
 
     protected static function boot()

@@ -27,7 +27,7 @@ class DeviceDataController extends Controller
 
     public function visual()
     {
-        $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')->get();
+        $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM','PRED_AMOUNT', 'created_at')->get();
         return view('testchart', compact('data'));
     }
 
@@ -44,7 +44,7 @@ class DeviceDataController extends Controller
             'S_HUM' => 'required|numeric',
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
-            
+            'PRED_AMOUNT'=>'numeric'
         ]);
 
         $data = $request->all();
@@ -78,6 +78,8 @@ class DeviceDataController extends Controller
             'A_HUM' => 'required|numeric',
             'device_state' => 'required|integer',
             'on_off' => 'required|boolean',
+            'PRED_AMOUNT'=>'numeric'
+
         ]);
 
         $data = $request->all();

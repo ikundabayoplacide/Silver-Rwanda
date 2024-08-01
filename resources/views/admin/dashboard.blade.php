@@ -87,7 +87,7 @@
                 <h5 class="card-title">{{ __('Device') }} <span>{{ __('/Data Generations') }}</span></h5>
 
 
-                <div id="reportsChart">{{ __(' chart here') }}</div>
+                <div id="reportsChart">{{ __('Historical device data ') }}</div>
             </div>
         </div>
         <p class="text-2xl font-serif font-semibold text-red-800 m-6 text-center">{{ __('Other System Related Data:') }}
@@ -154,11 +154,27 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="prediction" style="background: aliceblue,padding:10px">
-                        <span style="color: orange"><h1><b>Irrigation Prediction Result</b></h1></span>
-                         <span><p>recent Data from device: [{{ implode(', ', $inputData) }}]</p></span>
-                         <span><p><strong>Predicted Irrigation Amount: {{ $predictedIrrigation }}</p></strong></span>
-                     </div>
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                               <tr>
+                                <th>sensor Measurement</th>
+                                <th>predicted water amount</th>
+                               </tr>
+
+                            </thead>
+                            <tbody>
+                                <td> [{{ implode(', ', $inputData) }}]</td>
+                                <td>{{ $predictedIrrigation }}</td>
+                            </tbody>
+                        </table>
+                        {{-- <h1 class="text-orange-500 text-3xl font-bold mb-4">Irrigation Prediction Result</h1>
+                        <p class="text-gray-700 text-lg mb-2">Recent Data from device(as input):
+                            [{{ implode(', ', $inputData) }}]</p>
+                        <p class="text-gray-900 text-xl font-semibold">Predicted Irrigation Amount:
+                            {{ $predictedIrrigation }}</p> --}}
+                    </div>
+
                 </div>
             </div>
 
@@ -175,9 +191,9 @@
         $(document).ready(function() {
             // Pie Chart for Users
             var ctx = document.getElementById('chart-pie').getContext('2d');
-            var femaleCount = {{ $femaleCount }};
-            var maleCount = {{ $maleCount }};
-            var totalCount = {{ $totalCount }};
+            var femaleCount = {{ $genderData['female'] }};
+            var maleCount = {{ $genderData['male'] }};
+            var totalCount = {{ $genderData['male'] + $genderData['female'] }};
             var dataPie = {
                 type: 'pie',
                 data: {
@@ -194,9 +210,9 @@
 
             // Pie Chart for Farmers
             var ctxFarmers = document.getElementById('chart-pieFarmer').getContext('2d');
-            var femaleFarmer = {{ $femaleFarmersCount }};
-            var maleFarmer = {{ $maleFarmersCount }};
-            var totalFarmerCount = {{ $totalFarmerCount }};
+            var femaleFarmer = {{ $genderData['female'] }};
+            var maleFarmer = {{ $genderData['male'] }};
+            var totalFarmerCount = {{ $genderData['male'] + $genderData['female'] }};
             var dataPieFarmer = {
                 type: "pie",
                 data: {
@@ -214,10 +230,10 @@
 
         $(document).ready(function() {
             var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
-            var FunctionDevice = {{ $functionCount }};
-            var nonFunctionDevice = {{ $nonFunctionCount }};
-            var InStock = {{ $InStock }};
-            var TotalDevice = {{ $totalDeviceCount }};
+            var FunctionDevice = {{ $deviceStateData['function'] }};
+            var nonFunctionDevice = {{ $deviceStateData['non_function'] }};
+            var InStock = {{ $deviceStateData['InStock'] }};
+            var TotalDevice = {{ $deviceCount }};
             var dataPieDevice = {
                 type: "pie",
                 data: {
@@ -241,6 +257,7 @@
         // Line Chart
 
         var chartData = @json($chartData);
+
         var timestamps = chartData.map(function(item) {
             return item.date;
         });
@@ -256,6 +273,9 @@
         var aHumData = chartData.map(function(item) {
             return item.A_HUM;
         });
+        var predHumData = chartData.map(function(item) {
+            return item.PRED_AMOUNT;
+        });
 
         var options = {
             series: [{
@@ -270,6 +290,9 @@
             }, {
                 name: 'Air Humidity',
                 data: aHumData
+            },{
+                name:'Prediction amount',
+                data:predHumData
             }],
             chart: {
                 height: 350,
@@ -281,7 +304,7 @@
             markers: {
                 size: 4
             },
-            colors: ['#4154f1', '#2eca6a', '#ffc107', '#B91C1C'],
+            colors: ['#4154f1', '#2eca6a', '#ffc107', '#B91C1C','#000'],
             fill: {
                 type: "gradient",
                 gradient: {
