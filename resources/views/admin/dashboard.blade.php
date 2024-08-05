@@ -310,7 +310,7 @@
                 gradient: {
                     shadeIntensity: 1,
                     opacityFrom: 0.3,
-                    opacityTo: 0.4,
+                    opacityTo: 1,//0.4
                     stops: [0, 90, 100]
                 }
             },
@@ -319,7 +319,7 @@
             },
             stroke: {
                 curve: 'smooth',
-                width: 2
+                width: 4
             },
             xaxis: {
                 type: 'datetime',

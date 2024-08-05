@@ -39,6 +39,8 @@ class AdminDashboardController extends Controller
         $farmerGenderData = $this->fetchGenderData('farmers');
         $deviceStateData = $this->fetchDeviceStateData();
 
+        // dd('deviceStateData',$deviceStateData);
+
         $users = User::all();
         $farmers = Farmer::all();
         $devices = DeviceData::all();
@@ -130,16 +132,35 @@ class AdminDashboardController extends Controller
 
     private function fetchDeviceStateData()
     {
-        return DB::table('device_data')->select(
+        $data = DB::table('device_data')->select(
             DB::raw('device_state as device_state'),
             DB::raw('count(*) as number')
-        )->groupBy('device_state')
-            ->get()
-            ->reduce(function ($carry, $item) {
-                $carry[$item->device_state] = $item->number;
-                return $carry;
-            }, ['function' => 0, 'non_function' => 0, 'InStock' => 0]);
+        )
+        ->groupBy('device_state')
+        ->get();
+
+        $Devicedata = [
+            'function' => 0,
+            'non_function' => 0,
+            'InStock' => 0,
+        ];
+
+        // dd($data);
+
+        foreach ($data as $value) {
+            // dd($value);
+            if (strtolower($value->device_state) == 1) {
+                $Devicedata['function'] = $value->number;
+            } elseif (strtolower($value->device_state) == 3) {
+                $Devicedata['non_function'] = $value->number;
+            } elseif (strtolower($value->device_state) == 2) {
+                $Devicedata['InStock'] = $value->number;
+            }
+        }
+
+        return $Devicedata;
     }
+
 
     private function updatePredictedIrrigation()
     {
