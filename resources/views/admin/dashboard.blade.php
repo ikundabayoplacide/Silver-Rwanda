@@ -165,7 +165,7 @@
                             </thead>
                             <tbody>
                                 <td> [{{ implode(', ', $inputData) }}]</td>
-                                <td>{{ $predictedIrrigation }}</td>
+                                <td>{{ $predictedIrrigation }} ltr</td>
                             </tbody>
                         </table>
                         {{-- <h1 class="text-orange-500 text-3xl font-bold mb-4">Irrigation Prediction Result</h1>
@@ -279,19 +279,19 @@
 
         var options = {
             series: [{
-                name: 'Soil Temperature',
+                name: 'Soil Temperature(°C)',
                 data: sTempData
             }, {
-                name: 'Soil Humidity',
+                name: 'Soil Humidity(°C)',
                 data: sHumData
             }, {
-                name: 'Air Temperature',
+                name: 'Air Temperature(°C)',
                 data: aTempData
             }, {
-                name: 'Air Humidity',
+                name: 'Air Humidity(°C)',
                 data: aHumData
             },{
-                name:'Prediction amount',
+                name:'Prediction amount (ltr)',
                 data:predHumData
             }],
             chart: {

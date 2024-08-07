@@ -6,6 +6,9 @@ use App\Jobs\GenerateDeviceDataJob;
 use App\Models\DeviceData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\DeviceDataExport;
 
 class DeviceDataController extends Controller
 {
@@ -23,6 +26,33 @@ class DeviceDataController extends Controller
             }
         }
         return view('device_data.index', compact('data'));
+    }
+
+
+    public function display(Request $request)
+    {
+        $data = DeviceData::all();
+
+        if ($request->has('download')) {
+            if ($request->get('download') === 'pdf') {
+                return $this->downloadPdf($data);
+            } elseif ($request->get('download') === 'excel') {
+                return $this->downloadExcel($data);
+            }
+        }
+
+        return view('device_data.visualizeData', compact('data'));
+    }
+
+    protected function downloadPdf($data)
+    {
+        $pdf = Pdf::loadView('device_data.pdf', compact('data'));
+        return $pdf->download('device_data.pdf');
+    }
+
+    protected function downloadExcel($data)
+    {
+        return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
     }
 
     public function visual()

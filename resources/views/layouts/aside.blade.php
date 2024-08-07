@@ -19,8 +19,8 @@
               <i class="bi bi-circle"></i><span class="font-serif text-xl">Alerts</span>
             </a>
           </li>
-          
-         
+
+
         </ul>
       </li><!-- End Components Nav --> --}}
 
@@ -68,6 +68,12 @@
     </a>
   </li>
   <li class="nav-item">
+    <a class="nav-link @if (Request::segment(1) != 'device_data') collapsed @endif" href="{{url('tabular')}}">
+      <i class="fa-solid fa-camera-retro"></i>
+        <span class="font-serif text-xl">{{__('Visualization of Data')}}</span>
+    </a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link @if (Request::segment(1) != 'farmers') collapsed @endif" href="{{url('farmers/index')}}">
       <i class="fa-solid fa-camera-retro"></i>
         <span class="font-serif text-xl">{{__('Farmer Management')}}</span>
@@ -98,7 +104,7 @@
     </ul>
   </li>
 
-  
+
   <li class="nav-item">
     <a class="nav-link @if (Request::segment(1) != 'users') collapsed @endif" href="{{ route('users.index') }}">
       <i class="fa-solid fa-user-doctor"></i>

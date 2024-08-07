@@ -52,6 +52,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/role/add', [RoleController::class, 'store'])->name('role.store');
 
     Route::get('device_data', [DeviceDataController::class, 'index'])->name('device_data.index');
+    Route::get('tabular', [DeviceDataController::class, 'display'])->name('device_data.visualizeData');
+
+   Route::get('/device-data/display', [DeviceDataController::class, 'display'])->name('device_data.display');
+
     Route::get('device_data/create', [DeviceDataController::class, 'create'])->name('device_data.create');
     Route::post('device_data', [DeviceDataController::class, 'store'])->name('device_data.store');
     Route::get('/device_data/{device_data}', [DeviceDataController::class, 'show'])->name('device_data.show');
