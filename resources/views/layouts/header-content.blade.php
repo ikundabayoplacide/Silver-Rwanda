@@ -15,11 +15,7 @@
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
   </div>
-{{-- <div class="btn-group" role="group" aria-label="Basic example">
-  <a href="{{route('locale',['locale'=>'eng'])}}" type="button" class="btn btn-primary {{Session::get('locale')=='eng'?'active':''}}">English</a>
-  <a href="{{route('locale',['locale'=>'fr'])}}" type="button" class="btn btn-primary {{Session::get('locale')=='fr'? 'active':''}}" > French</a>
-  <a href="{{route('locale',['locale'=>'kiny'])}}" type="button" class="btn btn-primary {{Session::get('locale')=='kiny'?'active':''}}">Kinyarwanda</a>
-</div> --}}
+
 <nav class="ms-auto">
     
     <ul class="navbar-nav d-flex flex-row align-items-center  gap-3 pe-4 ">

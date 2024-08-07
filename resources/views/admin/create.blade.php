@@ -13,7 +13,7 @@
                <div class="grid grid-cols-2 gap-4">
                 <div>
                 <label class="font-bold font-serif">{{__('First Name')}}</label>
-                <input type="text" name="name" id="name" class="flex w-80 h-3 p-4 rounded"> </br>
+                <input type="text" name="name" id="name" class="flex w-80 h-3 p-2 rounded"> </br>
               
                 </div>
                  <div>
