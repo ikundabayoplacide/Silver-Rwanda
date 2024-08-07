@@ -19,22 +19,22 @@
                  <div>
                 <label class="font-bold font-serif">{{__('Email')}}</label>
                 <input type="email" name="email" id="email" class="flex w-80 h-3 p-4 rounded"> </br>
-               
+
                 </div>
                <div>
                 <label class="font-bold font-serif">{{__('Password')}}</label>
                 <input type="password" name="password" id="password" class="flex w-80 h-3 p-4 rounded"> </br>
-               
+
               </div>
                 <div>
                 <label class="font-bold font-serif">{{__('Address')}}</label>
                 <input type="text" name="address" id="address" class="flex w-80 h-3 p-4 rounded"> </br>
-              
+
                 </div>
                  <div>
                 <label class="font-bold font-serif">{{__('Phone')}}</label>
                 <input type="text" name="phone" id="phone" class="flex w-80 h-3 p-4 rounded"> </br>
-               
+
                 </div>
                 <div>
                 <label class="font-bold font-serif">{{__('Role')}}</label>
@@ -46,19 +46,19 @@
                     <option value="sector_agronome">{{__('Sector Agronome')}}</option>
                     <option value="district_agronome">{{__('District Agronome')}}</option>
                     <option value="self-farmer" >{{__('Self Farmer')}}</option>
-    
+
                 </select> </br>
-                
-                  
+
+
             </div>
-          
+
                <div>
                 <label class="font-bold font-serif text-xl">{{__('Gender')}}</label>
-              
+
                     <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="male">{{__('Male')}}
                     <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="female">{{__('Female')}}
-                 
-                </div> 
+
+                </div>
              </div> </br>
                 <input type="submit" value="Register" class="btn btn-success text-xl" >
 

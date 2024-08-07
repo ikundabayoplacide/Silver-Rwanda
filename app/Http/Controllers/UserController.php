@@ -1,36 +1,38 @@
-<?php
+<?
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 use Spatie\Permission\Models\Role;
-
+use App\Notifications\NewUserNotification; // Import the notification class use
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class UserController extends Controller
 {
     use ValidatesRequests;
-
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $users = User::paginate(10); // Default to 10 per page if not specified
         return view("users.index", compact("users"));
     }
-
-    public function create(){
+    public function create()
+    {
         $roles = Role::pluck("name", "name")->all();
         return view("users.create", compact("roles"));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required',
-            'gender'=>'required',
-
+            'gender' => 'required',
         ]);
 
         $input = $request->all();
@@ -38,7 +40,10 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-        
+
+        // Send the notification
+        $user->notify(new NewUserNotification($user));
+
         return redirect()->route('users.index')
             ->with('success', 'User created successfully');
     }
@@ -48,9 +53,9 @@ class UserController extends Controller
         $user = User::find($id);
         return view('users.show', compact('user'));
     }
-    
 
-    public function edit($id){
+    public function edit($id)
+    {
         $user = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles()->pluck('name', 'name')->all();
@@ -60,7 +65,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         // Log or debug here
-        \Log::info('Update method called');
+        Log::info('Update method called');
 
         // Validate incoming request data
         $this->validate($request, [
@@ -74,7 +79,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Log the request data
-        \Log::info('Request data: ', $request->all());
+        Log::info('Request data: ', $request->all());
 
         // Update user attributes
         $user->name = $request->input('name');
@@ -86,16 +91,23 @@ class UserController extends Controller
         $user->save();
 
         // Log success message
-        \Log::info('User updated successfully');
+        Log::info('User updated successfully');
 
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
     }
-    
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         User::find($id)->delete();
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
+    }
+
+    public function notifications(Request $request)
+    {
+        $notifications = $request->user()->notifications;
+
+        return view('notifications.index', compact('notifications'));
     }
 }

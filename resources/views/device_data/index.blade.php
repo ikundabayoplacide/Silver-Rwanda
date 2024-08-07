@@ -21,8 +21,8 @@
                             <th class="border">{{ __('Sensor Humidity') }}</th>
                             <th class="border">{{ __('Ambient Temperature') }}</th>
                             <th class="border">{{ __('Ambient Humidity') }}</th>
-                            <th class="border">{{ __('Action') }}</th>
-                            <th class="border">{{ __('ON/OFF') }}</th>
+                            {{-- <th class="border">{{ __('Prediction Irrigation amount') }}</th> --}}
+                            {{-- <th class="border">{{ __('ON/OFF') }}</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +33,8 @@
                                 <td class="border">{{ $device_data->S_HUM }}</td>
                                 <td class="border">{{ $device_data->A_TEMP }}</td>
                                 <td class="border">{{ $device_data->A_HUM }}</td>
-                                <td class="border">
+                                {{-- <td class="border">{{ $device_data->PRED_AMOUNT }}</td> --}}
+                                {{-- <td class="border">
                                     <a href="{{ route('device_data.show', ['device_data' => $device_data->id]) }}"
                                         class="btn btn-info btn-sm"><i class="fa fa-eye"
                                             aria-hidden="true"></i>{{__('View') }}</a>
@@ -49,8 +50,8 @@
                                             <i class="fa-solid fa-trash-can"></i> {{__('Delete') }}</button>
                                     </form>
 
-                                </td>
-                                <td class="border">
+                                </td> --}}
+                                {{-- <td class="border">
                                     <form action="{{ route('device_data.toggle', $device_data->id) }}" method="POST">
                                         @csrf
                                         <button type="submit"
@@ -58,6 +59,9 @@
                                             {{ $device_data->device_state == 1 ? ' Activated' : 'Inactive' }}
                                         </button>
                                     </form>
+                                </td> --}}
+                                <td>
+                                    -
                                 </td>
                             </tr>
                         @endforeach
