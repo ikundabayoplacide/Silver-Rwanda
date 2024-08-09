@@ -34,6 +34,9 @@ Route::post('admin/check', [AdminLoginController::class, 'admincheck'])->name('a
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::get('/search',[UserController::class,'search']);
+    Route::get('/searches',[RoleController::class,'searches']);
+    Route::get('/search',[FarmersController::class,'search']);
     Route::get('farmers/index', [FarmersController::class, 'index'])->name('farmers.index');
     Route::get('farmers/create', [FarmersController::class, 'create'])->name('farmers.register');
     Route::post('farmers', [FarmersController::class, 'store'])->name('farmers.store');
@@ -63,6 +66,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('device_data/{device_data}', [DeviceDataController::class, 'destroy'])->name('device_data.destroy');
     Route::get('device_data/{device_data}/edit', [DeviceDataController::class, 'edit'])->name('device_data.edit');
     Route::post('device_data/toggle/{id}', [DeviceDataController::class, 'toggle'])->name('device_data.toggle');
+    Route::get('tabular', [DeviceDataController::class, 'display'])->name('device_data.visualizeData');
 
     Route::resource('cooperatives', cooperativeController::class);
     Route::get('/assign', [CooperativeController::class, 'showAssignForm'])->name('cooperatives.showAssignForm');

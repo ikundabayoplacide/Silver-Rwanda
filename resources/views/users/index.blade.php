@@ -1,16 +1,29 @@
 @extends('layouts.layout')
 @section('content')
-@include('layouts.head-part')
-@include('layouts.header-content')
-@include('layouts.aside')
+    @include('layouts.head-part')
+    @include('layouts.header-content')
+    @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
-    <h1 class="text-2xl mb-2 font-serif font-semibold underline">{{__('List Of All Users')}}</h1>
-    <div class="pull-right">
+    <h1 class="text-2xl mb-2 font-serif font-semibold text-center">{{__('List Of All Users')}}</h1>
+    <div class="row py-2">
+    <div class="col-md-8">
         @can('create-user')
-        <a class="btn btn-success btn-sm mb-2 float-end" href="{{ route('admin.register') }}">
+        <a class="btn btn-success btn-sm mb-2 float-start" href="{{ route('admin.register') }}">
             <i class="fa fa-plus"></i>{{__('Create New User')}}
         </a>
         @endcan
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <form action="/search" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="search...." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
     </div>
     <table class="table table-bordered">
         <thead>
@@ -18,7 +31,7 @@
                 <th>#</th>
                 <th>{{__('Name')}}</th>
                 <th>{{__('Email')}}</th>
-                <th>{{__('Role')}}</th>
+                <th>{{__('Role')}}</th> 
                 <th>{{__('Address')}}</th>
                 <th>{{__('Mobile')}}</th>
                 <th>{{__('Action')}}</th>
@@ -30,7 +43,16 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->email }}</td>
-                    <td>{{ $item->role }}</td>
+                    
+                    <!-- Fix the role display here -->
+                    <td>
+                        @if($item->roles->isNotEmpty())
+                            {{ implode(', ', $item->roles->pluck('name')->toArray()) }}
+                        @else
+                            {{ __('No Role') }}
+                        @endif
+                    </td>
+
                     <td>{{ $item->address }}</td>
                     <td>{{ $item->phone }}</td>
                     <td>
@@ -60,7 +82,8 @@
             @endforeach
         </tbody>
     </table>
-    {!! $users->links('pagination::bootstrap-5') !!}
+    {!! $users->appends(['search' => request('search')])->links('pagination::bootstrap-5') !!}
+
 </main>
 @endsection
 

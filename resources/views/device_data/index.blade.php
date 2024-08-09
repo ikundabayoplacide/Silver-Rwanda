@@ -60,16 +60,16 @@
                                         </button>
                                     </form>
                                 </td> --}}
-                                <td>
-                                    -
-                                </td>
+                               
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {!! $data->links('pagination::bootstrap-5') !!}
             @endif
         </section>
     </main>
+ 
     @include('layouts.footer')
     @include('layouts.script')
 @endsection

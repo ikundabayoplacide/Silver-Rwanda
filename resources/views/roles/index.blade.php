@@ -4,19 +4,29 @@
     @include('layouts.header-content')
     @include('layouts.aside')
     <main id="main" class="main">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-
-                <h2 class="text-2xl font-serif font-semibold underline">{{ __('Role Management') }}</h2>
-
-                <div class="flex float-end">
+        <h2 class="text-2xl font-serif font-semibold text-center">{{ __('Role Management') }}</h2>
+        <div class="row py-2">
+            <div class="col-md-8">
+                
                     @can('role-create')
-                        <a class="btn btn-success btn-sm mb-3 text-xl" href="{{ route('roles.create') }}"><i
+                        <a class="btn btn-success btn-sm mb-3 text-md" href="{{ route('roles.create') }}"><i
                                 class="fa fa-plus"></i> {{ __('Create New Role') }}</a>
                     @endcan
+           
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <form action="/searches" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="search...." value="{{ request('search') }}">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>
+    
 
         @if (session('success'))
             <div class="alert alert-success" role="alert">
@@ -30,6 +40,8 @@
                 <th>{{ __('Name') }}</th>
                 <th width="280px">{{ __('Action') }}</th>
             </tr>
+            @php $i = ($roles->currentPage() - 1) * $roles->perPage(); @endphp
+
             @foreach ($roles as $key => $role)
                 <tr>
                     <td>{{ ++$i }}</td>

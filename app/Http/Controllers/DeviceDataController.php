@@ -15,6 +15,8 @@ class DeviceDataController extends Controller
     public function index(Request $request)
     {
         $data = DeviceData::all();
+        $data = DeviceData::paginate(10);
+        
         if ($request->isMethod('post')) {
             $deviceId = $request->get('device_id');
             $deviceData = DeviceData::find($deviceId);
@@ -32,7 +34,7 @@ class DeviceDataController extends Controller
     public function display(Request $request)
     {
         $data = DeviceData::all();
-
+        $data = DeviceData::paginate(10);
         if ($request->has('download')) {
             if ($request->get('download') === 'pdf') {
                 return $this->downloadPdf($data);
@@ -148,3 +150,5 @@ public function generateData()
 }
 
 }
+
+

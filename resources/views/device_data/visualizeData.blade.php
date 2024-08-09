@@ -46,6 +46,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {!! $data->links('pagination::bootstrap-5')!!}
             @endif
         </section>
     </main>

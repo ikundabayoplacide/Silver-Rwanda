@@ -11,11 +11,23 @@ use App\Notifications\NewFarmerNotification; // Import the
 class FarmersController extends Controller
 {
     public function index()
-    {
-        $farmers = Farmer::orderBy('id', 'asc')->paginate(10);
+    {  
+        // $farmers=Farmer::all();
+         $farmers= Farmer::paginate(10);
+
         return view('farmers.index', compact('farmers'));
     }
+   public function search(Request $request){
+    $search=$request->search;
+    $farmers=Farmer::where(function($query) use ($search){
+        $query->where('name','like',"%$search%")
+                ->orWhere('email','like',"%$search%");
+    })->paginate(10);
 
+    return view('farmers.index',compact('farmers','search'));
+   
+
+   }
     public function create(Request $request)
     {
         $devices = DeviceData::all();

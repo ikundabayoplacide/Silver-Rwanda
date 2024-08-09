@@ -68,7 +68,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link @if (Request::segment(1) != 'device_data') collapsed @endif" href="{{url('tabular')}}">
+    <a class="nav-link @if (Request::segment(1) != 'tabular') collapsed @endif" href="{{url('tabular')}}">
       <i class="fa-solid fa-camera-retro"></i>
         <span class="font-serif text-xl">{{__('Visualization of Data')}}</span>
     </a>
