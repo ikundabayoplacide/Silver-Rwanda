@@ -34,10 +34,31 @@ class DeviceDataController extends Controller
         $data = DeviceData::all();
 
         if ($request->has('download')) {
-            if ($request->get('download') === 'pdf') {
-                return $this->downloadPdf($data);
-            } elseif ($request->get('download') === 'excel') {
-                return $this->downloadExcel($data);
+            $format = $request->get('download');
+
+            if ($format === 'pdf') {
+                // Generate PDF
+                $pdf = Pdf::loadView('device_data.pdf', ['data' => $data]);
+                return $pdf->download('device_data.pdf');
+            } elseif ($format === 'excel') {
+                // Generate Excel
+                return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
+            } elseif ($format === 'csv') {
+                // Return CSV data
+                $csvData = $data->map(function ($item) {
+                    return implode(',', [
+                        $item->DEVICE_ID,
+                        $item->S_TEMP,
+                        $item->S_HUM,
+                        $item->A_TEMP,
+                        $item->A_HUM,
+                        $item->PRED_AMOUNT
+                    ]);
+                })->implode("\n");
+
+                return response($csvData)
+                    ->header('Content-Type', 'text/csv')
+                    ->header('Content-Disposition', 'attachment; filename="device_data.csv"');
             }
         }
 
