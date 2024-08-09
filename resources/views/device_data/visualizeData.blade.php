@@ -8,14 +8,46 @@
 
     <main id="main" class="main">
         <p class="text-2xl font-serif font-semibold text-center">{{ __('Visualization of Data') }}</p>
-        <div class="mb-4">
-            <a href="{{ route('device_data.display', ['download' => 'pdf']) }}" class="btn btn-primary" style="background-color: rgb(193, 5, 5)" >
-                <i class="fas fa-file-pdf"></i> Download PDF
+        <div class="mb-4 flex space-x-4">
+            <a href="{{ route('device_data.display', ['download' => 'pdf']) }}" class="btn btn-danger flex items-center space-x-2">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF</span>
             </a>
-            <a href="{{ route('device_data.display', ['download' => 'excel']) }}" class="btn btn-secondary" style="background-color: rgb(6, 125, 3)">
-                <i class="fas fa-file-excel"></i> Download Excel
+            <a href="{{ route('device_data.display', ['download' => 'excel']) }}" class="btn btn-success flex items-center space-x-2">
+                <i class="fas fa-file-excel"></i>
+                <span>Excel</span>
             </a>
+            <a href="{{ route('device_data.display', ['download' => 'csv']) }}" class="btn btn-info flex items-center space-x-2">
+                <i class="fas fa-file-csv"></i>
+                <span>CSV</span>
+            </a>
+            <button id="copy-csv" class="btn btn-gray">
+                <i class="fa fa-copy"></i> Copy
+            </button>
         </div>
+
+        <script>
+            document.getElementById('copy-csv').addEventListener('click', function() {
+                fetch('{{ route('device_data.display', ['download' => 'csv']) }}')
+                    .then(response => response.text())
+                    .then(data => {
+                        // Create a temporary textarea element to hold the CSV data
+                        let textarea = document.createElement('textarea');
+                        textarea.value = data;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+
+                        // Notify the user
+                        alert('CSV data copied to clipboard!');
+                    })
+                    .catch(error => {
+                        console.error('Error copying CSV data:', error);
+                    });
+            });
+            </script>
+
 
         <section class="section">
             @if ($data->isEmpty())
