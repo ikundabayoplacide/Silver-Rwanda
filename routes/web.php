@@ -34,7 +34,7 @@ Route::post('admin/check', [AdminLoginController::class, 'admincheck'])->name('a
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::get('/search',[UserController::class,'search']);
+    Route::get('/searching',[UserController::class,'searching']);
     Route::get('/searches',[RoleController::class,'searches']);
     Route::get('/search',[FarmersController::class,'search']);
     Route::get('farmers/index', [FarmersController::class, 'index'])->name('farmers.index');
@@ -56,9 +56,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('device_data', [DeviceDataController::class, 'index'])->name('device_data.index');
     Route::get('tabular', [DeviceDataController::class, 'display'])->name('device_data.visualizeData');
-
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/download', [UserController::class, 'display'])->name('users.download');
+    
    Route::get('/device-data/display', [DeviceDataController::class, 'display'])->name('device_data.display');
-
+  Route::get('/users/display',[UserController::class,'display'])->name('users.display');
     Route::get('device_data/create', [DeviceDataController::class, 'create'])->name('device_data.create');
     Route::post('device_data', [DeviceDataController::class, 'store'])->name('device_data.store');
     Route::get('/device_data/{device_data}', [DeviceDataController::class, 'show'])->name('device_data.show');
