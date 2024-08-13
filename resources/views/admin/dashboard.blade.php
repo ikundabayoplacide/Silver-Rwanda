@@ -241,7 +241,8 @@
                         TotalDevice + ")", "Device In Stock(" + InStock + "/" + TotalDevice + ")"
                     ],
                     datasets: [{
-                        data: [FunctionDevice, nonFunctionDevice, InStock],
+                        // data: [FunctionDevice, nonFunctionDevice, InStock],
+                        data: [4, 5, 10],
                         backgroundColor: [
                             " rgba(4, 120, 87)",
                             "rgba(255, 193, 7, 1)",
