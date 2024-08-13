@@ -15,8 +15,13 @@ class DeviceDataController extends Controller
     public function index(Request $request)
     {
         $data = DeviceData::all();
-        $data = DeviceData::paginate(10);
-        
+          $data = DeviceData::paginate(10);
+        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
+        $selectedDeviceID = $request->input('device_id');
+        $data = $this->fetchDeviceData($selectedDeviceID);
+
+
+
         if ($request->isMethod('post')) {
             $deviceId = $request->get('device_id');
             $deviceData = DeviceData::find($deviceId);
@@ -27,7 +32,18 @@ class DeviceDataController extends Controller
                 $deviceData->save();
             }
         }
-        return view('device_data.index', compact('data'));
+        return view('device_data.index',
+         compact('data',
+         'deviceIDs',
+         'selectedDeviceID'
+        ));
+    }
+
+    private function fetchDeviceData($selectedDeviceID)
+    {
+        return $selectedDeviceID ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
+            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
+            ->get() : collect([]);
     }
 
 
@@ -171,6 +187,14 @@ public function generateData()
     return response()->json(['message' => 'Device data generation job dispatched successfully.']);
 }
 
+public function showByDeviceId($device_id)
+{
+    // Fetching device data for the selected device_id
+    $data = DeviceData::where('Device_ID', $device_id)->get();
+
+    // Pass the data to the view
+    return view('device_data.index', compact('data', 'device_id'));
 }
 
 
+}

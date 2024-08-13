@@ -41,6 +41,11 @@ class AdminDashboardController extends Controller
         $farmerGenderData = $this->fetchGenderData('farmers');
         $deviceStateData = $this->fetchDeviceStateData();
 
+
+
+        // dd($deviceStateData);
+
+
         $users = User::all();
         $farmers = Farmer::all();
         $devices = DeviceData::all();

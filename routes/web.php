@@ -77,32 +77,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/testChart',[HighChartController::class,'visual']);
 });
 
-
-// Route::get('irrigation', [IrrigationController::class, 'index'])->name('irrigation.index');
-
-// use Illuminate\Http\Request;
-
-// Route::get('/sse', function (Request $request) {
-//     return response()->stream(function () {
-//         while (true) {
-//             // Fetch the latest data from the database
-//             $data = \App\Models\DeviceData::latest()->first();
-
-//             // Send data to the client
-//             echo "data: " . json_encode($data) . "\n\n";
-
-//             // Flush the output buffer
-//             ob_flush();
-//             flush();
-
-//             // Sleep for a few seconds before sending the next update
-//             sleep(5);
-//         }
-//     }, 200, [
-//         'Content-Type' => 'text/event-stream',
-//         'Cache-Control' => 'no-cache',
-//         'Connection' => 'keep-alive',
-//     ]);
-// });
-
 Route::get('/sse', [App\Http\Controllers\SSEController::class, 'stream']);
+
+
+Route::get('/device-data/{device_id}', [DeviceDataController::class, 'showByDeviceId'])->name('device_data.showByDeviceId');

@@ -9,6 +9,26 @@
     <main id="main" class="main">
         <p class="text-2xl font-serif font-semibold text-center">{{ __('Device Data List') }}</p>
         <a href="{{ route('device_data.create') }}" class="btn btn-success mb-3">{{ __('Create New Device Data') }}</a>
+
+        <div class="form-group">
+            <form action="{{ route('device_data.index') }}" method="GET">
+                <div class="form-group">
+                    <label for="device_id">{{ __('Select Device:') }}</label>
+                    <select name="device_id" id="device_id" class="form-control">
+                        <option value="">{{ __('--Select Device--') }}</option>
+                        @foreach ($deviceIDs as $deviceID)
+                            <option value="{{ $deviceID }}"
+                                {{ $selectedDeviceID == $deviceID ? 'selected' : '' }}>
+                                {{ $deviceID }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">{{ __('Submit') }}</button>
+            </form>
+
+        </div>
         <section class="section">
             @if ($data->isEmpty())
                 <p>{{ __('No device data found.') }}</p>
@@ -60,12 +80,11 @@
                                         </button>
                                     </form>
                                 </td> --}}
-                               
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                {!! $data->links('pagination::bootstrap-5') !!}
+                {{-- {!! $data->links('pagination::bootstrap-5') !!} --}}
             @endif
         </section>
     </main>
