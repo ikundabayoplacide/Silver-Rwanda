@@ -8,7 +8,7 @@
 
     <main id="main" class="main">
         <p class="text-2xl font-serif font-semibold text-center">{{ __('Visualization of Data') }}</p>
-        <div class="mb-4 flex space-x-4">
+        <div class="mb-4 flex space-x-4 gap-3 float-end">
             <a href="{{ route('device_data.display', ['download' => 'pdf']) }}" class="btn btn-danger flex items-center space-x-2">
                 <i class="fas fa-file-pdf"></i>
                 <span>PDF</span>

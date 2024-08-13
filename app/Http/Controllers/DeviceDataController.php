@@ -76,6 +76,7 @@ class DeviceDataController extends Controller
     protected function downloadExcel($data)
     {
         return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
+
     }
 
     public function visual()

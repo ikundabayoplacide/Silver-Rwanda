@@ -83,7 +83,7 @@
         </tbody>
     </table>
 
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center float-end">
         <div>
             <a href="{{ route('users.download', ['download' => 'pdf']) }}" class="btn btn-primary">Download PDF</a>
             <a href="{{ route('users.download', ['download' => 'excel']) }}" class="btn btn-success">Download Excel</a>

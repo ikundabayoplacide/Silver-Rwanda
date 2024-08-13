@@ -6,7 +6,7 @@
 @include('layouts.aside')
 <main id="main" class="main" style="height: 80vh">
     <div class="container">
-        <h1>{{__('Assignment Details')}}</h1>
+        <h1 class="text-2xl font-serif font-semibold my-4">{{__('Assignment Details')}}</h1>
 
         <!-- Display Success Message if exists -->
         @if(session('success'))
@@ -26,12 +26,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($details as $data) {
+                    @foreach($details as $data) 
                     <tr>
                         <td>{{ $data['member_name'] }}</td>
                         <td>{{ $data['cooperative_name'] }}</td>
                         <td>{{ $data['location'] }}</td>
-                    </tr>}
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -43,5 +43,5 @@
         <a href="{{ route('cooperatives.showAssignForm') }}" class="btn btn-primary mt-4">{{__('Assign Another Farmer')}}</a>
     </div>
 </main>
-@include('layouts.footer')
+
 @include('layouts.script')
