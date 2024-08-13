@@ -26,6 +26,7 @@ class GenerateDeviceDataJob implements ShouldQueue
             'A_TEMP' => rand(10, 70),
             'A_HUM' => rand(10, 70),
             'farmer_id' => rand(1, 10),
+            'PRED_AMOUNT'=> rand(1, 10),
         ];
 
         $validator = Validator::make($data, [
@@ -35,6 +36,7 @@ class GenerateDeviceDataJob implements ShouldQueue
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
             'farmer_id' => 'required|integer',
+            'PRED_AMOUNT'=>'required|numeric'
         ]);
 
         if ($validator->fails()) {

@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Exception;
+use Illuminate\Support\Facades\Log;
 use Phpml\Regression\LeastSquares;
 
 class AdminDashboardController extends Controller
@@ -39,8 +41,6 @@ class AdminDashboardController extends Controller
         $farmerGenderData = $this->fetchGenderData('farmers');
         $deviceStateData = $this->fetchDeviceStateData();
 
-        // dd('deviceStateData',$deviceStateData);
-
         $users = User::all();
         $farmers = Farmer::all();
         $devices = DeviceData::all();
@@ -49,14 +49,16 @@ class AdminDashboardController extends Controller
         $farmerCount = Farmer::count();
         $userCount = User::count();
 
-        $fromPrediction=$this->updatePredictedIrrigation();
-        $inputData=$fromPrediction['inputData'];
-        $predictedIrrigation=$fromPrediction['predictedIrrigation'];
+        // Call the method to update predicted irrigation amounts
+        $dataMAchine=$this->updatePredictedIrrigation();
+        // dd($dataMAchine);
+        $inputData=$dataMAchine['inputData'];
+        $predictedIrrigation=$dataMAchine['predictedIrrigation'];
 
         return compact(
             'chartData',
-            'data',
             'inputData',
+            'data',
             'farmers',
             'users',
             'cooperativeCount',
@@ -66,8 +68,8 @@ class AdminDashboardController extends Controller
             'deviceStateData',
             'farmerGenderData',
             'selectedDeviceID',
-            'deviceIDs',
             'predictedIrrigation',
+            'deviceIDs',
             'userCount',
             'farmerCount'
         );
@@ -76,7 +78,7 @@ class AdminDashboardController extends Controller
     private function fetchDeviceData($selectedDeviceID)
     {
         return $selectedDeviceID ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
-            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM','PRED_AMOUNT', 'created_at')
+            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
             ->get() : collect([]);
     }
 
@@ -90,7 +92,6 @@ class AdminDashboardController extends Controller
                 'S_HUM' => $row->S_HUM,
                 'A_TEMP' => $row->A_TEMP,
                 'A_HUM' => $row->A_HUM,
-                'PRED_AMOUNT'=>$row->PRED_AMOUNT,
             ];
         })->toArray();
     }
@@ -132,35 +133,16 @@ class AdminDashboardController extends Controller
 
     private function fetchDeviceStateData()
     {
-        $data = DB::table('device_data')->select(
+        return DB::table('device_data')->select(
             DB::raw('device_state as device_state'),
             DB::raw('count(*) as number')
-        )
-        ->groupBy('device_state')
-        ->get();
-
-        $Devicedata = [
-            'function' => 0,
-            'non_function' => 0,
-            'InStock' => 0,
-        ];
-
-        // dd($data);
-
-        foreach ($data as $value) {
-            // dd($value);
-            if (strtolower($value->device_state) == 1) {
-                $Devicedata['function'] = $value->number;
-            } elseif (strtolower($value->device_state) == 3) {
-                $Devicedata['non_function'] = $value->number;
-            } elseif (strtolower($value->device_state) == 2) {
-                $Devicedata['InStock'] = $value->number;
-            }
-        }
-
-        return $Devicedata;
+        )->groupBy('device_state')
+            ->get()
+            ->reduce(function ($carry, $item) {
+                $carry[$item->device_state] = $item->number;
+                return $carry;
+            }, ['function' => 0, 'non_function' => 0, 'InStock' => 0]);
     }
-
 
     private function updatePredictedIrrigation()
     {
@@ -181,13 +163,14 @@ class AdminDashboardController extends Controller
                 $row['A_TEMP'],
                 $row['A_HUM']
             ];
-            $targets[] = $row['PRED_AMOUNT'];
+            $targets[] = $row['PRED_AMOUNT'];  // The target is the predicted irrigation amount
         }
 
         // Train the regression model
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
+        // Initialize inputData and predictedIrrigation variables
         $inputData = [];
         $predictedIrrigation = null;
 
@@ -199,9 +182,7 @@ class AdminDashboardController extends Controller
                     $row['S_HUM'],
                     $row['A_TEMP'],
                     $row['A_HUM']
-                ];
-
-                 // Define inputData
+                ]; // Define inputData
                 $predictedIrrigation = $regression->predict($inputData);
 
                 // Update the DeviceData record with the predicted irrigation amount

@@ -26,7 +26,7 @@ class GenerateDeviceData extends Command
             $this->info('Job dispatched successfully.');
 
             // Sleep for 5 minutes (300 seconds)
-            sleep(300);
+            sleep(10);
         }
 
     }

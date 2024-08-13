@@ -161,7 +161,6 @@
                                 <th>sensor Measurement</th>
                                 <th>predicted water amount</th>
                                </tr>
-
                             </thead>
                             <tbody>
                                 <td> [{{ implode(', ', $inputData) }}]</td>
