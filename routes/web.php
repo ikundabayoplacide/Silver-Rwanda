@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegistationController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +11,7 @@ use App\Http\Controllers\cooperativeController;
 use App\Http\Controllers\DeviceDataController;
 use App\Http\Controllers\FarmersController;
 use App\Http\Controllers\HighChartController;
-use App\Http\Controllers\IrrigationController;
+
 
 
 Route::get('/', function () {
@@ -28,6 +27,9 @@ Route::get('admin/register', [AdminRegistationController::class, 'create'])->nam
 Route::post('admin/register', [AdminRegistationController::class, 'store'])->name('admin.store');
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login')->middleware('clear_cookies');
 Route::post('admin/check', [AdminLoginController::class, 'admincheck'])->name('admin.check');
+Route::get('/farmers/display', [FarmersController::class, 'display'])->name('farmers.display');
+
+
 
 
 // Authenticated routes
@@ -45,6 +47,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('farmers/{farmers}', [FarmersController::class, 'destroy'])->name('farmers.destroy');
     Route::get('farmers/{farmers}/edit', [FarmersController::class, 'edit'])->name('farmers.edit');
 
+
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout')->middleware('clear_cookies');
     Route::get('/role/add', [RoleController::class, 'add'])->name('role.add');
@@ -56,6 +59,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('device_data', [DeviceDataController::class, 'index'])->name('device_data.index');
     Route::get('tabular', [DeviceDataController::class, 'display'])->name('device_data.visualizeData');
+  
+
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/download', [UserController::class, 'display'])->name('users.download');
     
@@ -69,6 +74,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('device_data/{device_data}/edit', [DeviceDataController::class, 'edit'])->name('device_data.edit');
     Route::post('device_data/toggle/{id}', [DeviceDataController::class, 'toggle'])->name('device_data.toggle');
     Route::get('tabular', [DeviceDataController::class, 'display'])->name('device_data.visualizeData');
+    Route::delete('/device_data/delete/{device_id}', [DeviceDataController::class, 'delete'])->name('device_data.delete');
+
 
     Route::resource('cooperatives', cooperativeController::class);
     Route::get('/assign', [CooperativeController::class, 'showAssignForm'])->name('cooperatives.showAssignForm');

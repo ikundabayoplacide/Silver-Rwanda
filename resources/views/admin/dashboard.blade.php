@@ -154,12 +154,17 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="flex float-end">
+                        {{ $users->links() }}
+                        </div>
                     <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                     <h4 class="text-2xl font-serif font-semibold text-blue-800 mt-6">Predictions</h4>
                         <table class="table table-bordered mt-3">
+                          
                             <thead>
                                <tr>
-                                <th>sensor Measurement</th>
-                                <th>predicted water amount</th>
+                                <th>Sensor Measurement</th>
+                                <th>Predicted water amount</th>
                                </tr>
                             </thead>
                             <tbody>
@@ -229,9 +234,9 @@
 
         $(document).ready(function() {
             var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
-            var FunctionDevice = {{ $deviceStateData['function'] }};
+            var FunctionDevice = {{ $deviceStateData['1'] }};
             var nonFunctionDevice = {{ $deviceStateData['non_function'] }};
-            var InStock = {{ $deviceStateData['InStock'] }};
+            var InStock = {{ $deviceStateData['3'] }};
             var TotalDevice = {{ $deviceCount }};
             var dataPieDevice = {
                 type: "pie",
@@ -241,8 +246,8 @@
                         TotalDevice + ")", "Device In Stock(" + InStock + "/" + TotalDevice + ")"
                     ],
                     datasets: [{
-                        // data: [FunctionDevice, nonFunctionDevice, InStock],
-                        data: [4, 5, 10],
+                        data: [FunctionDevice, nonFunctionDevice, InStock],
+                        // data: [4, 5, 10],
                         backgroundColor: [
                             " rgba(4, 120, 87)",
                             "rgba(255, 193, 7, 1)",

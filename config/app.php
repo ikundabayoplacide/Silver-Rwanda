@@ -64,9 +64,19 @@ return [
     | is set to "UTC" by default as it is suitable for most use cases.
     |
     */
-'available_locales' => ['en', 'kiny'],
 
     'timezone' => env('APP_TIMEZONE', 'UTC'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Locales
+    |--------------------------------------------------------------------------
+    |
+    | These are the locales that your application will support.
+    |
+    */
+
+    'available_locales' => ['en', 'kiny'],
 
     /*
     |--------------------------------------------------------------------------
@@ -124,6 +134,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Service Providers
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register service providers for your application.
+    | Laravel provides a variety of useful tools for you.
+    |
+    */
 
+ 
 
 ];

@@ -25,8 +25,8 @@
 
             <form class="d-flex">
                 <div class="registration">
-                  <button class="btn btn-success "><a href="{{ url('/login') }}">{{__('Login')}}</a></button>
-                  <button class="btn btn-success "><a href="{{ url('admin/register') }}">{{__('Register')}}</a></button>
+                  <button class="btn btn-success "><a href="{{ url('/admin/login') }}">{{__('Login')}}</a></button>
+                  {{-- <button class="btn btn-success "><a href="{{ url('admin/register') }}">{{__('Register')}}</a></button> --}}
                 </div>
             </form>
           </div>

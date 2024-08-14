@@ -14,55 +14,45 @@ class DeviceDataController extends Controller
 {
     public function index(Request $request)
     {
-        $data = DeviceData::all();
-          $data = DeviceData::paginate(10);
-        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
         $selectedDeviceID = $request->input('device_id');
-        $data = $this->fetchDeviceData($selectedDeviceID);
 
+        // Build the query to fetch data
+        $dataQuery = DeviceData::query();
 
-
-        if ($request->isMethod('post')) {
-            $deviceId = $request->get('device_id');
-            $deviceData = DeviceData::find($deviceId);
-
-            if ($deviceData) {
-                $deviceData->on_off = !$deviceData->on_off;  // Toggle on_off state
-                $deviceData->device_state = $deviceData->on_off ? 2 : 3; // Update device_state based on on_off
-                $deviceData->save();
-            }
+        // Apply filter based on selected device ID
+        if ($selectedDeviceID) {
+            $dataQuery->where('DEVICE_ID', $selectedDeviceID);
         }
+
+        // Apply pagination with 10 records per page
+        $data = $dataQuery->paginate(10);
+
+        // Fetch distinct device IDs for the dropdown filter
+        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
+
         return view('device_data.index',
-         compact('data',
-         'deviceIDs',
-         'selectedDeviceID'
-        ));
+             compact('data', 'deviceIDs', 'selectedDeviceID'));
     }
-
-    private function fetchDeviceData($selectedDeviceID)
-    {
-        return $selectedDeviceID ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
-            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
-            ->get() : collect([]);
-    }
-
 
     public function display(Request $request)
     {
-        $data = DeviceData::all();
+    
         $data = DeviceData::paginate(10);
+
         if ($request->has('download')) {
             $format = $request->get('download');
 
             if ($format === 'pdf') {
-                // Generate PDF
+              
                 $pdf = Pdf::loadView('device_data.pdf', ['data' => $data]);
                 return $pdf->download('device_data.pdf');
+
             } elseif ($format === 'excel') {
-                // Generate Excel
+              
                 return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
+                
             } elseif ($format === 'csv') {
-                // Return CSV data
+             
                 $csvData = $data->map(function ($item) {
                     return implode(',', [
                         $item->DEVICE_ID,
@@ -92,7 +82,6 @@ class DeviceDataController extends Controller
     protected function downloadExcel($data)
     {
         return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
-
     }
 
     public function visual()
@@ -149,7 +138,6 @@ class DeviceDataController extends Controller
             'device_state' => 'required|integer',
             'on_off' => 'required|boolean',
             'PRED_AMOUNT'=>'numeric'
-
         ]);
 
         $data = $request->all();
@@ -168,33 +156,42 @@ class DeviceDataController extends Controller
         return redirect()->route('device_data.index')->with('success', 'Device data deleted successfully.');
     }
 
-
-   // Add this method to your DeviceDataController
-public function toggle($id)
-{
-    $deviceData = DeviceData::findOrFail($id);
-    Log::info("Toggling state for device: $id, current state: $deviceData->device_state");
+    public function toggle($id)
+    {
+        $deviceData = DeviceData::findOrFail($id);
+        Log::info("Toggling state for device: $id, current state: $deviceData->device_state");
         $deviceData->device_state = $deviceData->device_state == 1 ? 2 : 1;
         $deviceData->save();
         Log::info("New state for device: $id, new state: $deviceData->device_state");
-    return redirect()->route('device_data.index')->with('success', 'Device state changed!');
-}
+        return redirect()->route('device_data.index')->with('success', 'Device state changed!');
+    }
 
-public function generateData()
-{
-    GenerateDeviceDataJob::dispatch();
+    public function generateData()
+    {
+        GenerateDeviceDataJob::dispatch();
+        return response()->json(['message' => 'Device data generation job dispatched successfully.']);
+    }
 
-    return response()->json(['message' => 'Device data generation job dispatched successfully.']);
-}
+    public function showByDeviceId($device_id)
+    {
 
-public function showByDeviceId($device_id)
-{
-    // Fetching device data for the selected device_id
-    $data = DeviceData::where('Device_ID', $device_id)->get();
+        $data = DeviceData::where('Device_ID', $device_id)->get();
+       
+        return view('device_data.index', compact('data', 'device_id'));
+    }
 
-    // Pass the data to the view
-    return view('device_data.index', compact('data', 'device_id'));
-}
-
+    public function delete($device_id)
+    {
+        $devices = DeviceData::where('DEVICE_ID', $device_id)->get();
+    
+        // Check if there are any devices to delete
+        if ($devices->isEmpty()) {
+            return redirect()->route('device_data.index')->with('error', 'No data found for this device ID.');
+        }
+    
+        DeviceData::where('DEVICE_ID', $device_id)->delete();
+        return redirect()->route('device_data.index')->with('success', 'Device data deleted successfully.');
+    }
+    
 
 }
