@@ -1,5 +1,4 @@
 
-
 @extends('layouts.layout')
 @section('content')
 @include('layouts.head-part')
@@ -43,19 +42,19 @@
             </div>
 
             <div class="form-group">
-                <label for="device_id">{{__('Select Device')}}</label>
+                <label for="device_id">{{ __('Select Device') }}</label>
                 <select id="device_id" name="device_id" class="form-control" required>
                     @foreach($devices as $device)
-                        <option value="{{ $device->id }}">{{ $device->id }}</option>
+                        <option value="{{ $device }}">{{ $device }}</option>
                     @endforeach
                 </select>
             </div>
             <div><br>
                 <label class="font-bold font-serif text-xl">{{__('Gender')}}</label>
-              
+
                     <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="male">{{__('Male')}}
                     <input class="form-check-input text-2xl" type="radio" name="gender" id="gender" value="female">{{__('Female')}}
-                 
+
                 </div></br>
 
             <button type="submit" class="btn btn-primary">{{__('Register')}}</button>

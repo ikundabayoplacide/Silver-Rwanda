@@ -44,7 +44,6 @@ class AdminDashboardController extends Controller
 
 
 
-        dd($deviceStateData);
 
 
         $users = User::all();
@@ -55,9 +54,7 @@ class AdminDashboardController extends Controller
         $farmerCount = Farmer::count();
         $userCount = User::count();
 
-        // Call the method to update predicted irrigation amounts
         $dataMAchine=$this->updatePredictedIrrigation();
-        // dd($dataMAchine);
         $inputData=$dataMAchine['inputData'];
         $predictedIrrigation=$dataMAchine['predictedIrrigation'];
 

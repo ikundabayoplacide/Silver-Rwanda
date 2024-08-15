@@ -11,7 +11,7 @@ use App\Notifications\NewFarmerNotification; // Import the
 class FarmersController extends Controller
 {
     public function index()
-    {  
+    {
         // $farmers=Farmer::all();
          $farmers= Farmer::paginate(10);
 
@@ -25,12 +25,14 @@ class FarmersController extends Controller
     })->paginate(10);
 
     return view('farmers.index',compact('farmers','search'));
-   
+
 
    }
     public function create(Request $request)
     {
-        $devices = DeviceData::all();
+        // $devices = DeviceData::all();
+        $devices = DeviceData::select('DEVICE_ID')->distinct()->get()->pluCk('DEVICE_ID');
+        // dd($devices)
         return view('farmers.register', compact('devices'));
     }
 
@@ -54,28 +56,15 @@ class FarmersController extends Controller
             'gender' => $request->gender,
         ]);
 
-        $device = DeviceData::find($request->device_id);
+        // Find the device using DEVICE_ID
+        $device = DeviceData::where('DEVICE_ID', $request->device_id)->first();
         if ($device) {
             $device->farmer_id = $farmer->id;
             $device->device_state = 1;
             $device->save();
         }
 
-        // Send the notification
-        // $farmer->notify(new NewFarmerNotification($farmer));
-
         return redirect()->route('farmers.index')->with('success', 'Farmer created successfully');
-    }
-
-    public function show(Farmer $farmers)
-    {
-        return view('farmers.show', compact('farmers'));
-    }
-
-    public function edit(Farmer $farmers)
-    {
-        $devices = DeviceData::all();
-        return view('farmers.edit', compact('farmers', 'devices'));
     }
 
     public function update(Request $request, Farmer $farmers)
@@ -89,7 +78,8 @@ class FarmersController extends Controller
 
         $farmers->update($request->all());
 
-        $device = DeviceData::find($request->device_id);
+        // Find the device using DEVICE_ID
+        $device = DeviceData::where('DEVICE_ID', $request->device_id)->first();
         if ($device) {
             $device->farmer_id = $farmers->id;
             $device->device_state = 1;

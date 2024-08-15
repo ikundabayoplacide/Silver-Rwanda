@@ -49,10 +49,7 @@ class DeviceDataController extends Controller
         if ($request->has('download')) {
             $format = $request->get('download');
 
-            // Filter data based on selected device ID for export
             $selectedDeviceID = $request->input('device_id');
-            dd($selectedDeviceID); 
-
             $exportData = $selectedDeviceID
                 ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
                 ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'PRED_AMOUNT', 'created_at')
