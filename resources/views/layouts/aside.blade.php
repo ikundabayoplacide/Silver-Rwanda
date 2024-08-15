@@ -85,24 +85,25 @@
         <span class="font-serif text-xl">{{__('User Profile Management')}}</span>
     </a>
   </li>
+  <li>
+    <a class="nav-link @if (Request::segment(1) != 'cooperative') collapsed @endif" href="{{url('cooperatives')}}">
+      <i class="bi bi-menu-button-wide"></i><span class="font-serif text-xl">{{__('Cooperative Management')}}</span>
+    </a>
+  </li>
 
-  <li class="nav-item">
+  {{-- <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#cooperative-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-menu-button-wide"></i><span class="font-serif text-xl">{{__('Cooperative Management')}}</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="cooperative-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-      <li>
-        <a class="nav-link @if (Request::segment(1) != 'cooperative') collapsed @endif" href="{{url('cooperatives')}}">
-          <i class="bi bi-circle"></i><span class="font-serif text-xl">{{__('Cooperative Management')}}</span>
-        </a>
-      </li>
+    
       <li>
         <a class="nav-link @if (Request::segment(1) != 'assign') collapsed @endif" href="{{url('/assign')}}">
           <i class="bi bi-circle"></i><span class="font-serif text-xl">{{__('Assign Farmer to Cooperative')}}</span>
         </a>
       </li>
     </ul>
-  </li>
+  </li> --}}
 
 
   <li class="nav-item">

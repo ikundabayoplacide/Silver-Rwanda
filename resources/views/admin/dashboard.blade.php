@@ -31,7 +31,7 @@
                 <p class="font-serif text-2xl font-semibold text-center">{{ __('Cooperatives') }}</p>
             </div>
             <div class="p-7 bg-red-500 text-white rounded hover:bg-red-700 cursor-pointer">
-                <p class="font-serif font-bold text-2xl text-gray-200 text-center mb-3">{{ $deviceCount }}</p>
+                <p class="font-serif font-bold text-2xl text-gray-200 text-center mb-3">{{ $deviceNumber }}</p>
                 <p class="font-serif text-2xl font-semibold text-center">{{ __('Devices') }}</p>
             </div>
         </div>
@@ -86,8 +86,7 @@
                 </div>
                 <h5 class="card-title">{{ __('Device') }} <span>{{ __('/Data Generations') }}</span></h5>
 
-
-                <div id="reportsChart">{{ __('Historical device data') }}</div>
+                <div id="reportsChart">{{ __('Historical device data ') }}</div>
             </div>
         </div>
         <p class="text-2xl font-serif font-semibold text-red-800 m-6 text-center">{{ __('Other System Related Data:') }}
@@ -238,6 +237,8 @@
             var nonFunctionDevice = {{ $deviceStateData['non_function'] }};
             var InStock = {{ $deviceStateData['3'] }};
             var TotalDevice = {{ $deviceCount }};
+            // var InStock = {{ $deviceStateData['InStock'] }};
+            var TotalDevice = {{ $deviceNumber }};
             var dataPieDevice = {
                 type: "pie",
                 data: {

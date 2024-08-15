@@ -9,34 +9,44 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class SSEController extends Controller
 {
     public function stream()
-    {
-        // Set maximum execution time to 120 seconds
-        ini_set('max_execution_time', 120); // 120 seconds = 2 minutes
+{
+    // Set maximum execution time to 60 seconds
+    ini_set('max_execution_time', 5); // 60 seconds
 
-        $response = new StreamedResponse(function () {
-            $connection = DB::connection();
+    $response = new StreamedResponse(function () {
+        $connection = DB::connection();
 
-            $query = $connection->table('device_data')->select('*')->orderBy('id', 'desc');
-            $lastId = 0;
+        // Get the last id from the cache, or default to 0
+        $lastId = cache()->get('last_device_data_id', 0);
 
-            while (true) {
-                $rows = $query->where('id', '>', $lastId)->get();
-                if ($rows->isNotEmpty()) {
-                    foreach ($rows as $row) {
-                        echo "data: " . json_encode($row) . "\n\n";
-                        ob_flush();
-                        flush();
-                        $lastId = $row->id;
-                    }
+        while (true) {
+            $rows = $connection->table('device_data')
+                ->where('id', '>', $lastId)
+                ->orderBy('id', 'asc')
+                ->limit(10)
+                ->get();
+
+            if ($rows->isNotEmpty()) {
+                foreach ($rows as $row) {
+                    echo "data: " . json_encode($row) . "\n\n";
+                    ob_flush();
+                    flush();
+                    $lastId = $row->id;
+
+                    // Store the last id in the cache
+                    cache()->put('last_device_data_id', $lastId);
                 }
-                sleep(10); // Delay before the next check
             }
-        });
 
-        $response->headers->set('Content-Type', 'text/event-stream');
-        $response->headers->set('Cache-Control', 'no-cache');
-        $response->headers->set('Connection', 'keep-alive');
+            sleep(5); // Delay before the next check, adjusted to reduce load
+        }
+    });
 
-        return $response;
-    }
+    $response->headers->set('Content-Type', 'text/event-stream');
+    $response->headers->set('Cache-Control', 'no-cache');
+    $response->headers->set('Connection', 'keep-alive');
+
+    return $response;
+}
+
 }

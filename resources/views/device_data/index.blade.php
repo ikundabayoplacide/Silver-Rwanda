@@ -54,7 +54,7 @@
                                 
                                 <td class="border">
                                     {{-- Changed code: Ensure buttons align horizontally --}}
-                                    <div class="btn-group gap-2 rounded-md" role="group">
+                                    <div class="btn-group gap-2" role="group">
                                         <a href="{{ route('device_data.show', ['device_data' => $device_data->id]) }}"
                                             class="btn btn-info btn-sm">
                                             <i class="fa fa-eye" aria-hidden="true"></i>{{__('View') }}

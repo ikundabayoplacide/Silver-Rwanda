@@ -14,46 +14,50 @@ class DeviceDataController extends Controller
 {
     public function index(Request $request)
     {
+        // Get the selected device ID from the request
         $selectedDeviceID = $request->input('device_id');
-
-        // Build the query to fetch data
-        $dataQuery = DeviceData::query();
-
-        // Apply filter based on selected device ID
-        if ($selectedDeviceID) {
-            $dataQuery->where('DEVICE_ID', $selectedDeviceID);
-        }
-
-        // Apply pagination with 10 records per page
-        $data = $dataQuery->paginate(10);
 
         // Fetch distinct device IDs for the dropdown filter
         $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
 
-        return view('device_data.index',
-             compact('data', 'deviceIDs', 'selectedDeviceID'));
+        // Fetch data based on selected device ID
+        $data = $selectedDeviceID 
+            ? DeviceData::where('DEVICE_ID', $selectedDeviceID)->paginate(10)
+            : DeviceData::paginate(10);
+        
+        // Return the view with data and filter options
+        return view('device_data.index', compact('data', 'deviceIDs', 'selectedDeviceID'));
     }
-
     public function display(Request $request)
     {
+        $selectedDeviceID = $request->input('device_id');
     
-        $data = DeviceData::paginate(10);
-
+        // Fetch distinct device IDs for the dropdown filter
+        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
+    
+        // Fetch data based on selected device ID
+        $data = $this->fetchDeviceData($selectedDeviceID);
+    
         if ($request->has('download')) {
             $format = $request->get('download');
-
+    
+            // Filter data based on selected device ID for export
+            $exportData = $selectedDeviceID
+                ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
+                    ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'PRED_AMOUNT', 'created_at')
+                    ->get()
+                : $data->getCollection();
+    
             if ($format === 'pdf') {
-              
-                $pdf = Pdf::loadView('device_data.pdf', ['data' => $data]);
+                // Load the filtered data for PDF export
+                $pdf = Pdf::loadView('device_data.pdf', ['data' => $exportData]);
                 return $pdf->download('device_data.pdf');
-
             } elseif ($format === 'excel') {
-              
-                return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
-                
+                // Pass filtered data to the export class
+                return Excel::download(new DeviceDataExport($exportData), 'device_data.xlsx');
             } elseif ($format === 'csv') {
-             
-                $csvData = $data->map(function ($item) {
+                // Convert filtered data to CSV format
+                $csvData = $exportData->map(function ($item) {
                     return implode(',', [
                         $item->DEVICE_ID,
                         $item->S_TEMP,
@@ -63,31 +67,23 @@ class DeviceDataController extends Controller
                         $item->PRED_AMOUNT
                     ]);
                 })->implode("\n");
-
+    
                 return response($csvData)
                     ->header('Content-Type', 'text/csv')
                     ->header('Content-Disposition', 'attachment; filename="device_data.csv"');
             }
         }
-
-        return view('device_data.visualizeData', compact('data'));
+    
+        // Return the view with data and filter options
+        return view('device_data.visualizeData', compact('data', 'deviceIDs', 'selectedDeviceID'));
     }
+    
 
-    protected function downloadPdf($data)
+    private function fetchDeviceData($selectedDeviceID)
     {
-        $pdf = Pdf::loadView('device_data.pdf', compact('data'));
-        return $pdf->download('device_data.pdf');
-    }
-
-    protected function downloadExcel($data)
-    {
-        return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
-    }
-
-    public function visual()
-    {
-        $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM','PRED_AMOUNT', 'created_at')->get();
-        return view('testchart', compact('data'));
+        return $selectedDeviceID ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
+            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'PRED_AMOUNT', 'created_at')
+            ->paginate(10) : DeviceData::paginate(10);
     }
 
     public function create()
@@ -103,7 +99,7 @@ class DeviceDataController extends Controller
             'S_HUM' => 'required|numeric',
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
-            'PRED_AMOUNT'=>'numeric'
+            'PRED_AMOUNT' => 'numeric'
         ]);
 
         $data = $request->all();
@@ -137,7 +133,7 @@ class DeviceDataController extends Controller
             'A_HUM' => 'required|numeric',
             'device_state' => 'required|integer',
             'on_off' => 'required|boolean',
-            'PRED_AMOUNT'=>'numeric'
+            'PRED_AMOUNT' => 'numeric'
         ]);
 
         $data = $request->all();
@@ -174,24 +170,20 @@ class DeviceDataController extends Controller
 
     public function showByDeviceId($device_id)
     {
-
-        $data = DeviceData::where('Device_ID', $device_id)->get();
-       
+        $data = DeviceData::where('DEVICE_ID', $device_id)->get();
         return view('device_data.index', compact('data', 'device_id'));
     }
 
     public function delete($device_id)
     {
         $devices = DeviceData::where('DEVICE_ID', $device_id)->get();
-    
+        
         // Check if there are any devices to delete
         if ($devices->isEmpty()) {
             return redirect()->route('device_data.index')->with('error', 'No data found for this device ID.');
         }
-    
+        
         DeviceData::where('DEVICE_ID', $device_id)->delete();
         return redirect()->route('device_data.index')->with('success', 'Device data deleted successfully.');
     }
-    
-
 }
