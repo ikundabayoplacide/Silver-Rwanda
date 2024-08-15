@@ -69,13 +69,13 @@
   </li>
   <li class="nav-item">
     <a class="nav-link @if (Request::segment(1) != 'tabular') collapsed @endif" href="{{url('tabular')}}">
-      <i class="fa-solid fa-camera-retro"></i>
+     <i class="fa-sharp fa-solid fa-database"></i>
         <span class="font-serif text-xl">{{__('Visualization of Data')}}</span>
     </a>
   </li>
   <li class="nav-item">
     <a class="nav-link @if (Request::segment(1) != 'farmers') collapsed @endif" href="{{url('farmers/index')}}">
-      <i class="fa-solid fa-camera-retro"></i>
+      <i class="fa-duotone fa-solid fa-people-group"></i>
         <span class="font-serif text-xl">{{__('Farmer Management')}}</span>
     </a>
   </li>

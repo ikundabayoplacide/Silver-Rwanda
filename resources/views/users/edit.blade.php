@@ -30,5 +30,5 @@
 </div>
 </main>
 @stop
-@include('layouts.footer')
+
 @include('layouts.script')

@@ -108,7 +108,7 @@
     "Farmer ID":"Indanga Muhinza",
     "District":"Akarere",
     "Farmers Data List":"Urutonde Rwabahinzi",
-    "Create New farmers Datails":"Gukora ibindi bijyanye numuhinzi",
+    "Create New farmers Datails":"Kwandika Umuhinzi",
     "No farmers data found.":"Nta Makuru y'umuhinzi Agaragara ",
     "Register":"Iyandikishe",
     "Image":"Amafoto",
@@ -119,7 +119,16 @@
     "Create New User":"Shyiramo undi mukozi",
     "Edit User":"Hindura Umukozi",
     "User Details":"Ibiranga Umukozi",
-    "Back to List":"Kugaruka ku Rutonde"
+    "Back to List":"Kugaruka ku Rutonde",
+    "Historical device data":"Amakuru yakuma Aheruka",
+    "Predictions":"Ibiteganyijwe",
+    "Sensor Measurement":"Ibipimo bya Sensa",
+    "Predicted water amount":"Ingano Yamazi Ateganyijwe",
+    "Search":"Shakisha",
+    "Visualization of Data":"Kugaragaza Amakuru",
+    "Prediction Irrigation amount":"Ingano yo Kuhira Iteganijwe",
+    "Farmer Registration":"Kwandika Umuhinzi",
+    "Farmers Data Details":"Amakuru Kumuhinzi"
   
 
 }

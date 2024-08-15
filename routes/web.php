@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::get('/searching',[UserController::class,'searching']);
+    Route::get('/searching',[cooperativeController::class,'searching']);
     Route::get('/searches',[RoleController::class,'searches']);
     Route::get('/search',[FarmersController::class,'search']);
     Route::get('farmers/index', [FarmersController::class, 'index'])->name('farmers.index');

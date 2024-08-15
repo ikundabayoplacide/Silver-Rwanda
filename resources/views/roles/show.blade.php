@@ -36,5 +36,5 @@
 </div>
 @endsection
 </main>
-@include('layouts.footer')
+
 @include('layouts.script')

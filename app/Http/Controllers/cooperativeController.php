@@ -13,11 +13,23 @@ class cooperativeController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $cooperatives = Cooperative::all();
-        return view('cooperatives.index', compact('cooperatives'));
+    {   $cooperatives = Cooperative::paginate(5);
+        $farmers = Farmer::all(); // Get all farmers
+    
+        return view('cooperatives.index', compact('cooperatives', 'farmers'));
     }
 
+    public function searching(Request $request){
+        $searching = $request->search;
+
+        $cooperatives = cooperative::where(function($query) use ($searching){
+            $query->where('name', 'like', "%$searching%")
+                  ->orWhere('location', 'like', "%$searching%")
+                  ->orWhere('services_offered','like',"%$searching");
+        })->paginate(5);
+
+        return view('cooperatives.index', compact('cooperatives', 'searching'));
+    }
     public function create()
     {
         $farmers=Farmer::all();
@@ -54,18 +66,21 @@ class cooperativeController extends Controller
         $cooperative->delete();
         return redirect()->route('cooperatives.index');
     }
+// This is About Details
+
+
 
     public function showAssignForm()
     {
-        // dd("hello world");
+    
         $cooperatives = Cooperative::all();
         $farmers = Farmer::all();
-        // dd('farmers and cooperatives'.$cooperatives);
+     
 
         return view('cooperatives.assign', compact('cooperatives', 'farmers'));
     }
 
-    // Handle the form submission
+
     public function assignFarmerToCooperative(Request $request)
     {
         $request->validate([
@@ -75,8 +90,8 @@ class cooperativeController extends Controller
 
         $cooperative = Cooperative::findOrFail($request->cooperative_id);
         $dataInfo = Farmer::findOrFail($request->farmer_id);
-        // $farmerId = $request->farmer_id;
-        // dd('cooperative = ' . $cooperative);
+       
+     
 
         $assignmentData = [
             'member_name' => $dataInfo->name,
@@ -85,11 +100,11 @@ class cooperativeController extends Controller
         ];
 
         membership::create($assignmentData);
+
         $details=membership::all();
 
-        // dd('data of membership = ' . $details);
+  
 
-        // return redirect()->route('cooperatives.index')->with('success', 'Farmer assigned successfully.');
         return redirect()->route('cooperatives.showAssignmentDetails')
             ->with('success', 'Farmer assigned successfully.')
             ->with('details', $details);

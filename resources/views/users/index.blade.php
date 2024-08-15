@@ -21,7 +21,7 @@
                 <form action="/searching" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" placeholder="search...." value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">{{__('Search')}}</button>
                     </div>
                 </form>
             </div>

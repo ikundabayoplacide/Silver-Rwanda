@@ -87,7 +87,7 @@
                 <h5 class="card-title">{{ __('Device') }} <span>{{ __('/Data Generations') }}</span></h5>
 
 
-                <div id="reportsChart">{{ __('Historical device data ') }}</div>
+                <div id="reportsChart">{{ __('Historical device data') }}</div>
             </div>
         </div>
         <p class="text-2xl font-serif font-semibold text-red-800 m-6 text-center">{{ __('Other System Related Data:') }}
@@ -158,13 +158,13 @@
                         {{ $users->links() }}
                         </div>
                     <div class="bg-blue-50 p-4 rounded-lg shadow-md">
-                     <h4 class="text-2xl font-serif font-semibold text-blue-800 mt-6">Predictions</h4>
+                     <h4 class="text-2xl font-serif font-semibold text-blue-800 mt-6">{{__('Predictions')}}</h4>
                         <table class="table table-bordered mt-3">
                           
                             <thead>
                                <tr>
-                                <th>Sensor Measurement</th>
-                                <th>Predicted water amount</th>
+                                <th>{{__('Sensor Measurement')}}</th>
+                                <th>{{__('Predicted water amount')}}</th>
                                </tr>
                             </thead>
                             <tbody>

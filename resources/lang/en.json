@@ -105,7 +105,16 @@
     " Create New User":" Create New User",
     "Edit User":"Edit User",
     "User Details":"User Details",
-    "Back to List":"Back to List"
+    "Back to List":"Back to List",
+    "Historical device data":"Historical device data",
+    "Predictions":"Predictions",
+    "Sensor Measurement":"Sensor Measurement",
+    "Predicted water amount":"Predicted water amount",
+    "Search":"Search",
+    "Visualization of Data":"Visualization of Data",
+    "Prediction Irrigation amount":"Prediction Irrigation amount",
+    "Farmer Registration":"Farmer Registration",
+    "Farmers Data Details":"Farmers Data Details"
 
 
 

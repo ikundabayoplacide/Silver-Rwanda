@@ -23,14 +23,38 @@
                         <th>{{__('Farmer Name')}}</th>
                         <th>{{__('Cooperative Name')}}</th>
                         <th>{{__('Location')}}</th>
+                        {{-- <th>{{__('Action')}}</th> --}}
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($details as $data) 
+                    @foreach($details as $details) 
                     <tr>
-                        <td>{{ $data['member_name'] }}</td>
-                        <td>{{ $data['cooperative_name'] }}</td>
-                        <td>{{ $data['location'] }}</td>
+                        <td>{{ $details['member_name'] }}</td>
+                        <td>{{ $details['cooperative_name'] }}</td>
+                        <td>{{ $details['location'] }}</td>
+                        {{-- <td>
+                            <a href="{{ url('/details/' . $details->id) }}" title="View Cooperative">
+                                <button class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>{{ __('View') }}
+                                </button>
+                            </a>
+                            @can('edit-user')
+                            <a href="{{ url('/details/' . $details->id . '/edit') }}" title="Edit Cooperative">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-pen-to-square"></i>{{ __('Edit') }}
+                                </button>
+                            </a>
+                            @endcan
+                            @can('delete-user')
+                            <form method="POST" action="{{ url('/details/' . $details->id) }}" accept-charset="UTF-8" style="display:inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this cooperative?')" title="Delete Cooperative">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>{{ __('Delete') }}
+                                </button>
+                            </form>
+                            @endcan
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
@@ -40,7 +64,7 @@
         @endif
 
         <!-- Link to go back to the assignment form -->
-        <a href="{{ route('cooperatives.showAssignForm') }}" class="btn btn-primary mt-4">{{__('Assign Another Farmer')}}</a>
+        <a href="{{ route('cooperatives.index') }}" class="btn btn-primary mt-4">{{__('Assign Another Farmer')}}</a>
     </div>
 </main>
 
