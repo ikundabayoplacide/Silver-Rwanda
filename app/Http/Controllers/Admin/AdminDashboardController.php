@@ -30,7 +30,7 @@ class AdminDashboardController extends Controller
     {
         $selectedDeviceID = $request->input('device_id');
         $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
-        $deviceNumber=$deviceIDs->count();
+        $deviceNumber = $deviceIDs->count();
         $data = $this->fetchDeviceData($selectedDeviceID);
         $chartData = $this->prepareChartData($data);
 
@@ -42,11 +42,20 @@ class AdminDashboardController extends Controller
         $farmerGenderData = $this->fetchGenderData('farmers');
         $deviceStateData = $this->fetchDeviceStateData();
 
+        $countInStock = DeviceData::where('device_state', 3)
+            ->distinct('DEVICE_ID')
+            ->count('DEVICE_ID');
 
-        // dd($deviceStateData);
+        $countFunction = DeviceData::where('device_state', 1)
+            ->distinct('DEVICE_ID')
+            ->count('DEVICE_ID');
+
+        $countNon_function = DeviceData::where('device_state', 2)
+            ->distinct('DEVICE_ID')
+            ->count('DEVICE_ID');
 
         $users = User::all();
-        $users=User::paginate(6);
+        $users = User::paginate(6);
         $farmers = Farmer::all();
         $devices = DeviceData::all();
         $cooperativeCount = Cooperative::count();
@@ -54,9 +63,9 @@ class AdminDashboardController extends Controller
         $farmerCount = Farmer::count();
         $userCount = User::count();
 
-        $dataMAchine=$this->updatePredictedIrrigation();
-        $inputData=$dataMAchine['inputData'];
-        $predictedIrrigation=$dataMAchine['predictedIrrigation'];
+        $dataMAchine = $this->updatePredictedIrrigation();
+        $inputData = $dataMAchine['inputData'];
+        $predictedIrrigation = $dataMAchine['predictedIrrigation'];
 
         return compact(
             'chartData',
@@ -74,6 +83,9 @@ class AdminDashboardController extends Controller
             'predictedIrrigation',
             'deviceIDs',
             'userCount',
+            'countNon_function',
+            'countFunction',
+            'countInStock',
             'farmerCount',
             'deviceNumber'
         );
@@ -137,16 +149,19 @@ class AdminDashboardController extends Controller
 
     private function fetchDeviceStateData()
     {
-        return DB::table('device_data')->select(
-            DB::raw('device_state as device_state'),
-            DB::raw('count(*) as number')
-        )->groupBy('device_state')
+        return DB::table('device_data')
+            ->select(
+                DB::raw('device_state as device_state'),
+                DB::raw('count(distinct DEVICE_ID) as number') // Count distinct DEVICE_IDs
+            )
+            ->groupBy('device_state')
             ->get()
             ->reduce(function ($carry, $item) {
                 $carry[$item->device_state] = $item->number;
                 return $carry;
             }, ['function' => 0, 'non_function' => 0, 'InStock' => 0]);
     }
+
 
     private function updatePredictedIrrigation()
     {

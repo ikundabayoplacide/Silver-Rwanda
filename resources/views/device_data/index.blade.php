@@ -40,7 +40,7 @@
                             <th class="border">{{ __('Ambient Temperature') }}</th>
                             <th class="border">{{ __('Ambient Humidity') }}</th>
                             <th class="border">{{__('Action')}}</th>
-                            <th class="border">{{ __('ON/OFF') }}</th>
+                            <th class="border">{{ __('State') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,7 @@
                                 <td class="border">{{ $device_data->S_HUM }}</td>
                                 <td class="border">{{ $device_data->A_TEMP }}</td>
                                 <td class="border">{{ $device_data->A_HUM }}</td>
-                                
+
                                 <td class="border">
                                     {{-- Changed code: Ensure buttons align horizontally --}}
                                     <div class="btn-group gap-2" role="group">
@@ -72,13 +72,13 @@
                                         </form>
                                     </div>
                                 </td>
-                                
+
                                 <td class="border">
                                     <form action="{{ route('device_data.toggle', $device_data->id) }}" method="POST">
                                         @csrf
                                         <button type="submit"
-                                            class="btn btn-{{ $device_data->device_state == 1 ? 'success' : 'secondary' }}">
-                                            {{ $device_data->device_state == 1 ? 'Activated' : 'Inactive' }}
+                                                class="btn btn-{{ $device_data->device_state == 1 ? 'success' : ($device_data->device_state == 2 ? 'secondary' : 'warning') }}">
+                                            {{ $device_data->device_state == 1 ? 'Activated' : ($device_data->device_state == 2 ? 'Inactive' : 'Initial State') }}
                                         </button>
                                     </form>
                                 </td>
@@ -92,6 +92,6 @@
             @endif
         </section>
     </main>
- 
+
     @include('layouts.script')
 @endsection

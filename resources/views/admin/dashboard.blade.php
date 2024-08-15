@@ -233,11 +233,11 @@
 
         $(document).ready(function() {
             var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
-            var FunctionDevice = {{ $deviceStateData['1'] }};
-            var nonFunctionDevice = {{ $deviceStateData['non_function'] }};
-            var InStock = {{ $deviceStateData['3'] }};
-            var TotalDevice = {{ $deviceCount }};
-            // var InStock = {{ $deviceStateData['InStock'] }};
+            var FunctionDevice = {{ $countFunction}};
+            var nonFunctionDevice = {{ $countNon_function }};
+            var calculateInStock={{ $deviceNumber }}-(FunctionDevice+nonFunctionDevice);
+            var InStock = calculateInStock;
+            // var TotalDevice = {{ $deviceCount }};
             var TotalDevice = {{ $deviceNumber }};
             var dataPieDevice = {
                 type: "pie",
