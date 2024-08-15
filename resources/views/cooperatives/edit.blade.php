@@ -18,5 +18,5 @@
         <button type="submit" class="btn btn-primary">{{__('Update Cooperative')}}</button>
     </form>
 </main>
-@include('layouts.footer')
+
 @include('layouts.script')

@@ -18,7 +18,7 @@ class UserController extends Controller
     use ValidatesRequests;
 
     public function index(Request $request){
-        $users = User::with('roles')->paginate(10);
+        $users = User::with('roles')->paginate(5);
         return view("users.index", compact("users"));
     }
 
@@ -28,7 +28,7 @@ class UserController extends Controller
         $users = User::where(function($query) use ($searching){
             $query->where('name', 'like', "%$searching%")
                   ->orWhere('email', 'like', "%$searching%");
-        })->paginate(10);
+        })->paginate(5);
 
         return view('users.index', compact('users', 'searching'));
     }

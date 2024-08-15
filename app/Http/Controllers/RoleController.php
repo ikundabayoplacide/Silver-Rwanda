@@ -39,7 +39,7 @@
     {
 
          $roles = Role::all();
-        $roles = Role::paginate(10);
+        $roles = Role::paginate(5);
         return view('roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -47,7 +47,7 @@
         $searches=$request->search;
         $roles=Role::where(function($query) use ($searches){
             $query->where('name','like',"%$searches%");
-        })->paginate(10);
+        })->paginate(5);
        
        return view('roles.index',compact('roles','searches'));
     }

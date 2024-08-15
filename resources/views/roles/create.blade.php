@@ -42,5 +42,5 @@
 </form>
 </main>
 @endsection
-@include('layouts.footer')
+
 @include('layouts.script')

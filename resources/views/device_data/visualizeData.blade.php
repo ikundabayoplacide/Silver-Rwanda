@@ -74,73 +74,15 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{-- {!! $data->links('pagination::bootstrap-5')!!} --}}
 
+                <div class="flex float-end">
+                    {!! $data->links('pagination::bootstrap-5') !!}
+                </div>
             @endif
         </section>
     </main>
-    @include('layouts.footer')
+    {{-- @include('layouts.footer') --}}
     @include('layouts.script')
 
-    <script>
-        if (!!window.EventSource) {
-            var source = new EventSource("/sse");
-
-            source.onmessage = function(event) {
-                var data = JSON.parse(event.data);
-                var tableBody = document.getElementById('data-table-body');
-
-                // Check if the row already exists
-                var existingRow = document.getElementById('device-row-' + data.id);
-                if (existingRow) {
-                    // Update existing row
-                    existingRow.innerHTML = `
-                        <td class="border">${data.DEVICE_ID}</td>
-                        <td class="border">${data.S_TEMP}</td>
-                        <td class="border">${data.S_HUM}</td>
-                        <td class="border">${data.A_TEMP}</td>
-                        <td class="border">${data.A_HUM}</td>
-                        <td class="border">${data.PRED_AMOUNT}</td>
-                    `;
-                } else {
-                    // Insert new row
-                    var newRow = document.createElement('tr');
-                    newRow.id = "device-row-" + data.id;
-                    newRow.innerHTML = `
-                        <td class="border">${data.DEVICE_ID}</td>
-                        <td class="border">${data.S_TEMP}</td>
-                        <td class="border">${data.S_HUM}</td>
-                        <td class="border">${data.A_TEMP}</td>
-                        <td class="border">${data.A_HUM}</td>
-                        <td class="border">${data.PRED_AMOUNT}</td>
-                    `;
-                    tableBody.appendChild(newRow);
-                }
-            };
-        } else {
-            alert("Your browser does not support Server-Sent Events.");
-        }
-
-        // Script to control the copy button
-        document.getElementById('copy-button').addEventListener('click', function() {
-            // Create a temporary textarea element
-            const textarea = document.createElement('textarea');
-            document.body.appendChild(textarea);
-
-            // Get table data
-            const table = document.getElementById('data-table');
-            const rows = Array.from(table.querySelectorAll('tr'));
-            const data = rows.map(row => {
-                const cols = Array.from(row.querySelectorAll('td, th'));
-                return cols.map(col => col.innerText).join('\t');
-            }).join('\n');
-
-            // Set the textarea value and select it
-            textarea.value = data;
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert('Data copied to clipboard!');
-        });
-    </script>
+  
 @endsection

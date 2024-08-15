@@ -3,13 +3,12 @@
 namespace App\Exports;
 
 use App\Models\DeviceData;
+use Maatwebsite\Excel\Concerns\WithMapping;
+
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class DeviceDataExport implements FromCollection
+class DeviceDataExport implements FromCollection, WithMapping
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     protected $data;
 
     public function __construct($data)
@@ -19,6 +18,23 @@ class DeviceDataExport implements FromCollection
 
     public function collection()
     {
-        return collect($this->data);
+        return $this->data;
+    }
+
+    /**
+     * @var $row
+     *
+     * @return array
+     */
+    public function map($row): array
+    {
+        return [
+            $row->DEVICE_ID,
+            $row->S_TEMP,
+            $row->S_HUM,
+            $row->A_TEMP,
+            $row->A_HUM,
+            $row->PRED_AMOUNT,
+        ];
     }
 }

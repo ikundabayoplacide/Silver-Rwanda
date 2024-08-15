@@ -6,17 +6,36 @@
     <main id="main" class="main" style="height: 80vh">
         <div class="container">
             <p class="text-2xl font-serif font-bold text-center">{{ __('Farmers Data List') }}</p><br>
-            
-         <div class="row py-3">
+          
+         <div class=" row py-3">
             <div class="col-8">
             <a href="{{ route('farmers.register') }}" class="btn btn-success mb-3">{{ __('Create New farmers Datails') }}</a>
            </div>
             <div class="col-md-4 ">
+                <div class="mb-4 flex space-x-4 float-end gap-3 ">
+                    <a href="{{ route('farmers.display', ['download' => 'pdf']) }}" class="btn btn-danger flex items-center space-x-2">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>PDF</span>
+                    </a>
+                    <a href="{{ route('farmers.display', ['download' => 'excel']) }}" class="btn btn-success flex items-center space-x-2">
+                        <i class="fas fa-file-excel"></i>
+                        <span>Excel</span>
+                    </a>
+                    <a href="{{ route('farmers.display', ['download' => 'csv']) }}" class="btn btn-info flex items-center space-x-2">
+                        <i class="fas fa-file-csv"></i>
+                        <span>CSV</span>
+                    </a>
+                    
+                    <button id="copy-button" class="btn btn-gray flex items-center space-x-2">
+                        <i class="fa fa-copy"></i> Copy
+                    </button>
+                </div>
+
                 <div class="form-group">
                     <form action="/search" method="GET">
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="search...." value="{{ request('search') }}">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="submit" class="btn btn-primary">{{__('Search')}}</button>
                         </div>
                     </form>
                     

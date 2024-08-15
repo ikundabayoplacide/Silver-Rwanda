@@ -46,7 +46,7 @@
     </form>
 </div>
 </main>
-@include('layouts.footer')
+
 @include('layouts.script')
 
 

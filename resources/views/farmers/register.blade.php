@@ -45,7 +45,8 @@
                 <label for="device_id">{{ __('Select Device') }}</label>
                 <select id="device_id" name="device_id" class="form-control" required>
                     @foreach($devices as $device)
-                        <option value="{{ $device }}">{{ $device }}</option>
+                        {{-- <option value="{{ $device }}">{{ $device }}</option> --}}
+                        <option value="{{ $device->DEVICE_ID }}">{{ $device->DEVICE_ID }}</option>
                     @endforeach
                 </select>
             </div>
@@ -61,5 +62,5 @@
         </form>
     </div>
 </body>
-@include('layouts.footer')
+
 @include('layouts.script')

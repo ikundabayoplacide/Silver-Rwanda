@@ -43,10 +43,10 @@ class AdminDashboardController extends Controller
         $deviceStateData = $this->fetchDeviceStateData();
 
 
-
-
+        // dd($deviceStateData);
 
         $users = User::all();
+        $users=User::paginate(6);
         $farmers = Farmer::all();
         $devices = DeviceData::all();
         $cooperativeCount = Cooperative::count();

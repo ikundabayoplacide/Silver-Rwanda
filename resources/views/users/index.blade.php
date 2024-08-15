@@ -21,7 +21,7 @@
                 <form action="/searching" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" placeholder="search...." value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">{{__('Search')}}</button>
                     </div>
                 </form>
             </div>
@@ -82,19 +82,19 @@
             @endforeach
         </tbody>
     </table>
-
+    <div class="flex float-end">
+    {{ $users->links() }}
+    </div>
     <div class="d-flex justify-content-between align-items-center float-end">
-        <div>
+        {{-- <div>
             <a href="{{ route('users.download', ['download' => 'pdf']) }}" class="btn btn-primary">Download PDF</a>
             <a href="{{ route('users.download', ['download' => 'excel']) }}" class="btn btn-success">Download Excel</a>
-        </div>
-        <div>
-            {{ $users->links() }}
-        </div>
+        </div> --}}
+       
     </div>
 </main>
 
 @endsection
-
-@include('layouts.footer')
+{{-- 
+@include('layouts.footer') --}}
 @include('layouts.script')

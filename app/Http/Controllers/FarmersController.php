@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\DeviceData;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Farmer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log; // Import logging
-use App\Notifications\NewFarmerNotification; // Import the
+
+
+use App\Notifications\NewFarmerNotification;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FarmerExport;
 class FarmersController extends Controller
 {
     public function index()
     {
         // $farmers=Farmer::all();
-         $farmers= Farmer::paginate(10);
+         $farmers= Farmer::paginate(7);
 
         return view('farmers.index', compact('farmers'));
     }
@@ -22,12 +26,61 @@ class FarmersController extends Controller
     $farmers=Farmer::where(function($query) use ($search){
         $query->where('name','like',"%$search%")
                 ->orWhere('email','like',"%$search%");
-    })->paginate(10);
+    })->paginate(7);
 
     return view('farmers.index',compact('farmers','search'));
 
 
    }
+
+   public function display(Request $request){
+$farmers=Farmer::paginate(7);
+
+if($request->has('download')){
+    $format=$request->get('download');
+    if ($format === 'pdf') {
+
+        $pdf = Pdf::loadView('farmers.pdf', ['data' => $farmers]);
+        return $pdf->download('farmers.pdf');
+    }
+    elseif ($format === 'excel') {
+
+        return Excel::download(new FarmerExport($farmers), 'farmers.xlsx');
+    }
+    elseif ($format === 'csv') {
+
+        $csvData = $farmers->map(function ($farmer) {
+            return implode(',', [
+                $farmer->id,
+                $farmer->name,
+                $farmer->email,
+                $farmer->district,
+                $farmer->phone,
+            ]);
+        })->implode("\n");
+
+        return response($csvData)
+        ->header('Content-Type', 'text/csv')
+        ->header('Content-Disposition', 'attachment; filename="farmers.csv"');
+}}
+$farmers = Farmer::paginate(7);
+return view('farmers.index', compact('farmers'));
+
+}
+
+protected function downloadPdf($data)
+{
+    $pdf = Pdf::loadView('farmers.pdf', compact('farmers'));
+    return $pdf->download('farmers.pdf');
+}
+
+protected function downloadExcel($data)
+{
+    return Excel::download(new FarmerExport($data), 'farmers.xlsx');
+}
+
+
+
     public function create(Request $request)
     {
         // $devices = DeviceData::all();
@@ -63,6 +116,8 @@ class FarmersController extends Controller
             $device->device_state = 1;
             $device->save();
         }
+
+
 
         return redirect()->route('farmers.index')->with('success', 'Farmer created successfully');
     }
