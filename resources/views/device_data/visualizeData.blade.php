@@ -7,6 +7,27 @@
 
     <main id="main" class="main">
         <p class="text-2xl font-serif font-semibold text-center">{{ __('Visualization of Data') }}</p>
+
+        <div class="container d-flex">
+            <form action="{{ route('device_data.display') }}" method="GET">
+                <div class="form-group">
+                    <label for="device_id">{{ __('Select Device:') }}</label>
+                    <select name="device_id" id="device_id" class="form-control">
+                        <option value="">{{ __('--Select Device--') }}</option>
+                        @foreach ($deviceIDs as $deviceID)
+                            <option value="{{ $deviceID }}"
+                                {{ $selectedDeviceID == $deviceID ? 'selected' : '' }}>
+                                {{ $deviceID }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">{{ __('Submit') }}</button>
+            </form>
+
+        </div>
+
         <div class="mb-4 flex space-x-4 gap-3 float-end">
             <a href="{{ route('device_data.display', ['download' => 'pdf']) }}" class="btn btn-danger flex items-center space-x-2">
                 <i class="fas fa-file-pdf"></i>
@@ -53,7 +74,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $data->links('pagination::bootstrap-5')!!}
+                {{-- {!! $data->links('pagination::bootstrap-5')!!} --}}
+
             @endif
         </section>
     </main>

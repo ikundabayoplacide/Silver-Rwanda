@@ -14,13 +14,9 @@ class DeviceDataController extends Controller
 {
     public function index(Request $request)
     {
-        $data = DeviceData::all();
-          $data = DeviceData::paginate(10);
         $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
         $selectedDeviceID = $request->input('device_id');
         $data = $this->fetchDeviceData($selectedDeviceID);
-
-
 
         if ($request->isMethod('post')) {
             $deviceId = $request->get('device_id');
@@ -32,38 +28,44 @@ class DeviceDataController extends Controller
                 $deviceData->save();
             }
         }
-        return view('device_data.index',
-         compact('data',
-         'deviceIDs',
-         'selectedDeviceID'
-        ));
+
+        return view('device_data.index', compact('data', 'deviceIDs', 'selectedDeviceID'));
     }
 
     private function fetchDeviceData($selectedDeviceID)
     {
         return $selectedDeviceID ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
-            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'created_at')
-            ->get() : collect([]);
+            ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'PRED_AMOUNT', 'created_at')
+            ->paginate(10) : DeviceData::paginate(10);
     }
-
 
     public function display(Request $request)
     {
-        $data = DeviceData::all();
-        $data = DeviceData::paginate(10);
+        $selectedDeviceID = $request->input('device_id');
+
+        $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
+        $data = $this->fetchDeviceData($selectedDeviceID);
+
         if ($request->has('download')) {
             $format = $request->get('download');
 
+            // Filter data based on selected device ID for export
+            $selectedDeviceID = $request->input('device_id');
+            dd($selectedDeviceID); 
+
+            $exportData = $selectedDeviceID
+                ? DeviceData::where('DEVICE_ID', $selectedDeviceID)
+                ->select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'PRED_AMOUNT', 'created_at')
+                ->get()
+                : $data->getCollection();
+
             if ($format === 'pdf') {
-                // Generate PDF
-                $pdf = Pdf::loadView('device_data.pdf', ['data' => $data]);
+                $pdf = Pdf::loadView('device_data.pdf', ['data' => $exportData]);
                 return $pdf->download('device_data.pdf');
             } elseif ($format === 'excel') {
-                // Generate Excel
-                return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
+                return Excel::download(new DeviceDataExport($exportData), 'device_data.xlsx');
             } elseif ($format === 'csv') {
-                // Return CSV data
-                $csvData = $data->map(function ($item) {
+                $csvData = $exportData->map(function ($item) {
                     return implode(',', [
                         $item->DEVICE_ID,
                         $item->S_TEMP,
@@ -80,7 +82,7 @@ class DeviceDataController extends Controller
             }
         }
 
-        return view('device_data.visualizeData', compact('data'));
+        return view('device_data.visualizeData', compact('data', 'deviceIDs', 'selectedDeviceID'));
     }
 
     protected function downloadPdf($data)
@@ -92,12 +94,11 @@ class DeviceDataController extends Controller
     protected function downloadExcel($data)
     {
         return Excel::download(new DeviceDataExport($data), 'device_data.xlsx');
-
     }
 
     public function visual()
     {
-        $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM','PRED_AMOUNT', 'created_at')->get();
+        $data = DeviceData::select('DEVICE_ID', 'S_TEMP', 'S_HUM', 'A_TEMP', 'A_HUM', 'PRED_AMOUNT', 'created_at')->get();
         return view('testchart', compact('data'));
     }
 
@@ -114,7 +115,7 @@ class DeviceDataController extends Controller
             'S_HUM' => 'required|numeric',
             'A_TEMP' => 'required|numeric',
             'A_HUM' => 'required|numeric',
-            'PRED_AMOUNT'=>'numeric'
+            'PRED_AMOUNT' => 'numeric'
         ]);
 
         $data = $request->all();
@@ -148,8 +149,7 @@ class DeviceDataController extends Controller
             'A_HUM' => 'required|numeric',
             'device_state' => 'required|integer',
             'on_off' => 'required|boolean',
-            'PRED_AMOUNT'=>'numeric'
-
+            'PRED_AMOUNT' => 'numeric'
         ]);
 
         $data = $request->all();
@@ -168,33 +168,25 @@ class DeviceDataController extends Controller
         return redirect()->route('device_data.index')->with('success', 'Device data deleted successfully.');
     }
 
-
-   // Add this method to your DeviceDataController
-public function toggle($id)
-{
-    $deviceData = DeviceData::findOrFail($id);
-    Log::info("Toggling state for device: $id, current state: $deviceData->device_state");
+    public function toggle($id)
+    {
+        $deviceData = DeviceData::findOrFail($id);
+        Log::info("Toggling state for device: $id, current state: $deviceData->device_state");
         $deviceData->device_state = $deviceData->device_state == 1 ? 2 : 1;
         $deviceData->save();
         Log::info("New state for device: $id, new state: $deviceData->device_state");
-    return redirect()->route('device_data.index')->with('success', 'Device state changed!');
-}
+        return redirect()->route('device_data.index')->with('success', 'Device state changed!');
+    }
 
-public function generateData()
-{
-    GenerateDeviceDataJob::dispatch();
+    public function generateData()
+    {
+        GenerateDeviceDataJob::dispatch();
+        return response()->json(['message' => 'Device data generation job dispatched successfully.']);
+    }
 
-    return response()->json(['message' => 'Device data generation job dispatched successfully.']);
-}
-
-public function showByDeviceId($device_id)
-{
-    // Fetching device data for the selected device_id
-    $data = DeviceData::where('Device_ID', $device_id)->get();
-
-    // Pass the data to the view
-    return view('device_data.index', compact('data', 'device_id'));
-}
-
-
+    public function showByDeviceId($device_id)
+    {
+        $data = DeviceData::where('Device_ID', $device_id)->get();
+        return view('device_data.index', compact('data', 'device_id'));
+    }
 }

@@ -30,6 +30,7 @@ class AdminDashboardController extends Controller
     {
         $selectedDeviceID = $request->input('device_id');
         $deviceIDs = DeviceData::select('DEVICE_ID')->distinct()->get()->pluck('DEVICE_ID');
+        $deviceNumber=$deviceIDs->count();
         $data = $this->fetchDeviceData($selectedDeviceID);
         $chartData = $this->prepareChartData($data);
 
@@ -43,7 +44,7 @@ class AdminDashboardController extends Controller
 
 
 
-        // dd($deviceStateData);
+        dd($deviceStateData);
 
 
         $users = User::all();
@@ -76,7 +77,8 @@ class AdminDashboardController extends Controller
             'predictedIrrigation',
             'deviceIDs',
             'userCount',
-            'farmerCount'
+            'farmerCount',
+            'deviceNumber'
         );
     }
 
