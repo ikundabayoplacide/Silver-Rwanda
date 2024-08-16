@@ -53,7 +53,7 @@
             <div class="border-none">
                 <div class="h-60 w-60 ml-5">
                     <p class="font-serif font-semibold text-2xl ml-15 mt-4">{{ __('Device categories') }}</p>
-                    <canvas id="chart-pieDevice"></php artisan canvas>
+                    <canvas id="chart-pieDevice"></canvas>
                 </div>
             </div>
         </div>
@@ -78,15 +78,15 @@
                 </form>
             </div>
             <h5 class="card-title">{{ __('Device') }} <span>{{ __('/Data Generations') }}</span></h5>
-            <div id="reportsChart">{{ __('Historical device data ') }}</div>
+            <div id="reportsChart">{{ __('Historical device data') }}</div>
         </div>
         
         <!-- Add additional updates for other sections if needed -->
         
-        </div>
+      
         <p class="text-2xl font-serif font-semibold text-red-800 m-6 text-center">{{ __('Other System Related Data:') }}
         </p>
-        <div class="flex gap-14  border-2 border-red-800 rounded p-3">
+        <div class="flex gap-2  border-2 border-red-800 rounded p-3">
             <div class="w-1/2">
                 <p class="text-2xl font-serif font-semibold text-blue-800 m-2">{{ __('Graphical Representation:') }}</p>
                 <div id="chart_div" style="width: 100%; height: 600px;"></div><br>

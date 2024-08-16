@@ -83,7 +83,7 @@
         </tbody>
     </table>
     <div class="flex float-end">
-    {{ $users->links() }}
+    {!! $users->links('pagination::bootstrap-5') !!}
     </div>
     <div class="d-flex justify-content-between align-items-center float-end">
         {{-- <div>

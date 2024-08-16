@@ -15,6 +15,16 @@ extends Controller
         return
             view('memberships.index', compact('memberships'));
     }
+    
+    // public function searching(Request $request){
+    //     $searching = $request->search;
+
+    //     $memberships = MembershipController::where(function($query) use ($searching){
+    //         $query->where('member_name', 'like', "%$searching%")
+    //               ->orWhere('cooperative_name', 'like', "%$searching%");
+    //     });  
+    //     return view('memberships.index', compact('memberships', 'searching'));
+    //   }
     public function create()
     {
         return view('memberships.create');
