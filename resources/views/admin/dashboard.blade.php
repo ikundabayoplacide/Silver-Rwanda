@@ -35,6 +35,7 @@
                 <p class="font-serif text-2xl font-semibold text-center">{{ __('Devices') }}</p>
             </div>
         </div>
+
         <p class="text-2xl font-serif font-semibold text-green-700 mt-10 text-center">{{ __('System Categories:') }}</p>
         <div class="grid grid-cols-3 gap-3 border-2 border-green-500 rounded py-10 h-96 mt-3">
             <div class="border-none">
@@ -52,42 +53,36 @@
             <div class="border-none">
                 <div class="h-60 w-60 ml-5">
                     <p class="font-serif font-semibold text-2xl ml-15 mt-4">{{ __('Device categories') }}</p>
-                    <canvas id="chart-pieDevice"></canvas>
-
+                    <canvas id="chart-pieDevice"></php artisan canvas>
                 </div>
             </div>
         </div>
-
-        <div class="mt-4">
-            <p class="text-2xl font-serif font-semibold text-yellow-700 m-4 text-center">
-                {{ __('Device Data Representation:') }}</p>
-
-            <div class="card-body border-2 border-yellow-500 mb-2 p-2 rounded ">
-
-                {{-- this for selecting devices --}}
-
-                <div class="container">
-                    <form action="{{ route('admin.dashboard') }}" method="GET">
-                        <div class="form-group">
-                            <label for="device_id">{{ __('Select Device:') }}</label>
-                            <select name="device_id" id="device_id" class="form-control">
-                                <option value="">{{ __('--Select Device--') }}</option>
-                                @foreach ($deviceIDs as $deviceID)
-                                    <option value="{{ $deviceID }}"
-                                        {{ $selectedDeviceID == $deviceID ? 'selected' : '' }}>
-                                        {{ $deviceID }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">{{ __('Submit') }}</button>
-                    </form>
-                </div>
-                <h5 class="card-title">{{ __('Device') }} <span>{{ __('/Data Generations') }}</span></h5>
-
-                <div id="reportsChart">{{ __('Historical device data ') }}</div>
+        
+        <!-- Update Device Data Representation Section -->
+        <p class="text-2xl font-serif font-semibold text-yellow-700 m-4 text-center">{{ __('Device Data Representation:') }}</p>
+        <div class="card-body border-2 border-yellow-500 mb-2 p-2 rounded ">
+            <div class="container">
+                <form action="{{ route('admin.dashboard') }}" method="GET">
+                    <div class="form-group">
+                        <label for="device_id">{{ __('Select Device:') }}</label>
+                        <select name="device_id" id="device_id" class="form-control">
+                            <option value="">{{ __('--Select Device--') }}</option>
+                            @foreach ($deviceIDs as $deviceID)
+                                <option value="{{ $deviceID }}" {{ $selectedDeviceID == $deviceID ? 'selected' : '' }}>
+                                    {{ $deviceID }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">{{ __('Submit') }}</button>
+                </form>
             </div>
+            <h5 class="card-title">{{ __('Device') }} <span>{{ __('/Data Generations') }}</span></h5>
+            <div id="reportsChart">{{ __('Historical device data ') }}</div>
+        </div>
+        
+        <!-- Add additional updates for other sections if needed -->
+        
         </div>
         <p class="text-2xl font-serif font-semibold text-red-800 m-6 text-center">{{ __('Other System Related Data:') }}
         </p>
@@ -232,33 +227,35 @@
         });
 
         $(document).ready(function() {
-            var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
-            var FunctionDevice = {{ $deviceStateData['1'] }};
-            var nonFunctionDevice = {{ $deviceStateData['non_function'] }};
-            var InStock = {{ $deviceStateData['3'] }};
-            var TotalDevice = {{ $deviceCount }};
-            // var InStock = {{ $deviceStateData['InStock'] }};
-            var TotalDevice = {{ $deviceNumber }};
-            var dataPieDevice = {
-                type: "pie",
-                data: {
-                    labels: ["Functional Device(" + FunctionDevice + "/" + TotalDevice + ")",
-                        "NonFunctional Device(" + nonFunctionDevice + "/" +
-                        TotalDevice + ")", "Device In Stock(" + InStock + "/" + TotalDevice + ")"
-                    ],
-                    datasets: [{
-                        data: [FunctionDevice, nonFunctionDevice, InStock],
-                        // data: [4, 5, 10],
-                        backgroundColor: [
-                            " rgba(4, 120, 87)",
-                            "rgba(255, 193, 7, 1)",
-                            "rgba(244, 67, 54, 1)",
-                        ],
-                    }],
-                },
-            };
-            new Chart(ctxDevice, dataPieDevice);
-        });
+    // Pie Chart for Devices
+    var ctxDevice = document.getElementById('chart-pieDevice').getContext('2d');
+    var FunctionDevice = {{ $countFunction }};
+    var nonFunctionDevice = {{ $countNon_function }};
+    var InStock = {{ $countInStock }};
+    var TotalDevice = {{ $deviceNumber }};
+    var dataPieDevice = {
+        type: "pie",
+        data: {
+            labels: [
+                "Functional Device (" + FunctionDevice + "/" + TotalDevice + ")",
+                "NonFunctional Device (" + nonFunctionDevice + "/" + TotalDevice + ")",
+                "Device In Stock (" + InStock + "/" + TotalDevice + ")"
+            ],
+            datasets: [{
+                data: [FunctionDevice, nonFunctionDevice, InStock],
+                backgroundColor: [
+                    "rgba(4, 120, 87)",
+                    "rgba(255, 193, 7, 1)",
+                    "rgba(244, 67, 54, 1)"
+                ],
+            }],
+        },
+    };
+    new Chart(ctxDevice, dataPieDevice);
+
+    // Other chart initializations here...
+});
+
 
         // Line Chart
 
